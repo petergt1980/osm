@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="26,5"/>
+    <Sprite name="item_Sprite_2" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="25,5"/>
+  </Data>
+  
+  <RenderRules>
+    <RenderChestItem>
+	  <SpriteRender name="item_Sprite_2" offset="1,-11" alignment="CENTER"/>
+    </RenderChestItem>
+    <RenderBehind>
+        <SpriteRender name="item_Sprite_1" offset="-1,11" alignment="CENTER"/>
+    </RenderBehind>
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+  </RenderRules>
+</ItemRenderer>

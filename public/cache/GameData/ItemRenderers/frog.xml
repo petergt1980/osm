@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="s_Frog" fileName="game/c_items2.rttex" textureSize="32" frame="8,7"/>
+    
+    <RenderOptions>
+      <Default>
+        <Set name="PunchSoundOverride">HAND</Set>
+        <Set name="PlayDefaultPunchAudio">false</Set>
+        <Set name="DefaultRenderMannequinHandItem">false</Set>
+        <Set name="RenderFrontArmInfected">true</Set>
+        <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+        <Set name="IgnoreDefaultDestroyedTileEffect">false</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+  
+  <RenderRules>
+    <RenderHandItem>
+      <SpriteRender name="s_Frog" scale ="0.7,0.7" offset="-10,11" rotateOffset="true" rotationPoint="0,1" blend="PREMULTIPLIED_ALPHA" />
+    </RenderHandItem>
+    <OnPunchUpdate>
+      <StopIf>
+        <IsZombified>true</IsZombified>
+      </StopIf>
+      <AvatarTransform class="Face">
+        <Set name="face">MAD</Set>
+      </AvatarTransform>
+      <AvatarTransform class="ArmAngle">
+        <Set name="armName">arm1Angle</Set>
+        <Set name="armAngle">1200</Set>
+        <Set name="isAdditive">true</Set>
+        <Set name="pointTowardsPunchTarget">false</Set>
+      </AvatarTransform>
+      <AvatarTransform class="ArmAngle">
+        <Set name="armName">arm2Angle</Set>
+        <Set name="armAngle">0</Set>
+      </AvatarTransform>
+    </OnPunchUpdate>
+  </RenderRules>
+</ItemRenderer>

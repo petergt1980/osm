@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="item_Sprite" fileName="game/c_items2.rttex" textureSize="32,32" frame="0,12"/>
+		
+	<Animations>
+	  <SpriteAnimation name="s_scarf" sprite="item_Sprite" animTime="1000" autoPlay="true" isLoop="true">
+        <Frame>0,12</Frame>
+		<Frame>1,12</Frame>
+		<Frame>2,12</Frame>
+		<Frame>3,12</Frame>
+	  </SpriteAnimation>
+	</Animations>
+	</Data>
+
+	<RenderRules>
+		<RenderChestItem>
+			<SpriteRender name="item_Sprite" offset="-3,0" alignment="DOWN_CENTER"/>
+		</RenderChestItem>
+	</RenderRules>
+</ItemRenderer>

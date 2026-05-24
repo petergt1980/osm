@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_0" fileName="game/ix_wings1.rttex" textureSize="64"/>
+	<Animations>
+      <SpriteAnimation name="wingFlexJump" playOnAction="JUMP|FALL" sprite="item_Sprite_0" animTime="500" autoPlay="true" isLoop="true" >
+		<Frame>0,1</Frame>
+        <Frame>1,0</Frame>
+		<Frame>0,0</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle" playOnAction="IDLE|WALK" sprite="item_Sprite_0" animTime="1000" autoPlay="true" isLoop="true">
+		<Frame>1,1</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_0" offset="-8,-16" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+      <SpriteRender name="item_Sprite_0" offset="8,-16" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

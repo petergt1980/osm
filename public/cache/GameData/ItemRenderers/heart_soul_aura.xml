@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+		<StateMachine name="trailParticleState">
+        <States>
+          <State name="Idle"/>
+          <State name="Move"/>
+        </States>
+        <Transitions>
+          <Transition from="Idle" to="Move" >
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+          <Transition from="Move" to="Idle" >
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+	</StateMachines>
+	<Sprite name="neck_sprite" fileName="game/custom_cosmetics1_icon.rttex" textureSize="32" frame="12,9"/>
+	<Sprite name="flame_sprite" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="13,13"/>
+    <Sprite name="sparkle_sprites" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="13,14"/>
+		<ParticleSystems>
+			<ParticleSystem name="sparkle_particles">
+        		<Emitter>
+          			<Set name="particlesPerEmission">2</Set>
+          			<Set name="particlesToEmit">3</Set>
+         	 		<Random name="emissionInterval" min="0.1" max="0.25"/>
+                    <Set name="infParticles">true</Set>
+                    <Set name="infLifeTime">true</Set>
+        		</Emitter>
+       			 <Particle randomSpriteFrame="true">
+          			<Set name="sprite">sparkle_sprites</Set>
+                    <Set name="relativeToEmitter">true</Set>
+          			<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+          			<Random name="lifeTime" min="0.75" max="1.25"/>
+					<Set name="isBackgroundParticle">false</Set>
+          			<Random name="initialVelocity" min="7,-40" max="-7,-50"/>
+                    <Random name="offset" min="-11, 0" max="11, 0"/>
+                        <Curve name="initialScale">
+            				<KeyFrame>0, 0.4,0.4</KeyFrame>
+                            <KeyFrame>0.9, 0.4,0.4</KeyFrame>
+            				<KeyFrame>1, 0.05,0.05</KeyFrame>
+          				</Curve>
+                        <Curve name="initialAlpha">
+            				<KeyFrame>0, 0.</KeyFrame>
+                            <KeyFrame>0.2, 0.8</KeyFrame>
+                            <KeyFrame>0.8, 0.7</KeyFrame>
+            				<KeyFrame>1, 0</KeyFrame>
+          				</Curve>
+        			</Particle>
+      	    </ParticleSystem>
+			<ParticleSystem name="fire_particles">
+        		<Emitter>
+          			<Set name="particlesPerEmission">1</Set>
+          			<Set name="particlesToEmit">1</Set>
+         	 		<Set name="emissionInterval">0.1</Set>
+                    <Set name="infParticles">true</Set>
+                    <Set name="infLifeTime">true</Set>
+        		</Emitter>
+       			 <Particle>
+          			<Set name="sprite">flame_sprite</Set>
+                    <Set name="relativeToEmitter">true</Set>
+          			<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+          			<Set name="lifeTime">1</Set>
+					<Set name="isBackgroundParticle">true</Set>
+          			<Random name="initialVelocity" min="0,-25" max="0,-35"/>
+                    <Random name="offset" min="-14, -3" max="14, -3"/>
+                        <Curve name="initialScale">
+            				<KeyFrame>0, 1,1.25</KeyFrame>
+                            <KeyFrame>1, 1.1,1.35</KeyFrame>
+          				</Curve>
+                        <Curve name="initialAlpha">
+                            <KeyFrame>0, 1</KeyFrame>
+                            <KeyFrame>0.8, 1</KeyFrame>
+            				<KeyFrame>1, 0</KeyFrame>
+          				</Curve>
+        			</Particle>
+      	    </ParticleSystem>
+			
+		</ParticleSystems>
+
+	<RenderOptions>
+		<Default>
+			<Set name="PunchSoundOverride">HAND</Set>
+			<Set name="PlayDefaultPunchAudio">true</Set>
+		</Default>
+	</RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderChestItem>
+	    <SpriteRender name="neck_sprite" rotateOffset="true" offset="1, -13" alignment="CENTER"/>
+    </RenderChestItem>
+
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="sparkle_particles" drawShadow="false"/>
+        <ParticleSystemUpdate name="fire_particles" drawShadow="false"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="sparkle_particles"/>
+        <ParticleSystemOff name="fire_particles"/>
+	</SwitchOffClothingParticles>
+
+  </RenderRules>
+</ItemRenderer>

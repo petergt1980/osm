@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_MINION">
+  <Data>
+    <!-- 1344x1024 = 21x16 tile kalau 1 tile = 64x64 -->
+    <Sprite name="minion_sheet" fileName="game/server_1812/190181-1.rttex" textureSize="1344,1024" />
+
+    <StateMachines>
+      <StateMachine name="Motion">
+        <States>
+          <State name="Idle" />
+          <State name="Move" />
+          <State name="Jump" />
+          <State name="Fall" />
+        </States>
+
+        <Transitions>
+          <Transition to="Idle" from="Fall|Move|Jump">
+            <Condition type="and">
+              <IsVariableBool name="onGround">true</IsVariableBool>
+              <IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+              <IsVariableBool name="isAttacking">false</IsVariableBool>
+            </Condition>
+          </Transition>
+
+          <Transition to="Move" from="Jump|Fall|Idle">
+            <Condition type="and">
+              <IsVariableBool name="onGround">true</IsVariableBool>
+              <IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+
+          <Transition to="Jump" from="Idle|Move|Fall">
+            <Condition type="and">
+              <IsVariableBool name="onGround">false</IsVariableBool>
+              <IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+
+          <Transition to="Fall" from="Jump|Idle|Move">
+            <Condition type="and">
+              <IsVariableBool name="onGround">false</IsVariableBool>
+              <IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+    <Animations>
+      <!-- IDLE: baris 0, col 0..14 (sesuai yang keliatan di row paling atas) -->
+      <SpriteAnimation name="minion_Idle_Animation"
+                       playOnState="Motion.Idle"
+                       sprite="minion_sheet"
+                       animTime="600"
+                       isLoop="true">
+        <Frame>0,0</Frame><Frame>1,0</Frame><Frame>2,0</Frame><Frame>3,0</Frame><Frame>4,0</Frame>
+        <Frame>5,0</Frame><Frame>6,0</Frame><Frame>7,0</Frame><Frame>8,0</Frame><Frame>9,0</Frame>
+        <Frame>10,0</Frame><Frame>11,0</Frame><Frame>12,0</Frame><Frame>13,0</Frame><Frame>14,0</Frame>
+      </SpriteAnimation>
+
+      <!-- WALK: baris 1, col 0..20 (row kedua panjang banget) -->
+      <SpriteAnimation name="minion_Walk_Animation"
+                       playOnState="Motion.Move"
+                       sprite="minion_sheet"
+                       animTime="350"
+                       isLoop="true">
+        <Frame>0,1</Frame><Frame>1,1</Frame><Frame>2,1</Frame><Frame>3,1</Frame><Frame>4,1</Frame>
+        <Frame>5,1</Frame><Frame>6,1</Frame><Frame>7,1</Frame><Frame>8,1</Frame><Frame>9,1</Frame>
+        <Frame>10,1</Frame><Frame>11,1</Frame><Frame>12,1</Frame><Frame>13,1</Frame><Frame>14,1</Frame>
+        <Frame>15,1</Frame><Frame>16,1</Frame><Frame>17,1</Frame><Frame>18,1</Frame><Frame>19,1</Frame>
+        <Frame>20,1</Frame>
+      </SpriteAnimation>
+
+      <!-- JUMP: aku set asumsi mulai baris 4, col 0..13
+           (kalau di atlas kamu ternyata jump ada di baris lain, tinggal pindahin row-nya) -->
+      <SpriteAnimation name="minion_Jump_Animation"
+                       playOnState="Motion.Jump"
+                       sprite="minion_sheet"
+                       animTime="250"
+                       isLoop="true">
+        <Frame>0,4</Frame><Frame>1,4</Frame><Frame>2,4</Frame><Frame>3,4</Frame><Frame>4,4</Frame>
+        <Frame>5,4</Frame><Frame>6,4</Frame><Frame>7,4</Frame><Frame>8,4</Frame><Frame>9,4</Frame>
+        <Frame>10,4</Frame><Frame>11,4</Frame><Frame>12,4</Frame><Frame>13,4</Frame>
+      </SpriteAnimation>
+
+      <!-- FALL: asumsi baris 5, col 0..13 (lanjutan jump/terjun) -->
+      <SpriteAnimation name="minion_Fall_Animation"
+                       playOnState="Motion.Fall"
+                       sprite="minion_sheet"
+                       animTime="250"
+                       isLoop="true">
+        <Frame>0,5</Frame><Frame>1,5</Frame><Frame>2,5</Frame><Frame>3,5</Frame><Frame>4,5</Frame>
+        <Frame>5,5</Frame><Frame>6,5</Frame><Frame>7,5</Frame><Frame>8,5</Frame><Frame>9,5</Frame>
+        <Frame>10,5</Frame><Frame>11,5</Frame><Frame>12,5</Frame><Frame>13,5</Frame>
+      </SpriteAnimation>
+    </Animations>
+
+    <RenderOptions>
+      <Default>
+        <Set name="JumpEndStateRange">100</Set>
+        <Set name="ClothingOffsetFromShoes">10000</Set>
+        <Set name="IsRidingBird">true</Set>
+        <Set name="IsVehicle">true</Set>
+        <Set name="UserNameOffset">50</Set>
+        <Set name="IncludeAllActions">true</Set>
+        <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+        <Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderInFront>
+      <StopIf>
+        <IsVariableBool name="isMannequin">true</IsVariableBool>
+        <IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+      </StopIf>
+
+      <SpriteRender name="minion_sheet"
+                    offset="0,-10035"
+                    drawShadow="true"
+                    onState="Motion.Idle|Motion.Move|Motion.Jump|Motion.Fall"
+                    scale="0.32,0.32" />
+    </RenderInFront>
+
+    <RenderShoes>
+      <StopIf>
+        <IsSitting>true</IsSitting>
+        <IsSleepingOnaBed>true</IsSleepingOnaBed>
+        <IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+      </StopIf>
+    </RenderShoes>
+  </RenderRules>
+</ItemRenderer>

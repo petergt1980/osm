@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+    <StateMachines>
+      <StateMachine name="Motion">
+        <States>
+          <State name="Idle" />
+          <State name="Move" />
+        </States>
+        <Transitions>
+          <Transition to="Idle" from="Move">
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+          <Transition to="Move" from="Idle">
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+		<Sprite name="s_Pet_head" fileName="game/enigma_particles4.rttex" textureSize="64" frame="10,10"/>
+		<Sprite name="s_Pet_back" fileName="game/enigma_particles4.rttex" textureSize="64" frame="9,10"/>
+		<Sprite name="s_Pet_wing" fileName="game/enigma_particles4.rttex" textureSize="64" frame="6,10"/>
+		<Sprite name="sword" fileName="game/custom_hand1.rttex" textureSize="32" frame="0,7"/>
+
+		<Animations>
+			<SpriteAnimation name="a_dragon_head" sprite="s_Pet_head" animTime="700" isLoop="true" autoPlay="true">
+				<Frame>10,10</Frame>
+				<Frame>12,10</Frame>
+				<Frame>14,10</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_back" sprite="s_Pet_back" animTime="700" isLoop="true" autoPlay="true">
+				<Frame>9,10</Frame>
+				<Frame>11,10</Frame>
+				<Frame>13,10</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_wing" sprite="s_Pet_wing" animTime="700" isLoop="true" autoPlay="true">
+				<Frame>12,11</Frame>
+				<Frame>13,11</Frame>
+				<Frame>14,11</Frame>
+			</SpriteAnimation>
+		</Animations>
+
+		<VariableMap>
+			<Set name="projectile_offset">0, 0</Set>
+			<Set name="projectile_angle">0</Set>
+		</VariableMap>
+
+		<RenderOptions>
+			<Default>
+				<Set name="NeedRenderPet">true</Set>
+				<Set name="PetOffsetDuplication">0,0</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderHandItem>
+			<SpriteRender name="sword" rotateOffset="true" offset="0,32" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+		</RenderHandItem>
+
+		<RenderPet>
+			<SpriteRender name="s_Pet_head" alignment="DOWN_CENTER" offset="0,15"/>
+			<SpriteRender name="s_Pet_back" alignment="DOWN_CENTER" offset="-64,15"/>
+			<SpriteRender name="s_Pet_wing" alignment="DOWN_CENTER" offset="-30,11"/>
+		</RenderPet>
+	</RenderRules>
+</ItemRenderer>

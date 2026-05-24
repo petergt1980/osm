@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="item_Sprite" fileName="game/c_items2.rttex" textureSize="32" frame="9,6"/>
+	</Data>
+
+	<RenderRules>
+		<RenderHat>
+			<SpriteRender name="item_Sprite" offset="0,-14" alignment="DOWN_CENTER"/>
+		</RenderHat>
+	</RenderRules>
+</ItemRenderer>

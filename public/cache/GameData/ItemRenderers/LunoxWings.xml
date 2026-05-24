@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/tavern_particles_large.rttex" textureSize="64" frame="0,7"/>
+	<Sprite name="item_Sprite_2" fileName="game/tavern_particles_large.rttex" textureSize="64" frame="1,7"/>
+	<Animations>
+		<SpriteSinPulseAnimation name="auro_float" sprite="item_Sprite_1" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">4000</Set>
+				<Set name="scale">5</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+		<SpriteSinPulseAnimation name="auro2_float" sprite="item_Sprite_2" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">4000</Set>
+				<Set name="scale">5</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <OnDrawCustomOutline>
+        <AvatarTransform class="RenderData">
+          <Set name="saturation">getCurrent</Set>
+          <Set name="brightness">getCurrent</Set>
+          <Set name="contrast">getCurrent</Set>
+        </AvatarTransform>
+        <AvatarTransform class="Scale">
+          <Set name="targetScale">getCurrent</Set>
+        </AvatarTransform>
+        <AvatarTransform class="RenderData">
+          <Set name="saturation">10</Set>
+          <Set name="brightness">1</Set>
+          <Set name="contrast">1</Set>
+        </AvatarTransform>
+        <AvatarOutline duration="1500" startScale="1,1" endScale="1.1,1.1">
+                <Colours>
+            <Colour>255,0,255,255</Colour>
+            <Colour>255,0,0,255</Colour>
+            <Colour>0,255,255,255</Colour>
+          </Colours>
+        </AvatarOutline>
+        <AvatarTransform class="RenderData">
+          <Set name="saturation">1</Set>
+          <Set name="brightness">10</Set>
+          <Set name="contrast">1</Set>
+        </AvatarTransform>
+        <AvatarOutline duration="1500" startScale="1,1" endScale="1.05,1.05">
+                <Colours>
+            <Colour>255,255,255,255</Colour>
+          </Colours>
+        </AvatarOutline>
+        <AvatarTransform class="RenderData">
+          <Set name="saturation">reset</Set>
+          <Set name="brightness">reset</Set>
+          <Set name="contrast">reset</Set>
+        </AvatarTransform>
+        <AvatarTransform class="Scale">
+          <Set name="targetScale">reset</Set>
+        </AvatarTransform>
+      </OnDrawCustomOutline>
+    <RenderAura>
+	  <SpriteRender name="item_Sprite_1" offset="-27,4" alignment="CENTER"/>
+	  <SpriteRender name="item_Sprite_2" offset="27,4" alignment="CENTER"/>
+    </RenderAura>
+  </RenderRules>
+</ItemRenderer>

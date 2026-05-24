@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_necklace" fileName="game/cust_128.rttex" textureSize="128" frame="1,0"/>
+		<StateMachines>
+			<StateMachine name="Action1">
+				<States>
+					<State name="None" />
+					<State name="Punch" />
+				</States>
+				<Transitions>
+					<Transition to="None" from="Punch">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Punch" from="None">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+	</Data>
+	<RenderRules>
+		<RenderChestItem>
+			<SpriteRender name="s_necklace" scale="0.25,0.25" offset="0,0" alignment="DOWN_CENTER" />
+		</RenderChestItem>
+	</RenderRules>
+</ItemRenderer>

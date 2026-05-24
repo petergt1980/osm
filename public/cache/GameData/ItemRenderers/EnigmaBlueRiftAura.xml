@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_0" fileName="game/enigma_particles2.rttex" textureSize="64" frame="0,2"/>
+	<Animations>
+	  <SpriteAnimation name="be_idle" playOnAction="IDLE|WALK|JUMP|FALL" sprite="item_Sprite_0" animTime="800" autoPlay="true" isLoop="true">
+        <Frame>0,2</Frame>
+		<Frame>1,2</Frame>
+		<Frame>2,2</Frame>
+		<Frame>3,2</Frame>
+		<Frame>4,2</Frame>
+		<Frame>5,2</Frame>
+		<Frame>6,2</Frame>
+		<Frame>7,2</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_0" offset="0,-19" tintOverride="31,203,255,255"/>
+    </RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

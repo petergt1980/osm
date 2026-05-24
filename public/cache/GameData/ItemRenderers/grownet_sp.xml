@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+    <Data>
+		<StateMachines>
+			<StateMachine name="Motion">
+				<States>
+					<State name="Idle" />
+					<State name="Move" />
+					<State name="Jump" />
+					<State name="Fall" />
+				</States>
+				<Transitions>
+					<Transition to="Idle" from="Fall|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Move" from="Jump|Fall|Idle">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Jump" from="Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Fall" from="Jump|Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action1">
+				<States>
+					<State name="Idle"/>
+					<State name="Punch"/>
+					<State name="ZombiePunch"/>
+				</States>
+				<Transitions>
+					<Transition from="ZombiePunch|Punch" to="Idle" >
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="ZombiePunch|Idle" to="Punch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="Idle|Punch" to="ZombiePunch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>true</IsZombified>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines> 
+    
+    <Sprite name="spongebob" fileName="game/110x_90y_sp_n1.rttex" textureSize="110,90"/>
+    <Sprite name="p_spongebob" fileName="game/110x_90y_sp_pp1.rttex" textureSize="110,90" frame="1,0"/>
+     
+        <Animations>
+            <SpriteAnimation name="spongebob_idle" isLoop="true" playOnState="Motion.Idle" sprite="spongebob" animTime="5300">
+		    	<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>  
+				<Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+				<Frame>4,1</Frame>
+				<Frame>5,1</Frame>
+				<Frame>0,2</Frame>
+				<Frame>1,2</Frame>
+				<Frame>2,2</Frame>
+				<Frame>3,2</Frame>
+				<Frame>4,2</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>  
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+		    	<Frame>4,0</Frame>
+				<Frame>5,0</Frame>      
+            </SpriteAnimation>
+			<SpriteAnimation name="spongebob_walk" isLoop="true" playOnState="Motion.Move" sprite="spongebob" animTime="1000">
+                <Frame>5,2</Frame>
+				<Frame>0,3</Frame>
+				<Frame>1,3</Frame> 
+				<Frame>2,3</Frame>
+				<Frame>4,3</Frame>  
+				<Frame>5,3</Frame>
+				<Frame>0,4</Frame>         
+				<Frame>1,4</Frame>         
+			</SpriteAnimation>
+			<SpriteAnimation name="spongebob_jump" isLoop="false" sprite="spongebob" playOnState="Motion.Jump" animTime="300">
+                <Frame>2,4</Frame>
+				<Frame>3,4</Frame>
+				<Frame>4,4</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="spongebob_fall" isLoop="false" sprite="spongebob" playOnState="Motion.Fall" animTime="800">
+				<Frame>5,4</Frame>
+				<Frame>0,5</Frame>
+				<Frame>1,5</Frame>
+				<Frame>3,5</Frame>
+				<Frame>2,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="spongebob_hit" isLoop="true" playOnState="Action1.Punch" sprite="p_spongebob" animTime="700">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+        </Animations>
+        
+    <RenderOptions>
+			<Default>
+				<Set name="UserNameOffset">20</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="HasDeathParticles">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="HideAvatarOnDeath">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+				<Set name="PlayDefaultPunchAudio">false</Set>
+				<Set name="PunchSoundOverride">SHOES</Set>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+   	</RenderOptions>
+    </Data>
+    
+    <RenderRules>
+        <RenderInFront>
+			<SpriteRender name="p_spongebob" offset="2,-9996" onState="Action1.Punch" scale="1,1" alignment="DOWN_CENTER"/>
+			<StopIf type="and">
+				<IsAction>PUNCH</IsAction>
+			</StopIf>        
+			<SpriteRender name="spongebob" offset="2,-9996" scale="1,1" alignment="DOWN_CENTER"/>
+		</RenderInFront>
+    </RenderRules>
+</ItemRenderer>

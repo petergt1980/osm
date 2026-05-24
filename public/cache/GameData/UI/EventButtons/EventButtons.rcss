@@ -1,0 +1,360 @@
+
+/*--------------    piggybank event button     --------------*/
+@spritesheet piggybanc_sprite {
+    src: interface/large/event_button4.rttex;
+    /* For high dpi screens, designates the scaling it is intended to be shown at. */
+    resolution: 1x;
+    /**
+	   The following specifies a list of sprite names and associated rectangles into the image given above.
+	   Any sprite given here can be specified in a decorator. Their names must be globally unique.
+	   Rectangles are specified as: x y width height. With the origin assumed to be at the top left corner.
+	*/
+    piggybank_icon_empty: 0px 256px 128px 128px;
+    piggybank_icon_base: 128px 256px 128px 128px;
+    piggybank_icon_full: 256px 256px 128px 128px;
+    scrollbank_icon: 384px 0px 128px 128px;
+}
+
+.event_item .base .piggybank {
+    decorator: image(piggybank_icon_empty);
+}
+
+.event_item .normal .piggybank {
+    decorator: image(piggybank_icon_base);
+}
+
+.event_item .final .piggybank {
+    decorator: image(piggybank_icon_full);
+}
+
+/*--------------    Scrollbank event button     --------------*/
+
+.scrollbank {
+    decorator: image(scrollbank_icon);
+}
+
+.scrollbank .label{
+     margin-top: 38dp;
+     margin-left: 30dp;
+     width: 41dp;
+ /*background: rgba(24, 107, 139, 255);*/
+
+}
+
+
+@spritesheet progress_bars_background_sprite
+{
+	src: interface/large/gui_event_progress_bar_bg.rttex;
+    progress-border: 0px 0px 17px 13px;
+    progress-inner: 8px 6px 2px 2px;
+}
+
+@spritesheet progress_bars_foreground_sprite
+{
+	src: interface/large/gui_event_progress_bar_fg.rttex;
+    progress-fill-border: 0px 0px 17px 13px;
+    progress-fill-inner: 8px 6px 2px 2px;
+}
+
+.lifeAndProgress{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.progressBar { 
+	decorator: ninepatch(progress-border, progress-inner);
+	width: 67%;
+	height: 14%;
+    margin-top: 72%;
+    margin-left: 19%;
+    display: inline-block;
+}
+
+.progressBar fill {
+	decorator: ninepatch(progress-fill-border, progress-fill-inner);
+	/* padding ensures that the decorator has a minimum width when the value is zero */
+	padding-left: 1dp;
+    margin: 1dp;
+    margin-bottom: 2dp;
+}
+/*-------------------------------------------------------------------------------*/
+/*--------------                   FTUE button                     --------------*/
+@spritesheet ftue_button_sprite {
+    src: interface/large/ftue_buttons.rttex;
+    resolution: 1x;
+    ftue_button_icon_closed: 0px 0px 128px 128px;
+    ftue_button_icon_opened: 128px 0px 128px 128px;
+    ftue_button_icon_call: 256px 0px 128px 128px;
+    ftue_phone_icon_call: 0px 128px 128px 128px;
+    ftue_scroll_icon_call: 256px 384px 128px 128px;
+    notification_icon_image: 256px 256px 128px 128px;
+}
+
+@spritesheet ftue_panel_sprite {
+    src: interface/large/ftue_buttons_toggle.rttex;
+    /* For high dpi screens, designates the scaling it is intended to be shown at. */
+    resolution: 1x;
+    /**
+	   The following specifies a list of sprite names and associated rectangles into the image given above.
+	   Any sprite given here can be specified in a decorator. Their names must be globally unique.
+	   Rectangles are specified as: x y width height. With the origin assumed to be at the top left corner.
+	*/
+    ftue_switcher_icon_off: 0px 0px 256px 128px;
+    ftue_switcher_icon_on: 0px 128px 256px 128px;
+}
+
+.notification_icon {
+    position: absolute;
+    width: 48dp;
+    height: 48dp;
+    decorator: image(notification_icon_image);
+    margin-left: -8dp;
+    margin-top: -8dp;
+}
+
+#phone .notification_icon {
+    margin-left: -18dp;
+    margin-top: -18dp;
+}
+
+.ftuebutton {
+    overflow-x: visible;
+}
+
+.event_item .closed .ftuebutton {
+    decorator: image(ftue_button_icon_closed);
+}
+
+.event_item .opened .ftuebutton {
+    decorator: image(ftue_button_icon_opened);
+}
+
+.event_item .call .ftuebutton {
+    decorator: image(ftue_button_icon_call);
+}
+
+@spritesheet BasePanel {
+    src: game/gui_box_white.rttex;
+    /* For high dpi screens, designates the scaling it is intended to be shown at. */
+    resolution: 1x;
+    /**
+	   The following specifies a list of sprite names and associated rectangles into the image given above.
+	   Any sprite given here can be specified in a decorator. Their names must be globally unique.
+	   Rectangles are specified as: x y width height. With the origin assumed to be at the top left corner.
+	*/
+    blue_panel_tl: 0px 0px 15px 15px;
+    blue_panel_t: 15px 0px 2px 15px;
+    blue_panel_tr: 17px 0px 15px 15px;
+    blue_panel_cl: 0px 15px 15px 2px;
+    blue_panel_c: 15px 15px 2px 2px;
+    blue_panel_cr: 17px 15px 15px 2px;
+    blue_panel_bl: 0px 17px 15px 15px;
+    blue_panel_b: 15px 17px 2px 15px;
+    blue_panel_br: 17px 17px 15px 15px;
+}
+
+#ftueButtonPanel {
+    display: block;
+    position: absolute;
+    width: 575dp;
+    clip: always;
+    overflow-x: hidden;
+    visibility: hidden;
+    margin-left: 6dp;
+    padding-left: 6dp;
+}
+
+    #ftueButtonPanel.visible {
+        display: block;
+        transition: visibility 0.01s linear-in;
+        visibility: visible;
+    }
+
+    #ftueButtonPanel.hidden {
+        transition: visibility display 0.01s 0.2s linear-in;
+        visibility: visible;
+        display: none;
+    }
+
+* #ftueButtonPanel #panelContent,
+.hide #ftueButtonPanel.visible #panelContent {
+    width: 550dp;
+    transition: margin-left 0.2s linear-out;
+    margin-left: -600dp;
+}
+
+    #ftueButtonPanel.visible #panelContent {
+        transition: margin-left 0.2s linear-in;
+        margin-left: 0dp;
+    }
+
+    #ftueButtonPanel #panelContent .content {
+        padding: 10dp 10dp 15dp 15dp;
+        width: 550dp;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        decorator: tiled-box( blue_panel_tl, blue_panel_t, blue_panel_tr, blue_panel_cl, blue_panel_c, blue_panel_cr, blue_panel_bl, blue_panel_b, blue_panel_br );
+        image-color: rgba(135, 184, 204, 255);
+    }
+
+        #ftueButtonPanel #panelContent .frame {
+            z-index: -1;
+            position: absolute;
+            top: 0dp;
+            bottom: 0dp;
+            background-color: rgba(39, 125, 159, 225);
+            width: 565dp;
+            margin: 5dp 5dp 5dp 5dp;
+        }
+
+    #ftueButtonPanel #description {
+        font-size: 18dp;
+        padding: 4dp;
+        margin-right: 0dp;
+        flex-shrink: 1;
+        flex-grow: 1;
+    }
+
+        #ftueButtonPanel #description .title {
+            font-size: 24dp;
+        }
+
+    #ftueButtonPanel #buttons {
+        height: 48dp;
+        flex-shrink: 0;
+        min-width: 145dp;
+        display: inline-block;
+    }
+
+        #ftueButtonPanel #buttons #phone {
+            decorator: image(ftue_phone_icon_call);
+            width: 48dp;
+            height: 48dp;
+            display: inline-block;
+        }
+
+            #ftueButtonPanel #buttons #phone:active {
+                image-color: #aaa;
+            }
+
+        #ftueButtonPanel #buttons #scroll {
+            decorator: image(ftue_scroll_icon_call);
+            width: 48dp;
+            height: 48dp;
+            display: inline-block;
+        }
+
+            #ftueButtonPanel #buttons #scroll.hidden {
+                display: none;
+            }
+
+            #ftueButtonPanel #buttons #scroll:active {
+                image-color: #aaa;
+            }
+
+        #ftueButtonPanel #buttons #switcher {
+            width: 96dp;
+            height: 48dp;
+            display: inline-block;
+            decorator: image(ftue_switcher_icon_off);
+        }
+
+            #ftueButtonPanel #buttons #switcher.on {
+                decorator: image(ftue_switcher_icon_on);
+            }
+
+
+/*-------------------------------------------------------------------------------*/
+/*--------------                   daily_challenge button                     --------------*/
+@spritesheet daily_challenge_button_sprite {
+    src: interface/large/ftue_buttons.rttex;
+    /* For high dpi screens, designates the scaling it is intended to be shown at. */
+    resolution: 1x;
+    /**
+	   The following specifies a list of sprite names and associated rectangles into the image given above.
+	   Any sprite given here can be specified in a decorator. Their names must be globally unique.
+	   Rectangles are specified as: x y width height. With the origin assumed to be at the top left corner.
+	*/
+    daily_challenge_button_bg: 0px 256px 128px 128px;
+    daily_challenge_button_bg_and_rays: 128px 256px 128px 128px;
+    daily_challenge_button_text_panel: 0px 459px 128px 28px;
+    daily_challenge_button_text_panel_inner: 32px 480px 2px 2px;
+}
+
+.itemIdIcon {
+    display: none;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    margin-top: 25%;
+    margin-left: 25%;
+}
+
+.daily_challenge {
+    decorator: image(daily_challenge_button_bg_and_rays);
+}
+
+    .daily_challenge .itemIdIcon {
+        display: block;
+    }
+
+    .daily_challenge .label {
+        decorator: ninepatch(daily_challenge_button_text_panel, daily_challenge_button_text_panel_inner);
+    }
+
+
+/*-------------------------------------------------------------------------------*/
+/*--------------    winterfest bingo event button     --------------*/
+
+@spritesheet wf_bingo_button_sprite {
+    src: interface/large/event_button.rttex;
+    resolution: 1x;
+    wf_bingo_icon: 384px 384px 128px 128px;
+    wf_bingo_icon_claim: 256px 384px 128px 128px;
+}
+
+.event_item .base .wf-bingo {
+    decorator: image(wf_bingo_icon);
+}
+
+.event_item .normal .wf-bingo {
+    decorator: image(wf_bingo_icon_claim);
+}
+
+/*-------------------------------------------------------------------------------*/
+/*--------------    ubi bingo event button     --------------*/
+
+@spritesheet ubi_bingo_button_sprite {
+    src: interface/large/event_button4.rttex;
+    resolution: 1x;
+    ubi_bingo_icon: 128px 128px 128px 128px;
+    ubi_bingo_icon_claim: 0px 128px 128px 128px;
+}
+
+.event_item .base .ubi-bingo {
+    decorator: image(ubi_bingo_icon);
+}
+
+.event_item .normal .ubi-bingo {
+    decorator: image(ubi_bingo_icon_claim);
+}
+
+/*-------------------------------------------------------------------------------*/
+/*--------------    winterfest rally event button     --------------*/
+
+@spritesheet wf_rally_button_sprite {
+    src: interface/large/event_button.rttex;
+    resolution: 1x;
+    wf_rally_icon: 384px 256px 128px 128px;
+    wf_rally_icon_claim: 256px 256px 128px 128px;
+}
+
+.event_item .base .winter-rally {
+    decorator: image(wf_rally_icon);
+}
+
+.event_item .normal .winter-rally {
+    decorator: image(wf_rally_icon_claim);
+}

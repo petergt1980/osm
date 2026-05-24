@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="hair" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="12,11"/>
+    <Animations>
+		<SpriteAnimation name="idle" playOnAction="WALK|FALL|IDLE|JUMP|PUNCH" sprite="hair" isLoop="true" animTime="800" autoPlay="true">
+			<Frame>12,11</Frame>
+			<Frame>13,11</Frame>
+		</SpriteAnimation>
+    </Animations>
+  </Data>
+  <RenderRules>
+    <RenderHair>
+	  <SpriteRender name="hair" offset="0,-33" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+    </RenderHair>
+  </RenderRules>
+</ItemRenderer>

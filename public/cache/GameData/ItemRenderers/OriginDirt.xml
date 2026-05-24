@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="dirtSprite" fileName="game/tiles_page1.rttex" textureSize="32" frame="12,21"/>
+		<RenderOptions>
+			<Default>
+				<Set name="UserNameOffset">30</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderBehind value="playerCenter">
+			<SpriteRender name="dirtSprite" scale="2,2" offset="0,-30"/>
+		</RenderBehind>
+	</RenderRules>
+</ItemRenderer>

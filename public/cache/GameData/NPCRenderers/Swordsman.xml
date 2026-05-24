@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer NPCType="Swordsman" NPCTypeID="10">
+	<Data>
+		<Sprite name="s_sprite" fileName="game/npc1.rttex" textureSize="32" frame="12,6" />
+		<Sprite name="s_HitEffect" fileName="game/particles.rttex" textureSize="32" frame="10,9" />
+		<Animations>
+			<SpriteAnimation name="patrol" sprite="s_sprite" isLoop="true" animTime="700" autoPlay="false" playOnState="NPC.Patrol|NPC.Chase">
+				<Frame>23,7</Frame>
+				<Frame>24,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="chase" sprite="s_sprite" isLoop="true" animTime="700" autoPlay="false" playOnState="NPC.AttackProjectile">
+				<Frame>27,7</Frame>
+				<Frame>28,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="jump" sprite="s_sprite" isLoop="false" animTime="50" autoPlay="false" playOnState="NPC.Jump">
+				<Frame>25,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="jump" sprite="s_sprite" isLoop="false" animTime="50" autoPlay="false" playOnState="NPC.Fall">
+				<Frame>26,7</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_HitEffect" updateStage="OnDamaged">
+				<Emitter>
+					<Set name="particlesPerEmission">4</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_HitEffect</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0</KeyFrame>
+						<KeyFrame>0.41, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="initialScale">0.5,0.5</Set>
+					<Set name="lifeTime">0.5</Set>
+					<RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="30,90" />
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<StateMachines>
+			<StateMachine name="NPC">
+				<States>
+					<State name="Patrol"/>
+					<State name="Chase"/>
+					<State name="AttackProjectile"/>
+					<State name="Jump"/>
+					<State name="Fall"/>
+				</States>
+				<Transitions>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Components>
+			<Info/>
+			<StateMachineTimer>
+				<Set name="NPC.Jump">0.4</Set>
+				<Set name="NPC.Fall">0.33</Set>
+				<Set name="NPC.AttackProjectile">0.5</Set>
+			</StateMachineTimer>
+			<Enemy>
+				<Set name="SoulsReward">8</Set>
+			</Enemy>
+			<MustKillNPC/>
+			<Movement/>
+			<Damage>
+				<Set name="damage">10</Set>
+				<Set name="destroyTileId">186</Set>
+			</Damage>
+			<NPCRenderActionCmp/>
+			<StateMachine>
+				<Set name="type">"PlatformJump"</Set>
+				<Set name="chaseRange">128</Set>
+				<Set name="attackSpeed">200</Set>
+				<Set name="patrolSpeed">50</Set>
+				<Set name="chaseSpeed">100</Set>
+				<Set name="patrolRange">160</Set>
+				<Set name="projectileName">"SwordsmanSlash"</Set>
+				<Set name="attackRange">48</Set>
+				<Set name="minRangeToAttack">32</Set>
+			</StateMachine>
+			<Health>
+				<Set name="healthAmount">500</Set>
+				<Set name="maxHealth">500</Set>
+			</Health>
+			<Jump>
+				<Set name="timeout">3</Set>
+				<Set name="timeToJump">3</Set>
+				<Set name="percentChance">0.35</Set>
+				<Set name="height">45</Set>
+			</Jump>
+			<Physics>
+				<Set name="acceleration">0, 9.81</Set>
+				<Set name="mass">40</Set>
+				<Set name="drag">0.5, 0</Set>
+			</Physics>
+			<CollisionBox>
+				<Set name="size">30,30</Set>
+				<Set name="CollisionFlag">"PLAYERS|PROJECTILES"</Set>
+				<Set name="CollisionType">"ENEMY_NPC"</Set>
+			</CollisionBox>
+			<DebugDraw/>
+		</Components>
+	</Data>
+	<RenderRules>
+		<Render>
+			<SpriteRender name="s_sprite" offset="0,-1"/>
+		</Render>
+		<RenderInFront>
+			<Translate>0,-4,0</Translate>
+			<NPCHealthBarRender TexturePath="interface/large/gui_event_npchealth_bar.rttex" TextureSize="17,9" TextureCoordinates="0,0"/>
+		</RenderInFront>
+	</RenderRules>	
+</ItemRenderer>

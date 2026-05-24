@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+		<StateMachine name="trailParticleState">
+        <States>
+          <State name="Idle"/>
+          <State name="Move"/>
+        </States>
+        <Transitions>
+          <Transition from="Idle" to="Move" >
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+          <Transition from="Move" to="Idle" >
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+	</StateMachines>
+	<Sprite name="item_Sprite_1" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="13,1"/>
+	<Sprite name="burn_Sprite" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="13,5"/>
+
+<Animations>
+
+    <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="750" autoPlay="true" isLoop="true">
+			<Frame>13,1</Frame>
+			<Frame>14,1</Frame>
+	</SpriteAnimation>
+    </Animations>
+
+		<ParticleSystems>
+			<ParticleSystem name="burn_particles">
+        		<Emitter>
+          			<Set name="particlesPerEmission">1</Set>
+          			<Set name="particlesToEmit">1</Set>
+         	 		<Set name="emissionInterval">0.1</Set>
+                    <Set name="infParticles">true</Set>
+                    <Set name="infLifeTime">true</Set>
+                    <Set name="useGravity">true</Set>
+          			<Set name="checkParticleNumToEmit">false</Set>
+        		</Emitter>
+       			 <Particle randomSpriteFrame="true">
+          			<Set name="sprite">burn_Sprite</Set>
+          			<Set name="blendingMode">ADDITIVE</Set>
+          			<Set name="lifeTime">0.45</Set>
+					<Set name="isBackgroundParticle">false</Set>
+                    <Set name="gravityVector">0, -25</Set>
+          			<Set name="initialVelocity">0,0</Set>
+                    <Random name="offset" min="-5, -32" max="5, -38"/>
+                        <Curve name="initialScale">
+            				<KeyFrame>0, 2,2.25</KeyFrame>
+            				<KeyFrame>1, 0.5,0.5</KeyFrame>
+          				</Curve>
+        			</Particle>
+      	    </ParticleSystem>		
+		</ParticleSystems>
+
+	<RenderOptions>
+		<Default>
+			<Set name="PunchSoundOverride">HAND</Set>
+			<Set name="PlayDefaultPunchAudio">true</Set>
+		</Default>
+	</RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderHat>
+	  <ParticleSystemUpdate name="burn_particles" onState="trailParticleState.Move|trailParticleState.Idle" offset="0, -32" alignment="CENTER"/>
+	  <SpriteRender name="item_Sprite_1" rotateOffset="true" offset="0, -32" alignment="CENTER"/>
+    </RenderHat>
+
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="burn_particles"/>
+	</SwitchOffClothingParticles>
+
+  </RenderRules>
+</ItemRenderer>

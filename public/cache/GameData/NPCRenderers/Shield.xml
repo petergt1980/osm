@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer NPCType="Shield" NPCTypeID="7">
+	<Data>
+		<Sprite name="sprite" fileName="game/bb_page1.rttex" textureSize="128" frame="4,4"/>
+		<StateMachines>
+			<StateMachine name="NPC">
+				<States>
+					<State name="Spawn"/>
+					<State name="InitialState"/>
+					<State name="FullHealth"/>
+					<State name="HalfHealth"/>
+					<State name="LowHealth"/>
+				</States>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="a_sprite_full" playOnState="NPC.FullHealth" sprite="sprite" isLoop="true" animTime="100">
+				<Frame>4,4</Frame>
+			</SpriteAnimation>					
+			<SpriteAnimation name="a_sprite_half" playOnState="NPC.HalfHealth" sprite="sprite" isLoop="true" animTime="100">
+				<Frame>5,4</Frame>
+			</SpriteAnimation>						
+			<SpriteAnimation name="a_sprite_low" playOnState="NPC.LowHealth" sprite="sprite" isLoop="true" animTime="100">
+				<Frame>7,4</Frame>
+			</SpriteAnimation>			
+		</Animations>
+		<Components>
+			<Info/>
+			<Enemy>
+				<Set name="SoulsReward">0</Set>
+				<Set name="destroyTileId">548</Set>
+			</Enemy>
+			<Movement/>
+			<ShieldCmp/>
+			<AttachmentCmp/>
+			<Damage>
+				<Set name="damage">100</Set>
+			</Damage>
+			<StateMachine>
+				<Set name="type">"Shield"</Set>
+				<Set name="NpcSpawnQuantity">3</Set>
+				<Set name="NpcTypeToSpawn">"ShieldCrystal"</Set>
+				<Set name="SpawnPointItemID">10190</Set>
+				<Set name="SpawnOffset">0,-32</Set>
+			</StateMachine>
+			<StateMachineTimer>
+				<Set name="NPC.InitialState">1</Set>
+				<Set name="NPC.Spawn">2</Set>
+				<Set name="NPC.LowHealth">2</Set>
+			</StateMachineTimer>
+			<CollisionBox>
+				<Set name="size">140.8,140.8</Set>
+				<Set name="CollisionFlag">"PLAYERS|PROJECTILES"</Set>
+				<Set name="CollisionType">"ENEMY_NPC"</Set>
+			</CollisionBox>
+			<DebugDraw/>
+		</Components>
+	</Data>
+	<RenderRules>
+		<Render>
+			<SpriteRender name="sprite" scale="1.1,1.1"/>
+		</Render>
+	</RenderRules>
+</ItemRenderer>

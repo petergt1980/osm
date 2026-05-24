@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="27,7"/>
+    <Sprite name="item_Sprite_Glow" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="28,7"/>
+        <Animations>
+			<SpriteCurveAnimation name="item_glow" isLoop="true" autoPlay="true" sprite="item_Sprite_Glow" animTime="15000">
+				<Curve name="alpha">
+					<KeyFrame>0.f, 0.f</KeyFrame>
+					<KeyFrame>0.0315f, 1.f </KeyFrame>
+					<KeyFrame>0.4286f, 1.f</KeyFrame>
+					<KeyFrame>0.7142f, 1.f</KeyFrame>
+					<KeyFrame>0.8542f, 1.f</KeyFrame>
+					<KeyFrame>0.9342f, 1.f</KeyFrame>
+					<KeyFrame>0.9542f, 0.15.f</KeyFrame>
+					<KeyFrame>1.f, 0.f</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+        </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderFaceItem>
+	  <SpriteRender name="item_Sprite_1" offset="0,-18" alignment="CENTER"/>
+      <SpriteRender name="item_Sprite_Glow" offset="0,-18" alignment="CENTER"/>
+    </RenderFaceItem>
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+  </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="wyskee_sw" fileName="game/lci_1.rttex" textureSize="64,32"
+			frame="11,1" />
+		<Sprite name="wyskee_asw" fileName="game/lci_1.rttex" textureSize="64,32"
+			frame="11,6" />
+			
+		<Sprite name="wyskee_p" fileName="game/ci_n1.rttex" textureSize="32" frame="0,31" />
+		<Sprite name="wyskee_p_p" fileName="game/ci_n1.rttex" textureSize="32" frame="3,32" />
+		<StateMachines>
+			<StateMachine name="WYSKEE">
+				<States>
+					<State name="WYS" />
+					<State name="KEE" />
+				</States>
+				<Transitions>
+					<Transition from="KEE" to="WYS">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="WYS" to="KEE">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteCurveAnimation name="wyskee_ca" isLoop="true" autoPlay="true" sprite="wyskee_asw"
+				animTime="2000" playOnState="WYSKEE.KEE">
+				<Curve name="alpha">
+					<KeyFrame>0, 0</KeyFrame>
+					<KeyFrame>0.25, 0.3</KeyFrame>
+					<KeyFrame>0.5, 1</KeyFrame>
+					<KeyFrame>0.75, 0.5</KeyFrame>
+					<KeyFrame>1, 0</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+			<SpriteAnimation name="wyskee_a1" sprite="wyskee_sw" animTime="800" isLoop="true"
+				playOnState="WYSKEE.KEE">
+				<Frame>11,1</Frame>
+				<Frame>12,1</Frame>
+				<Frame>13,1</Frame>
+				<Frame>14,1</Frame>
+				<Frame>11,2</Frame>
+				<Frame>12,2</Frame>
+				<Frame>13,2</Frame>
+				<Frame>14,2</Frame>
+				<Frame>11,3</Frame>
+				<Frame>12,3</Frame>
+				<Frame>13,3</Frame>
+				<Frame>14,3</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="wyskee_a12" sprite="wyskee_sw" animTime="800" isLoop="true"
+				playOnState="WYSKEE.WYS">
+				<Frame>11,4</Frame>
+				<Frame>12,4</Frame>
+				<Frame>13,4</Frame>
+				<Frame>14,4</Frame>
+				<Frame>11,5</Frame>
+				<Frame>12,5</Frame>
+				<Frame>13,5</Frame>
+				<Frame>14,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="wyskee_a123" sprite="wyskee_p" animTime="450" isLoop="true"
+				playOnState="WYSKEE.WYS">
+				<Frame>0,31</Frame>
+				<Frame>1,31</Frame>
+				<Frame>2,31</Frame>
+				<Frame>3,31</Frame>
+				<Frame>4,31</Frame>
+				<Frame>5,31</Frame>
+				<Frame>6,31</Frame>
+				<Frame>7,31</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="wyskee_a1234" sprite="wyskee_p_p" animTime="500">
+				<Frame>0,32</Frame>
+				<Frame>1,32</Frame>
+				<Frame>2,32</Frame>
+				<Frame>3,32</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<RenderOptions>
+			<Default>
+				<Set name="PunchSoundOverride">HAND</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+			</Default>
+		</RenderOptions>
+		<TileStampData>
+			<Set name="FileName">game/i_e.rttex</Set>
+			<Set name="EndFrame">7,2</Set>
+			<Set name="FrameCount">4</Set>
+		</TileStampData>
+		<ParticleSystems>
+			<ParticleSystem name="pwyskee_p">
+				<Emitter attachment="targetPos">
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">wyskee_p_p</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Random name="lifeTime" min="0.2" max="0.5" />
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.5, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>1.5,1.5</KeyFrame>
+					</Curve>
+					<Set name="initialVelocity">0,16</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Set name="offset">0,0</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+	</Data>
+	<RenderRules>
+		<RenderHandItem>
+			<SpriteRender name="wyskee_sw" offset="0,9" rotateOffset="true" rotationPoint="0,1"
+				alignment="CENTER" blend="PREMULTIPLIED_ALPHA" onState="WYSKEE.WYS|WYSKEE.KEE" />
+			<SpriteRender name="wyskee_asw" offset="0,9" rotateOffset="true" rotationPoint="0,1"
+				alignment="CENTER" blend="ADDTIVE" onState="WYSKEE.KEE" />
+			<SpriteRender name="wyskee_p" offset="25,7" alignmentLeft="LEFT_CENTER"
+				alignmentRight="RIGHT_CENTER" drawShadow="false" blend="PREMULTIPLIED_ALPHA"
+				stretchToTarget="true" tintOverride="255,255,255,255" onState="WYSKEE.WYS" />
+		</RenderHandItem>
+		<OnPunchUpdate>
+			<ParticleSystemUpdate name="pwyskee_p" />
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+			<AvatarTransform class="ArmAngle">
+				<Set name="armName">arm2Angle</Set>
+				<Set name="armAngle">1400</Set>
+				<Set name="isAdditive">true</Set>
+				<Set name="pointTowardsPunchTarget">false</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+	</RenderRules>
+</ItemRenderer>

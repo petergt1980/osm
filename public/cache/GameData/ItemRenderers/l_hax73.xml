@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="hh" fileName="game/ci_n1.rttex" textureSize="32" frame="1,39" />
+		<Sprite name="Lightning" fileName="game/gtfy_wn.rttex" textureSize="64" frame="8,15" />
+
+		<StateMachines>
+			<StateMachine name="WYSKEE">
+				<States>
+					<State name="KEE" />
+					<State name="WYS" />
+				</States>
+				<Transitions>
+					<Transition from="KEE" to="WYS">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition><!--WYSKEE-->
+					<Transition from="WYS" to="KEE">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="WYS-" sprite="hh" isLoop="true" playOnState="WYSKEE.KEE"
+				animTime="100">
+				<Frame>1,39</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="@KEE" sprite="hh" isLoop="true" playOnState="WYSKEE.WYS"
+				animTime="125">
+				<Frame>2,39</Frame>
+				<Frame>3,39</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="Lightning_Anim" playOnAction="IDLE|WALK|JUMP|FALL"
+				sprite="Lightning" autoPlay="true" animTime="910" isLoop="true">
+				<Frame>8,15</Frame>
+				<Frame>9,15</Frame>
+				<Frame>10,15</Frame>
+				<Frame>11,15</Frame>
+				<Frame>12,15</Frame>
+				<Frame>13,15</Frame>
+				<Frame>14,15</Frame>
+				<Frame>15,15</Frame>
+				<Frame>16,15</Frame>
+				<Frame>17,15</Frame>
+				<Frame>18,15</Frame>
+				<Frame>19,15</Frame>
+				<Frame>8,15</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+
+		</ParticleSystems>
+		<RenderOptions>
+			<Default>
+				<Set name="IncludeAllActions">true</Set><!--WYSKEE-->
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderHair>
+			<SpriteRender name="hh" offset="0,-16" alignment="DOWN_CENTER"
+				onState="WYSKEE.KEE|WYSKEE.WYS" blend="PREMULTIPLIED_ALPHA" />
+			<SpriteRender name="Lightning" alignment="DOWN_CENTER"
+				onAction="IDLE|PUNCH|WALK|JUMP|FALL" drawShadow="false" />
+		</RenderHair><!--WYSKEE-->
+		<AddClothingParticles>
+			<StopIf type="or">
+				<IsZombified>true</IsZombified>
+				<IsTrnsformed>true</IsTrnsformed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</AddClothingParticles>
+	</RenderRules>
+</ItemRenderer>

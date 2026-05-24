@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="wyss" fileName="game/ci_n1.rttex" textureSize="32" frame="3,25" />
+		<Sprite name="hh" fileName="game/ci_n1.rttex" textureSize="32" frame="4,23" />
+		<Sprite name="wys" fileName="game/ci_n1.rttex" textureSize="32" frame="3,24" />
+		<Sprite name="wysssss" fileName="game/ci_n1.rttex" textureSize="32" frame="5,26" />
+		<Sprite name="wysss" fileName="game/ci_n1.rttex" textureSize="32" frame="6,24" />
+		<StateMachines>
+			<StateMachine name="WYSKEE">
+				<States>
+					<State name="KEE" />
+					<State name="WYS" />
+				</States>
+				<Transitions>
+					<Transition from="KEE" to="WYS">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition><!--WYSKEE-->
+					<Transition from="WYS" to="KEE">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="?EEKSYW" isLoop="true" sprite="wyss" animTime="1600">
+				<Frame>3,25</Frame>
+				<Frame>4,25</Frame>
+				<Frame>5,25</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="WYS-" sprite="hh" isLoop="true" playOnState="WYSKEE.KEE"
+				animTime="100">
+				<Frame>4,23</Frame>
+			</SpriteAnimation><!--WYSKEE-->
+			<SpriteAnimation name="WYSKEE?" sprite="wysssss" animTime="150">
+				<Frame>3,26</Frame>
+				<Frame>4,26</Frame>
+				<Frame>5,26</Frame>
+				<Frame>6,26</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="SYW-" sprite="wysss" animTime="1600">
+				<Frame>6,24</Frame>
+				<Frame>6,25</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="@KEE" sprite="hh" isLoop="true" playOnState="WYSKEE.WYS"
+				animTime="125">
+				<Frame>5,23</Frame>
+				<Frame>6,23</Frame>
+			</SpriteAnimation><!--WYSKEE-->
+			<SpriteAnimation name="+WYS" sprite="wys" animTime="1600">
+				<Frame>3,24</Frame>
+				<Frame>4,24</Frame>
+				<Frame>5,24</Frame>
+				<Frame>3,25</Frame>
+				<Frame>4,25</Frame>
+				<Frame>5,25</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="WYS" updateStage="AddClothingParticles" updateState="WYSKEE.KEE"
+				renderStage="RenderInFront">
+				<Emitter>
+					<Set name="randomizeInterval">true</Set>
+					<Set name="intervalMin">0.1</Set>
+					<Set name="intervalMax">0.2</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle velocityRelativeToPlayerSpeed="true" randomSpriteFrame="true">
+					<Set name="sprite">wysss</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set><!--WYSKEE-->
+					<Set name="inSpecificOrder">true</Set>
+					<Set name="initalRGB">10,10,10</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">0.45, 0.20</Set>
+					<Set name="finalScale">0, 1.5</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0.75</KeyFrame>
+						<KeyFrame>0.6, 0.75</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Random name="initialRotationRate" min="-30" max="30" />
+					<Random name="lifeTime" min="0.8" max="1.5" />
+					<Random name="initialVelocity" min="-10,-60" max="10,-70" />
+					<Random name="offset" min="-14,-10" max="14,-24" />
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -70</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="KEE" updateStage="AddClothingParticles" updateState="WYSKEE.WYS"
+				renderStage="RenderInFront">
+				<Emitter>
+					<Set name="randomizeInterval">true</Set>
+					<Set name="intervalMin">0.1</Set>
+					<Set name="intervalMax">0.2</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle velocityRelativeToPlayerSpeed="true" randomSpriteFrame="true">
+					<Set name="sprite">wys</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set><!--WYSKEE-->
+					<Set name="inSpecificOrder">true</Set>
+					<Set name="initalRGB">0.5,0.5,0.5</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">0.45, 0.20</Set>
+					<Set name="finalScale">0, 1.5</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0.75</KeyFrame>
+						<KeyFrame>0.6, 0.75</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Random name="initialRotationRate" min="-30" max="30" />
+					<Random name="lifeTime" min="1.5" max="2.5" />
+					<Random name="initialVelocity" min="-10,-60" max="10,-70" />
+					<Random name="offset" min="-65,0" max="65,0" />
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -70</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="SYW" updateStage="AddClothingParticles" updateState="WYSKEE.WYS"
+				renderStage="RenderInFront">
+				<Emitter>
+					<Set name="emissionInterval">0.25</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">wysssss</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set><!--WYSKEE-->
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="inSpecificOrder">true</Set>
+					<Set name="initalRGB">0,0,0</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">7, 2.5</Set>
+					<Set name="finalScale">0.45, 0.20</Set>
+					<Set name="initialAngle">0</Set>
+					<Set name="initialRotationRate">10</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0.5</KeyFrame>
+						<KeyFrame>0.65, 1</KeyFrame>
+						<KeyFrame>1, 0.2</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">1.5</Set>
+					<Set name="offset">-10,0</Set>
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -80</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="EEK" updateStage="AddClothingParticles" updateState="WYSKEE.WYS"
+				renderStage="RenderBehind">
+				<Emitter>
+					<Set name="emissionInterval">0.4</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">wysssss</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="inSpecificOrder">true</Set>
+					<Set name="initalRGB">0,0,0</Set>
+					<Set name="interpolateScale">true</Set><!--WYSKEE-->
+					<Set name="initialScale">7, 2.5</Set>
+					<Set name="finalScale">0.45, 0.20</Set>
+					<Set name="flipX">true</Set>
+					<Set name="initialAngle">0</Set>
+					<Set name="initialRotationRate">-10</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.5, 0.5</KeyFrame>
+						<KeyFrame>0.70, 1</KeyFrame>
+						<KeyFrame>1, 0.2</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">1.5</Set>
+					<Set name="offset">10,-25</Set>
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -80</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="WY5" updateStage="AddClothingParticles" updateState="WYSKEE.WYS"
+				renderStage="RenderBehind">
+				<Emitter>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="emissionInterval">0.25</Set>
+					<Set name="particlesPerEmission">3</Set>
+				</Emitter>
+				<Particle randomSpriteFrame="true">
+					<Random name="offset" min="-3, -10" max="3, -10" />
+					<Set name="sprite">wysss</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="relativeToEmitter">true</Set><!--WYSKEE-->
+					<Set name="initalRGB">1, 1, 1</Set>
+					<Set name="lifeTime">0.75</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0.75</KeyFrame>
+						<KeyFrame>0.6, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="interpolateAlpha">true</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">3.45, 4.20</Set>
+					<Set name="finalScale">0, 8.55</Set>
+					<Random name="initialVelocity" min="0,-16" max="0,-14" />
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -100</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="K33" updateStage="AddClothingParticles" updateState="WYSKEE.WYS"
+				renderStage="RenderInFront">
+				<Emitter>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="emissionInterval">0.25</Set>
+					<Set name="particlesPerEmission">4</Set>
+				</Emitter>
+				<Particle randomSpriteFrame="true">
+					<Random name="offset" min="-3, -10" max="3, -10" />
+					<Set name="sprite">wysss</Set>
+					<Set name="blendingMode">ADDITIVE</Set><!--WYSKEE-->
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="initalRGB">10, 10, 10</Set>
+					<Set name="lifeTime">0.75</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0.75</KeyFrame>
+						<KeyFrame>0.6, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="interpolateAlpha">true</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">1.45, 2.20</Set>
+					<Set name="finalScale">0, 4.55</Set>
+					<Random name="initialVelocity" min="0,-16" max="0,-14" />
+					<Set name="useGravity">true</Set>
+					<Set name="gravityVector">0, -100</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<RenderOptions>
+			<Default>
+				<Set name="IncludeAllActions">true</Set><!--WYSKEE-->
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderHair>
+			<SpriteRender name="hh" offset="0,-16" alignment="DOWN_CENTER"
+				onState="WYSKEE.KEE|WYSKEE.WYS" blend="PREMULTIPLIED_ALPHA" />
+		</RenderHair><!--WYSKEE-->
+		<AddClothingParticles>
+			<StopIf type="or">
+				<IsZombified>true</IsZombified>
+				<IsTrnsformed>true</IsTrnsformed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</AddClothingParticles>
+	</RenderRules>
+</ItemRenderer>

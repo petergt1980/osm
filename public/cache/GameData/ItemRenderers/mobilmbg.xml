@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="Males-Ps|Design By Lucit">
+	<Data>
+		<Sprite name="foot1_Sprite" fileName="game/mobil_mbg.rttex" textureSize="180,90"/>
+		
+		<Animations>
+			<SpriteAnimation name="foot1_Idle" playOnAction="IDLE|WALK|JUMP|FALL|PUNCH|JUMPEND" sprite="foot1_Sprite" animTime="800" isLoop="true">
+				<Frame>0,0</Frame>
+			</SpriteAnimation>
+		</Animations>
+		
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">-13</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="IsPulseShoes">true</Set>
+				<Set name="IsHorse">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="UserNameOffset">35</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+			</Default>
+			<Override overrideOnAction="IDLE">
+				<Set name="IsPulseShoes">false</Set>
+			</Override>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderInFront>
+			<SpriteRender name="foot1_Sprite" offset="2,-45" blend="PREMULTIPLIED_ALPHA"/>
+		</RenderInFront>
+	</RenderRules>
+</ItemRenderer>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="halo_wings" fileName="game/aura_wing.rttex" textureSize="122,137" frame="0,0"/>
+
+<Animations>
+    <SpriteAnimation name="HaloAll" sprite="halo_wings" animTime="400" autoPlay="true" isLoop="true">
+		<Frame>0,0</Frame>
+	</SpriteAnimation>
+	<SpriteSinPulseAnimation name="auro_float" sprite="halo_wings" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">2000</Set>
+				<Set name="scale">2</Set>
+			</Parameter>
+	</SpriteSinPulseAnimation>
+</Animations>
+  </Data>
+
+<RenderRules>
+		<OnDrawCustomOutline>
+      <AvatarTransform class="RenderData">
+        <Set name="saturation">getCurrent</Set>
+        <Set name="brightness">getCurrent</Set>
+        <Set name="contrast">getCurrent</Set>
+      </AvatarTransform>
+      <AvatarTransform class="Scale">
+        <Set name="targetScale">getCurrent</Set>
+      </AvatarTransform>
+      <AvatarTransform class="RenderData">
+        <Set name="saturation">50</Set>
+        <Set name="brightness">1</Set>
+        <Set name="contrast">1</Set>
+      </AvatarTransform>
+      <AvatarOutline duration="1500" startScale="1,1" endScale="1.1,1.1">
+		<Colours>
+          <Colour>228,185,237,255</Colour>
+          <Colour>195,187,237,255</Colour>
+        </Colours>
+      </AvatarOutline>
+      <AvatarTransform class="RenderData">
+        <Set name="saturation">reset</Set>
+        <Set name="brightness">reset</Set>
+        <Set name="contrast">reset</Set>
+      </AvatarTransform>
+      <AvatarTransform class="Scale">
+        <Set name="targetScale">reset</Set>
+      </AvatarTransform>
+    </OnDrawCustomOutline>
+	<RenderBackpack>
+    <SpriteRender name="halo_wings" offset="9,-39" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" blend="PREMULTIPLIED_ALPHA" scale="0.55,0.55"/>
+	<SpriteRender name="halo_wings" offset="58,-39" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" blend="PREMULTIPLIED_ALPHA" scale="0.55,0.55" flip="1,0"/>
+	</RenderBackpack>
+</RenderRules>
+</ItemRenderer>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle" />
+					<State name="Punch" />
+					<State name="ZombiePunch" />
+				</States>
+				<Transitions>
+					<Transition from="ZombiePunch|Punch" to="Idle">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="ZombiePunch|Idle" to="Punch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="Idle|Punch" to="ZombiePunch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>true</IsZombified>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="s_buster" fileName="game/lci_1.rttex" textureSize="64,32" frame="1,8" />
+		<Sprite name="buster_glow" fileName="game/lci_1.rttex" textureSize="64,32" frame="2,8" />
+
+		<Sprite name="p_buster" fileName="game/ci_n1.rttex" textureSize="32" frame="1,35" />
+		<Sprite name="p_buster2" fileName="game/ci_n1.rttex" textureSize="32" frame="2,35" />
+		<Sprite name="p_front" fileName="game/ci_n1.rttex" textureSize="32" frame="5,35" />
+		<Sprite name="up_front" fileName="game/ci_n1.rttex" textureSize="32" frame="7,35" />
+		<Sprite name="down_front" fileName="game/ci_n1.rttex" textureSize="32" frame="6,35" />
+		<Sprite name="s_spark" fileName="game/ci_n1.rttex" textureSize="32" frame="4,35" />
+		<Sprite name="s_hit" fileName="game/ci_n1.rttex" textureSize="32" frame="3,35" />
+
+		<Animations>
+			<SpriteCurveAnimation name="item_glow" isLoop="true" playOnState="playerState.Idle"
+				sprite="buster_glow" animTime="2500">
+				<Curve name="alpha">
+					<KeyFrame>0.f, 0.f</KeyFrame>
+					<KeyFrame>0.286f, 0.f </KeyFrame>
+					<KeyFrame>0.4286f, 1.f</KeyFrame>
+					<KeyFrame>0.7142f, 1.f</KeyFrame>
+					<KeyFrame>1.f, 0.f</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+		</Animations>
+
+		<RenderOptions>
+			<Default>
+				<Set name="PlayDefaultPunchAudio">false</Set>
+				<Set name="PunchSoundOverride">HAND</Set>
+			</Default>
+		</RenderOptions>
+
+		<ParticleSystems>
+			<ParticleSystem name="punch_buster">
+				<Emitter>
+					<Set name="offset">6,-18</Set>
+					<Set name="emissionInterval">0.25</Set>
+					<Set name="lifeTime">0.25</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">1</Set>
+				</Emitter>
+				<Particle alternateSpriteFrameWithPunch="true">
+					<Set name="sprite">p_buster</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Set name="interpolateAlpha">false</Set>
+					<Set name="initialScale">1,1</Set>
+					<Set name="initialAlpha">1</Set>
+					<Set name="finalAlpha">1</Set>
+					<Set name="interpolateVelocity">true</Set>
+					<VectorTo name="initialVelocity" source="targetPos" duration="lifeTime" x="0.7"
+						angle="0" />
+					<VectorTo name="finalVelocity" source="targetPos" duration="lifeTime" x="0.7"
+						angle="0" />
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="punch_buster2">
+				<Emitter>
+					<Set name="offset">6,-18</Set>
+					<Set name="emissionInterval">0.25</Set>
+					<Set name="lifeTime">0.25</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">1</Set>
+				</Emitter>
+				<Particle alternateSpriteFrameWithPunch="true">
+					<Set name="sprite">p_buster2</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Set name="interpolateAlpha">false</Set>
+					<Set name="initialScale">1,1</Set>
+					<Set name="initialAlpha">1</Set>
+					<Set name="finalAlpha">1</Set>
+					<Set name="interpolateVelocity">true</Set>
+					<VectorTo name="initialVelocity" source="targetPos" duration="lifeTime" x="0.8"
+						angle="0" />
+					<VectorTo name="finalVelocity" source="targetPos" duration="lifeTime" x="0.8"
+						angle="0" />
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="hit_particle">
+				<Emitter>
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesToEmit">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Random name="initialAngle" min="-360" max="360" />
+					<Set name="sprite">s_hit</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.5</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.4,0.4</KeyFrame>
+						<KeyFrame>1, 1.3,1.3</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="spark_particle">
+				<Emitter>
+					<Set name="offset">0,0</Set>
+					<Set name="lifeTime">0</Set>
+					<Set name="particlesPerEmission">10</Set>
+					<Set name="delayTimer">0.0</Set>
+				</Emitter>
+				<Particle randomSpriteFrame="true">
+					<Set name="sprite">s_spark</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.5</Set>
+					<Set name="initalRGB">1,1,1</Set>
+					<Set name="initialScale">1,1</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="200,250" />
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="punchinfront">
+				<Emitter>
+					<Set name="offset">20, -15</Set>
+					<Set name="emissionInterval">0.4</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="checkParticleNumToEmit">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">1</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">p_front</Set>
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1.0,1.0</KeyFrame>
+						<KeyFrame>0.1, 1.1,1.1</KeyFrame>
+						<KeyFrame>0.2, 1.2,1.2</KeyFrame>
+						<KeyFrame>0.3, 1.3,1.3</KeyFrame>
+						<KeyFrame>0.4, 1.1,1.1</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="punchinup">
+				<Emitter>
+					<Set name="offset">20, -40</Set>
+					<Set name="emissionInterval">0.4</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="checkParticleNumToEmit">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">1</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">up_front</Set>
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1.0,1.0</KeyFrame>
+						<KeyFrame>0.1, 1.1,1.1</KeyFrame>
+						<KeyFrame>0.2, 1.2,1.2</KeyFrame>
+						<KeyFrame>0.3, 1.3,1.3</KeyFrame>
+						<KeyFrame>0.4, 1.1,1.1</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="punchindown">
+				<Emitter>
+					<Set name="offset">20, 10</Set>
+					<Set name="emissionInterval">0.4</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="checkParticleNumToEmit">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">1</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">down_front</Set>
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.4</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1.0,1.0</KeyFrame>
+						<KeyFrame>0.1, 1.1,1.1</KeyFrame>
+						<KeyFrame>0.2, 1.2,1.2</KeyFrame>
+						<KeyFrame>0.3, 1.3,1.3</KeyFrame>
+						<KeyFrame>0.4, 1.1,1.1</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+
+	</Data>
+
+	<RenderRules>
+		<RenderHandItem>
+			<MusicSource onAction="PUNCH">
+				<Set name="MusicFile">audio/buster.wav</Set>
+				<Set name="FadeOutTimeMs">20</Set>
+			</MusicSource>
+			<SpriteRender name="s_buster" rotateOffset="true" offset="0,9" alignment="CENTER" />
+			<SpriteRender name="buster_glow" rotateOffset="true" alignment="CENTER" offset="0,9"
+				blend="ADDTIVE" />
+		</RenderHandItem>
+
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+			<AvatarTransform class="ArmAngle">
+				<Set name="armName">arm2Angle</Set>
+				<Set name="armAngle">1400</Set>
+				<Set name="isAdditive">true</Set>
+				<Set name="pointTowardsPunchTarget">false</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+
+		<OnPunchStart>
+			<ParticleSystemUpdate name="punch_buster" />
+			<ParticleSystemUpdate name="punch_buster2" />
+			<ParticleSystemUpdate name="punchinfront" />
+			<ParticleSystemUpdate name="punchinup" />
+			<ParticleSystemUpdate name="punchindown" />
+		</OnPunchStart>
+
+		<OnDamagedTile>
+			<ParticleSystemUpdate name="hit_particle" />
+			<ParticleSystemUpdate name="spark_particle" />
+		</OnDamagedTile>
+
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="punch_buster" />
+			<ParticleSystemOff name="punch_buster2" />
+			<ParticleSystemOff name="punchinfront" />
+			<ParticleSystemOff name="punchinup" />
+			<ParticleSystemOff name="punchindown" />
+			<ParticleSystemOff name="hit_particle" />
+			<ParticleSystemOff name="spark_particle" />
+		</SwitchOffClothingParticles>
+
+	</RenderRules>
+</ItemRenderer>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="26,6"/>
+	<Animations>
+
+		<SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="850" autoPlay="true" isLoop="true">
+			<Frame>26,6</Frame>
+            <Frame>27,6</Frame>
+            <Frame>28,6</Frame>
+            <Frame>29,6</Frame>
+            <Frame>30,6</Frame>
+            <Frame>31,6</Frame>
+		</SpriteAnimation>
+    </Animations>
+
+	<RenderOptions>
+		<Default>
+			<Set name="PunchSoundOverride">HAND</Set>
+			<Set name="PlayDefaultPunchAudio">false</Set>
+		</Default>
+	</RenderOptions>
+  </Data>
+  <RenderRules>
+    <RenderChestItem>
+	  <SpriteRender name="item_Sprite_1" rotateOffset="true" offset="0,-11" alignment="CENTER"/>
+    </RenderChestItem>
+  </RenderRules>
+</ItemRenderer>

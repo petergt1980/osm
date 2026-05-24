@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="susanorevamp_idle" fileName="game/susanorevamp_idle.rttex" textureSize="704,145"/>
+    <Sprite name="susanorevamp_attack" fileName="game/susanorevamp_attack.rttex" textureSize="704,243"/>
+    <Sprite name="susanorevamp_icon" fileName="game/susanorevamp_icon.rttex" textureSize="32,32"/>
+
+    <StateMachines>
+      <StateMachine name="Motion">
+        <States>
+          <State name="Idle"/>
+          <State name="Attack"/>
+        </States>
+        <Transitions>
+          <Transition to="Idle" from="Attack">
+            <Condition type="and">
+              <IsVariableBool name="doAttack">false</IsVariableBool>
+            </Condition>
+          </Transition>
+          <Transition to="Attack" from="Idle">
+            <Condition type="and">
+              <IsVariableBool name="doAttack">true</IsVariableBool>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+    <Animations>
+      <SpriteAnimation name="susanorevamp_idle_anim" playOnState="Motion.Idle" sprite="susanorevamp_idle" animTime="600" isLoop="true">
+        <Frame>0,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>2,0</Frame>
+        <Frame>3,0</Frame>
+      </SpriteAnimation>
+
+      <SpriteAnimation name="susanorevamp_attack_anim" playOnState="Motion.Attack" sprite="susanorevamp_attack" animTime="400" isLoop="false">
+        <Frame>0,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>2,0</Frame>
+      </SpriteAnimation>
+    </Animations>
+
+    <ParticleSystems />
+
+    <RenderOptions>
+      <Default>
+        <Set name="UserNameOffset">65</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderInFront>
+      <SpriteRender name="susanorevamp_idle" onState="Motion.Idle" offset="0,-10000" scale="0.3,0.3" drawShadow="true"/>
+      <SpriteRender name="susanorevamp_attack" onState="Motion.Attack" offset="0,-10000" scale="0.3,0.3" drawShadow="true"/>
+    </RenderInFront>
+  </RenderRules>
+</ItemRenderer>

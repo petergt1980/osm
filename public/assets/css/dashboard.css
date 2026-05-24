@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+
+body {
+    background: transparent;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    padding: 20px;
+    border: 3px solid #1b6385;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #1e698b, #194b6de8, #1e698b);
+    box-shadow: inset -2px 2px 0 #1760a5;
+    color: #eeeeee;
+    box-shadow: 0 5px 10px #19406d;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #194b6de8;
+    padding-left: 8px;
+    border: 1px solid #1760a5;
+    border-radius: 5px;
+}
+
+#toggleLogPassword:hover, #toggleLogPassword:active, #toggleLogPassword:focus, #toggleLogPassword {
+    cursor: pointer;
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    color: #eeeeee;
+}
+
+input {
+    padding: 8px 0;
+    background: transparent;
+    width: 100%;
+    color: #eeeeee;
+}
+
+input, input:focus, input:active, input:hover, button {
+    border: none;
+    outline: none;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.button button {
+    padding: 8px 10px;
+    background-color: #1b81e0;
+    border-radius: 5px;
+    color: #eeeeee;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+}
+
+#guestButton {
+    background-color: #46c536e8;
+    color: #eeeeee;
+}

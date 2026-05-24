@@ -1,0 +1,322 @@
+﻿<?xml version="1.0"?>
+
+██╗░░██╗███████╗███╗░░██╗███╗░░██╗
+██║░░██║██╔════╝████╗░██║████╗░██║
+███████║█████╗░░██╔██╗██║██╔██╗██║
+██╔══██║██╔══╝░░██║╚████║██║╚████║
+██║░░██║███████╗██║░╚███║██║░╚███║
+╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝╚═╝░░╚══╝
+
+██╗░░██╗███████╗███╗░░██╗███╗░░██╗
+██║░░██║██╔════╝████╗░██║████╗░██║
+███████║█████╗░░██╔██╗██║██╔██╗██║
+██╔══██║██╔══╝░░██║╚████║██║╚████║
+██║░░██║███████╗██║░╚███║██║░╚███║
+╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝╚═╝░░╚══╝
+
+██╗░░██╗███████╗███╗░░██╗███╗░░██╗
+██║░░██║██╔════╝████╗░██║████╗░██║
+███████║█████╗░░██╔██╗██║██╔██╗██║
+██╔══██║██╔══╝░░██║╚████║██║╚████║
+██║░░██║███████╗██║░╚███║██║░╚███║
+╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝╚═╝░░╚══╝
+
+<ItemRenderer>
+	<Data>
+		<Sprite name="sasuke" fileName="game/sasuke.rttex" textureSize="100,100"/>
+        <Sprite name="p_sasuke" fileName="game/sasuke.rttex" textureSize="100,100" frame="0,3"/>
+    	<Sprite name="p_sasuke2" fileName="game/sasuke_punch.rttex" textureSize="192,192" frame="0,0"/> 
+    	<Sprite name="death" fileName="game/sasuke.rttex" textureSize="100,100" frame="3,2"/> 
+    	<Sprite name="death2" fileName="game/sasuke_dth.rttex" textureSize="192,192" frame="0,0"/> 
+        <Sprite name="s_trail" fileName="game/sasuke.rttex" textureSize="100,100" frame="0,4"/>
+    	<Sprite name="fire_Sprite" fileName="game/sasuke.rttex" textureSize="100,100" frame="2,2"/>
+
+		<StateMachines>
+			<StateMachine name="Motion">
+				<States>
+					<State name="Idle" />
+					<State name="Move" />
+					<State name="Jump" />
+					<State name="Fall" />
+				</States>
+				<Transitions>
+					<Transition to="Idle" from="Fall|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Move" from="Jump|Fall|Idle">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Jump" from="Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Fall" from="Jump|Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action1">
+				<States>
+					<State name="Idle"/>
+					<State name="Punch"/>
+					<State name="ZombiePunch"/>
+				</States>
+				<Transitions>
+					<Transition from="ZombiePunch|Punch" to="Idle" >
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="ZombiePunch|Idle" to="Punch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="Idle|Punch" to="ZombiePunch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>true</IsZombified>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>               
+		</StateMachines> 
+
+		<Animations>
+			<SpriteAnimation name="idle" isLoop="true" playOnState="Motion.Idle" sprite="sasuke" animTime="800">
+                <Frame>0,0</Frame>
+                <Frame>1,0</Frame>
+                <Frame>2,0</Frame>
+                <Frame>3,0</Frame>
+            </SpriteAnimation>
+			<SpriteAnimation name="walk" isLoop="true" playOnState="Motion.Move" sprite="sasuke" animTime="600">
+                <Frame>0,1</Frame>
+                <Frame>1,1</Frame>
+                <Frame>2,1</Frame>
+                <Frame>3,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="jump" isLoop="true" sprite="sasuke" playOnState="Motion.Jump">
+                <Frame>0,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="fall" sprite="sasuke" playOnState="Motion.Fall">
+				<Frame>1,2</Frame>
+			</SpriteAnimation>
+            <SpriteAnimation name="punch" autoPlay="true" isLoop="true" playOnState="Action1.Punch" sprite="p_sasuke" animTime="600">
+                <Frame>0,3</Frame>
+                <Frame>1,3</Frame>
+                <Frame>2,3</Frame>
+                <Frame>3,3</Frame>                
+            </SpriteAnimation>
+            <SpriteAnimation name="punch2" autoPlay="true" isLoop="true" playOnState="Action1.Punch" sprite="p_sasuke2" animTime="600">
+                <Frame>0,0</Frame>
+                <Frame>1,0</Frame>
+                <Frame>2,0</Frame>
+                <Frame>3,0</Frame>                
+            </SpriteAnimation>     
+			<SpriteAnimation name="trail" isLoop="true" sprite="s_trail" animTime="600">
+                <Frame>0,4</Frame>
+                <Frame>1,4</Frame>
+                <Frame>2,4</Frame>
+                <Frame>3,4</Frame>
+			</SpriteAnimation>      
+	        <SpriteAnimation name="deathAnimation" sprite="death2" animTime="1000" isLoop="false" playOnAction="DIE">
+                <Frame>0,0</Frame>
+                <Frame>1,0</Frame>
+                <Frame>2,0</Frame>  
+	        </SpriteAnimation>                              
+		</Animations>
+
+		<ParticleSystems>        
+            <ParticleSystem name="DeathParticle">
+                <Emitter>
+					<Set name="lifeTime">1.5</Set>           
+                    <Set name="emissionInterval">0.3</Set>
+					<Set name="infParticles">true</Set>
+                    <Set name="particlesPerEmission">6</Set>
+                </Emitter>
+                <Particle>
+                    <Set name="sprite">death</Set>
+					<Set name="renderAlignment">CENTER</Set>
+                    <Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+                    <Set name="useGravity">true</Set>
+                    <Set name="interpolateScale">true</Set>
+                    <Set name="initialScale">2,2</Set>
+                    <Random name="finalScale" min="0.1, 0.1" max="0.3, 0.3"/>
+                    <Set name="lifeTime">1.5</Set>
+                    <RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="80,100"/>
+                    <Set name="gravityVector">0, 100</Set>
+                </Particle>
+            </ParticleSystem>          
+            <ParticleSystem name="DeathParticle2">
+               <Emitter>
+	    			<Set name="offset">-2,-15</Set>
+                    <Set name="particlesPerEmission">1</Set>
+               </Emitter>
+               <Particle>
+                    <Set name="sprite">death2</Set>
+					<Set name="renderAlignment">CENTER</Set>
+                    <Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+                    <Set name="lifeTime">1.5</Set>
+                    <Curve name="initialScale">
+                     <KeyFrame>0, 0.5,0.5</KeyFrame>
+                     <KeyFrame>1, 0.5,0.5</KeyFrame>
+                    </Curve>
+               </Particle>
+            </ParticleSystem>                   
+			<ParticleSystem name="particle_trailright" updateState="Facing.Right">
+				<Emitter usePlayerFacing="true">
+					<Set name="offset">-3,-5020</Set>
+                    <Set name="offsetFacing">true</Set>
+					<Set name="infLifeTime">true</Set>
+                    <Set name="emissionInterval">0.25</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_trail</Set>
+					<Random name="offset" min="-8,-5010" max="8,-5010"/>
+					<Set name="lifeTime">0.7</Set>
+                    <Set name="inSpecificOrder">true</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="useGravity">false</Set>
+					<Set name="gravityVector">0,25</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.68, 0.68</KeyFrame>
+						<KeyFrame>1, 0.68, 0.68</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>          
+			<ParticleSystem name="particle_trailleft" updateState="Facing.Left">
+				<Emitter usePlayerFacing="true">
+					<Set name="offset">-3,-5020</Set>
+                    <Set name="offsetFacing">true</Set>
+					<Set name="infLifeTime">true</Set>
+                    <Set name="emissionInterval">0.25</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_trail</Set>
+					<Random name="offset" min="-8,-5010" max="8,-5010"/>
+					<Set name="lifeTime">0.7</Set>
+                    <Set name="inSpecificOrder">true</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="useGravity">false</Set>
+					<Set name="gravityVector">0,25</Set>
+	            	<Set name="flipX">true</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.68, 0.68</KeyFrame>
+						<KeyFrame>1, 0.68, 0.68</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>      
+            <ParticleSystem name="TileHitFire">
+                <Emitter attachment="targetPos">
+                    <Random name="emissionInterval" min="0.05" max="0.1"/>
+                    <Set name="infParticles">true</Set>
+                    <Set name="infLifeTime">true</Set>
+                    <Set name="particlesPerEmission">1</Set>
+                </Emitter>
+                <Particle>
+                <Set name="sprite">fire_Sprite</Set>
+                <Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+                <Set name="lifeTime">0.6</Set>
+                <Set name="initialVelocity">0,-32</Set>
+                <Curve name="initialAlpha">
+                    <KeyFrame>0, 1</KeyFrame>
+                    <KeyFrame>0.5, 1</KeyFrame>
+                    <KeyFrame>1, 0</KeyFrame>
+                </Curve>
+                <Random name="initialScale" min="0.8" max="1"/>
+                <Random name="offset" min="-8, -7" max="8, 7"/>
+                </Particle>
+            </ParticleSystem>                                                  
+		</ParticleSystems>
+                
+		<RenderOptions>
+			<Default>
+				<Set name="UserNameOffset">10</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="HasDeathParticles">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="HideAvatarOnDeath">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+				<Set name="PlayDefaultPunchAudio">true</Set>
+				<Set name="PunchSoundOverride">SHOES</Set>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+   	</RenderOptions>
+	</Data>
+    
+	<RenderRules>
+		<RenderInFront>
+			<SpriteRender name="p_sasuke2" offset="65,-9973" scale="0.68,0.68" alignment="DOWN_CENTER" onState="Action1.Punch"/>
+			<SpriteRender name="p_sasuke" offset="2,-9996" scale="0.68,0.68" alignment="DOWN_CENTER" onState="Action1.Punch"/>
+			<StopIf type="and">
+				<IsAction>PUNCH</IsAction>
+			</StopIf>
+			<SpriteRender name="sasuke" offset="2,-9996" scale="0.68,0.68" alignment="DOWN_CENTER"/>
+    	</RenderInFront>
+     
+		<OnPunchStart>
+			<ParticleSystemUpdate name="TileHitFire"/>
+		</OnPunchStart>
+        
+		<OnKilled>
+			<ParticleSystemUpdate name="DeathParticle"/>
+			<ParticleSystemUpdate name="DeathParticle2"/>
+		</OnKilled>    
+        
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="particle_trailright" onState="Facing.Right" onAction="WALK|JUMP|FALL"/>
+            <ParticleSystemUpdate name="particle_trailleft" onState="Facing.Left" onAction="WALK|JUMP|FALL"/>
+    	</AddClothingParticles>         
+	</RenderRules>
+</ItemRenderer>

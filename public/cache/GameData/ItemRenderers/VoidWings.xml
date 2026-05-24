@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_GOLDEN_SHADOW_DA_VINCI_WINGS">
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+        <Sprite name="s_Pet" fileName="game/v_drag.rttex" textureSize="128"/>
+		<Sprite name="left_wing_sprite" fileName="game/tavern_particles_large.rttex" textureSize="64" frame="4,10"/>
+		<Sprite name="right_wing_sprite" fileName="game/tavern_particles_large.rttex" textureSize="64" frame="4,10"/>
+
+		<Animations>
+            <SpriteAnimation name="a_PetIdle" sprite="s_Pet" animTime="400" isLoop="true" playOnState="Action.None">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>0,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_PetPunch" sprite="s_Pet" animTime="200" isLoop="true" playOnState="Action.Punch">
+				<Frame>1,1</Frame>
+				<Frame>1,1</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="left_wing_Idle" playOnState="playerState.Idle|playerState.SpiritGuide|playerState.Move" sprite="left_wing_sprite" isLoop="true" animTime="500">
+			    	<Frame>0,5</Frame>
+					<Frame>1,5</Frame>
+					<Frame>2,5</Frame>
+					<Frame>3,5</Frame>
+					<Frame>4,5</Frame>
+					<Frame>5,5</Frame>
+					<Frame>0,6</Frame>
+
+
+
+			</SpriteAnimation>
+			<SpriteAnimation name="right_wing_Idle" playOnState="playerState.Idle|playerState.SpiritGuide|playerState.Move" sprite="right_wing_sprite" isLoop="true" animTime="500">
+				<Frame>0,5</Frame>
+				<Frame>1,5</Frame>
+				<Frame>2,5</Frame>
+				<Frame>3,5</Frame>
+				<Frame>4,5</Frame>
+				<Frame>5,5</Frame>
+				<Frame>0,6</Frame>
+			</SpriteAnimation>
+
+      		<SpriteAnimation name="left_wing_Fall" playOnState="playerState.Fall" sprite="left_wing_sprite" isLoop="true" animTime="500">
+        		<Frame>1,6</Frame>
+				<Frame>2,6</Frame>
+				<Frame>3,6</Frame>
+				<Frame>4,6</Frame>
+				<Frame>5,6</Frame>
+			</SpriteAnimation>		
+			<SpriteAnimation name="right_wing_Fall" playOnState="playerState.Fall" sprite="right_wing_sprite" isLoop="true" animTime="500">
+				<Frame>1,6</Frame>
+				<Frame>2,6</Frame>
+				<Frame>3,6</Frame>
+				<Frame>4,6</Frame>
+				<Frame>5,6</Frame>
+			</SpriteAnimation>	
+		
+			<SpriteAnimation name="left_wing_Jump" playOnState="playerState.Jump" sprite="left_wing_sprite" isLoop="true" animTime="300">
+				    <Frame>5,6</Frame>
+				    <Frame>4,6</Frame>
+					<Frame>3,6</Frame>
+					<Frame>2,6</Frame>
+					<Frame>1,6</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="right_wing_Jump" playOnState="playerState.Jump" sprite="right_wing_sprite" isLoop="true" animTime="300">
+				<Frame>5,6</Frame>
+				<Frame>4,6</Frame>
+				<Frame>3,6</Frame>
+				<Frame>2,6</Frame>
+				<Frame>1,6</Frame>
+			</SpriteAnimation> 
+		</Animations>
+
+		<RenderOptions>
+			<Default>
+				<Set name="PlayDefaultPunchAudio">true</Set>
+                    <Set name="IsNightVision">true</Set>
+                    <Set name="IgnorePunchTypeCheck">true</Set>
+                    <Set name="NeedRenderPet">true</Set>
+                    <Set name="PetOffsetDuplication">0,0</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderBackpack>
+			<SpriteRender name="left_wing_sprite" offset="-32,-27"/>
+			<SpriteRender name="right_wing_sprite" offset="32,-27" flip="1,0"/>
+			<StopIf>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+		</RenderBackpack>
+        <RenderPet>
+			<SpriteRender name="s_Pet" alignment="DOWN_CENTER"/>
+		</RenderPet>
+
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+
+	</RenderRules>
+</ItemRenderer>

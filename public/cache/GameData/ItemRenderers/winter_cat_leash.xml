@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_Pet" fileName="game/enigma_particles4.rttex" textureSize="64" frame="0,5" />
+		<Animations>
+			<SpriteAnimation name="a_Attack" sprite="s_Pet" animTime="400" isLoop="true" playOnAction="PUNCH">
+				<Frame>0,6</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Fall" sprite="s_Pet" animTime="100" isLoop="true" playOnAction="FALL">
+				<Frame>3,6</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Idle" sprite="s_Pet" animTime="100" isLoop="true" playOnAction="IDLE">
+				<Frame>0,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Jump" sprite="s_Pet" animTime="100" isLoop="true" playOnAction="JUMP">
+				<Frame>0,6</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Move" sprite="s_Pet" animTime="500" isLoop="true" playOnAction="WALK">
+				<Frame>1,5</Frame>
+				<Frame>2,5</Frame>
+				<Frame>3,5</Frame>
+				<Frame>0,6</Frame>
+				<Frame>1,6</Frame>
+				<Frame>2,6</Frame>
+				<Frame>3,6</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">-10</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="IsPulseShoes">false</Set>
+				<Set name="IsHorse">false</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="UserNameOffset">13</Set>
+				<Set name="RenderShoesWithMermaidTail">false</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="ShoesShouldIgnoreRaptorLegsOffset">true</Set>
+			</Default>
+			<Override overrideOnAction="IDLE">
+				<Set name="IsPulseShoes">false</Set>
+			</Override>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderShoes>
+			<SpriteRender name="s_Pet" offset="0,13" alignment="DOWN_CENTER"/>
+		</RenderShoes>
+	</RenderRules>
+</ItemRenderer>

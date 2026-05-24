@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_foot1" fileName="game/ci1.rttex" textureSize="32" frame="13,2" />
+		<Sprite name="s_foot2" fileName="game/ci1.rttex" textureSize="32" frame="13,3" />
+		<Sprite name="s_sparks" fileName="game/ci_n1.rttex" textureSize="32" frame="0,41" />
+		<VariableMap>
+			<Set name="leftFootYPos">0,0,0</Set>
+			<Set name="rightFootYPos">0,0,0</Set>
+		</VariableMap>
+		<Animations>
+			<SpriteAnimation name="a_sparks" sprite="s_sparks" animTime="600" >
+				<Frame>0,41</Frame>
+				<Frame>1,41</Frame>
+				<Frame>2,41</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_sparkles" updateStage="AddClothingParticles">
+				<Emitter>
+					<Random name="emissionInterval" min="0.5" max="1" />
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">10</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_sparks</Set>
+					<Random name="offset" min="-8, 0" max="8, 0" />
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.7</Set>
+					<Random name="initialVelocity" min="-55, -30" max="55, -30" />
+					<Set name="finalVelocity">0, 0</Set>
+                    <Set name="interpolateVelocity">true</Set>
+					<Random name="initialAngle" min="-75" max="75" />
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+    <RenderOptions>
+      <Default>
+        <Set name="HideParticlesOnTransform">true</Set>
+        <Set name="RenderShoesWithMermaidTail">false</Set>
+      </Default>
+    </RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderShoes>
+      <StopIf type="or">
+        <IsWearing slot="PANTS">ITEM_ID_RAPTOR_LEGS</IsWearing>
+        <IsRenderObjectFlag>RENDER_OBJECT_FLAG_NO_FEET</IsRenderObjectFlag>
+        <IsVariableBool name="isInvisible">true</IsVariableBool>
+      </StopIf>
+			<Group>
+				<Translate>leftFootYPos</Translate>
+				<SpriteRender name="s_foot1" alignment="DOWN_CENTER" />
+			</Group>
+			<Group>
+				<Translate>rightFootYPos</Translate>
+				<SpriteRender name="s_foot2" alignment="DOWN_CENTER" />
+			</Group>
+		</RenderShoes>
+	</RenderRules>
+</ItemRenderer>

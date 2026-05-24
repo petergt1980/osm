@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/dm_particles_large1.rttex" textureSize="64" frame="0,0"/>
+	<Animations>ou<SpriteAnimation name="Tent_anim" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="2000" autoPlay="true" isLoop="true">
+			<Frame>0,0</Frame>
+			<Frame>1,0</Frame>
+		</SpriteAnimation>
+		<SpriteAnimation name="Tent_punch" playOnAction="PUNCH" sprite="item_Sprite_1">
+			<Frame>0,2</Frame>
+		</SpriteAnimation>
+		<SpriteSinPulseAnimation name="auro_float" sprite="item_Sprite_1" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">4000</Set>
+				<Set name="scale">5</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderAura>
+	  <SpriteRender name="item_Sprite_1" offset="0,4" alignment="CENTER"/>
+    </RenderAura>
+  </RenderRules>
+</ItemRenderer>

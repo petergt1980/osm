@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="dn_ban" fileName="interface/dn_ban.rttex" textureSize="128"/>
+		<Sprite name="dn_icon" fileName="game/dn_icon.rttex" textureSize="128"/>
+		<Sprite name="kira_ban" fileName="interface/kira_ban.rttex" textureSize="128"/>
+		<Audio name="kira_laugh" fileName="audio/kira_laugh.ogg"/>
+	</Data>
+</ItemRenderer>

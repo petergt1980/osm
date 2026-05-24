@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+	<StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="s_geh" fileName="game/ci_n1.rttex" textureSize="32" frame="4,29"/>
+		<Sprite name="p_geh" fileName="game/ci_n1.rttex" textureSize="32" frame="7,29"/>       
+		
+        <Sprite name="s_sparkle" fileName="game/ci_n1.rttex" textureSize="32" frame="3,27"/>
+        <Sprite name="PunchLaser" fileName="game/ci_n1.rttex" textureSize="32" frame="4,27"/>
+        <Sprite name="PunchLaser2" fileName="game/ci_n1.rttex" textureSize="32" frame="5,27"/>
+		
+    	<Sprite name="trail_Sprite" fileName="game/particles.rttex" textureSize="32" frame="3,0"/>
+    	<Sprite name="HitSpark_Sprite" fileName="game/particles.rttex" textureSize="32"/>            	
+         
+         <Animations>
+			<SpriteCurveAnimation name="laser_glow" isLoop="true" playOnState="playerState.Punch" sprite="PunchLaser" animTime="225">
+				<Curve name="alpha">
+					<KeyFrame>0.f, 0.f</KeyFrame>
+					<KeyFrame>0.286f, 0.40f </KeyFrame>
+					<KeyFrame>0.4286f, 0.65f</KeyFrame>
+					<KeyFrame>0.6142f, 1.f</KeyFrame>
+					<KeyFrame>0.8263f, 1.f</KeyFrame>                    
+					<KeyFrame>1.f, 0.45f</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>          
+			<SpriteAnimation name="geh" playOnState="playerState.Idle|playerState.Punch" sprite="s_geh" isLoop="true" animTime="1000">
+				<Frame>4,29</Frame>                   
+                <Frame>5,29</Frame>
+                <Frame>5,29</Frame>                
+				<Frame>6,29</Frame>
+				<Frame>6,29</Frame>                
+				<Frame>5,29</Frame>
+				<Frame>6,29</Frame>
+				<Frame>5,29</Frame>                                
+				<Frame>4,29</Frame>
+				<Frame>4,29</Frame>
+				<Frame>4,29</Frame>
+				<Frame>4,29</Frame>
+				<Frame>4,29</Frame>
+			</SpriteAnimation>
+	        <SpriteAnimation name="punchgeh" playOnAction="playerState.Punch" sprite="p_geh" isLoop="true" animTime="100">
+                <Frame>7,29</Frame>
+            </SpriteAnimation>
+      	  <SpriteAnimation name="trail_anim" autoPlay="true" sprite="trail_Sprite" animTime="1200">
+            	<Frame>3,0</Frame>
+        	    <Frame>4,0</Frame>
+      	  </SpriteAnimation>
+        	<SpriteAnimation name="HitSpark_Anim" autoPlay="false" isLoop="false" sprite="HitSpark_Sprite"  animTime="200">
+        		<Frame>7,5</Frame>
+        		<Frame>8,5</Frame>
+        		<Frame>9,5</Frame>        
+        	</SpriteAnimation>   
+	 	</Animations>
+		
+		<ParticleSystems>
+    		<ParticleSystem name="galaxy_particle">
+	    		<Emitter>
+		    		<Random name="offset" min="-7, -30" max="7, -40"/>
+			    	<Random name="emissionInterval" min="0.3" max="0.6"/>
+				    <Set name="infParticles">true</Set>
+				    <Set name="infLifeTime">true</Set>
+				    <Set name="particlesPerEmission">1</Set>
+    			</Emitter>
+	    		<Particle>
+		    		<Set name="sprite">s_sparkle</Set>
+			    	<Set name="blendingMode">ADDITIVE</Set>
+				    <Set name="isBackgroundParticle">false</Set>
+				    <Set name="initalRGB">1, 1, 1</Set>
+                    <Random name="lifeTime" min="1" max="1.5" />
+				    <Random name="initialVelocity" min="-10, 15" max="10, 20"/>
+				    <Set name="initialAngle">0</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.05, 1,1</KeyFrame>
+						<KeyFrame>0.1, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.15, 1,1</KeyFrame>
+						<KeyFrame>0.2, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.25, 1,1</KeyFrame>
+						<KeyFrame>0.3, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.35, 1,1</KeyFrame>
+						<KeyFrame>0.4, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.45, 1,1</KeyFrame>
+						<KeyFrame>0.5, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.55, 1,1</KeyFrame>
+						<KeyFrame>0.6, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.65, 1,1</KeyFrame>
+						<KeyFrame>0.7, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.75, 0.75,0.75</KeyFrame>
+						<KeyFrame>0.8, 0.15,0.15</KeyFrame>
+						<KeyFrame>0.85, 0.5,0.5</KeyFrame>
+						<KeyFrame>0.9, 0.1,0.1</KeyFrame>
+						<KeyFrame>0.95, 0.25,0.25</KeyFrame>
+						<KeyFrame>1, 0.05,0.05</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 1</KeyFrame>
+					</Curve>
+					<Select name="initialRotationRate" input="randomNumber">
+						<Item>-720</Item>
+						<Item>-360</Item>
+						<Item>360</Item>
+						<Item>720</Item>
+					</Select>                    
+			    </Particle>
+		    </ParticleSystem>
+      <ParticleSystem name="Laserpunch2" updateStage="RenderFaceItem" updateState="playerState.Punch">
+        <Emitter attachment="facespotRoot">
+          <Set name="offset">4, -29</Set>
+          <Set name="lifeTime">0.072</Set>
+          <Set name="infParticles">true</Set>
+          <Set name="checkParticleNumToEmit">true</Set>
+          <Set name="particlesPerEmission">1</Set>
+          <Set name="particlesToEmit">1</Set>
+        </Emitter>
+        <Particle usePlayerFacing="true">
+          <Set name="sprite">PunchLaser2</Set>
+          <Set name="relativeToEmitter">true</Set>
+          <Set name="blendingMode">ADDTIVE</Set>
+          <Curve name="initialAlpha">
+            <KeyFrame>0, 1</KeyFrame>
+            <KeyFrame>1, 0</KeyFrame>
+          </Curve>
+          <Set name="lifeTime">0.15</Set>
+	  	<Set name="initialRotationRate">360</Set>
+        </Particle>
+      </ParticleSystem>
+			<ParticleSystem name="hitSpark_particle" secondary="trail_particle">
+				<Emitter>
+					<Set name="particlesPerEmission">8</Set>
+					<Set name="lifeTime">2</Set>
+					<Set name="useTargetTileColorForTint">true</Set>                    
+				</Emitter>
+				<Particle randomSpriteFrame="true">
+					<Set name="sprite">HitSpark_Sprite</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="useGravity">true</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="initialScale">2,2</Set>
+					<Random name="finalScale" min="0.1, 0.1" max="0.4, 0.4"/>
+					<Set name="lifeTime">1</Set>
+					<RandomRadial name="initialVelocity" angleRange="30,330" radiusRange="80,200"/>
+					<Set name="gravityVector">0, 100</Set>
+					<Random name="initialRotationRate" min="-300" max="300"/>
+					<Random name="posOffset" min="0.1, 0" max="16.1, 16.3"/>
+				</Particle>
+			</ParticleSystem>      
+			<ParticleSystem name="trail_particle">
+				<Emitter>
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="particlesToEmit">80</Set>
+					<Set name="emissionInterval">0.2</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">trail_Sprite</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">1.2</Set>
+					<Set name="initialRotationRate">150</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0, 0</KeyFrame>
+						<KeyFrame>0.4, 1, 1</KeyFrame>
+						<KeyFrame>0.8, 0.3, 0.3</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.5</KeyFrame>
+						<KeyFrame>0.8, 0</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="initialVelocity">0,0</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+
+		<RenderOptions>
+			<Default>
+                <Set name="PlayDefaultPunchAudio">false</Set>
+                <Set name="PunchSoundOverride">FACEITEM</Set> 
+                <Set name="IncludeAllActions">true</Set>
+                <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+                <Set name="IgnoreDefaultDestroyedTileEffect">true</Set>			
+                       </Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderFaceItem>
+      <MusicSource onAction="PUNCH">
+        <Set name="MusicFile">audio/laser.wav</Set>
+        <Set name="FadeOutTimeMs">100</Set>
+      </MusicSource>        
+			<SpriteRender name="s_geh" offset="0,-31.95" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="PunchLaser" offset="0,-29" onAction="PUNCH" blend="ADDITIVE" stretchToTarget="true" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" drawShadow="false" flip="1,0"/>            	
+    	</RenderFaceItem>
+        
+    <RenderInFront>
+			<SpriteRender name="s_geh" offset="0,-31.95" blend="PREMULTIPLIED_ALPHA"/>
+    </RenderInFront>        
+        
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+        
+		<OnDestroyedTile>
+		  <ParticleSystemUpdate name="hitSpark_particle"/>
+		</OnDestroyedTile>            
+
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="galaxy_particle" drawShadow="false"/>
+		</AddClothingParticles>
+    
+		<SwitchOffClothingParticles>
+	    	<ParticleSystemOff name="hitSpark_particle"/>            
+			<ParticleSystemOff name="galaxy_particle"/>
+		</SwitchOffClothingParticles>
+
+	</RenderRules>
+</ItemRenderer>

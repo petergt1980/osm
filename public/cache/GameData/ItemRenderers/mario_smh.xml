@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="samurai_idle" fileName="game/mario_smh_idle.rttex" textureSize="256"/>
+		<Sprite name="samurai_punch" fileName="game/mario_smh_punch.rttex" textureSize="256"/>
+		<Sprite name="samurai_walk" fileName="game/mario_smh_walk.rttex" textureSize="256"/>
+		<Sprite name="samurai_jump" fileName="game/mario_smh_jump_fall.rttex" textureSize="256"/>
+		<StateMachines>
+		<StateMachine name="Motion">
+			<States>
+				<State name="Idle" />
+				<State name="Move" />
+				<State name="Jump" />
+				<State name="Fall" />
+				<State name="Punch"/>
+				<State name="Respawn"/>
+			</States>
+			<Transitions>
+				<Transition to="Idle" from="Fall|Move|Jump|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						<IsVariableBool name="isAttacking">false</IsVariableBool>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Move" from="Jump|Fall|Idle|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Jump" from="Idle|Move|Fall|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Fall" from="Jump|Idle|Move|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Punch" from="Idle|Move|Jump|Fall">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+		</StateMachines>
+		<Animations>			
+			<SpriteAnimation name="samurai_Idle_Animation" playOnState="Motion.Idle" sprite="samurai_idle" animTime="1020" isLoop="true">
+				<Frame>0,0</Frame><Frame>1,0</Frame><Frame>2,0</Frame><Frame>3,0</Frame><Frame>4,0</Frame><Frame>5,0</Frame><Frame>6,0</Frame><Frame>7,0</Frame>		
+				<Frame>0,1</Frame><Frame>1,1</Frame><Frame>2,1</Frame><Frame>3,1</Frame><Frame>4,1</Frame><Frame>5,1</Frame><Frame>6,1</Frame><Frame>7,1</Frame>				
+				<Frame>0,2</Frame><Frame>1,2</Frame><Frame>2,2</Frame><Frame>3,2</Frame><Frame>4,2</Frame><Frame>5,2</Frame><Frame>6,2</Frame><Frame>7,2</Frame>	
+				<Frame>0,3</Frame><Frame>1,3</Frame><Frame>2,3</Frame><Frame>3,3</Frame><Frame>4,3</Frame><Frame>5,3</Frame><Frame>6,3</Frame><Frame>7,3</Frame>		
+				<Frame>0,4</Frame><Frame>1,4</Frame><Frame>2,4</Frame><Frame>3,4</Frame><Frame>4,4</Frame><Frame>5,4</Frame><Frame>6,4</Frame><Frame>7,4</Frame>		
+				<Frame>0,5</Frame><Frame>1,5</Frame><Frame>2,5</Frame><Frame>3,5</Frame><Frame>4,5</Frame><Frame>5,5</Frame><Frame>6,5</Frame><Frame>7,5</Frame>			
+				<Frame>0,6</Frame><Frame>1,6</Frame><Frame>2,6</Frame><Frame>3,6</Frame><Frame>4,6</Frame><Frame>5,6</Frame><Frame>6,6</Frame><Frame>7,6</Frame>			
+				<Frame>0,7</Frame><Frame>1,7</Frame><Frame>2,7</Frame><Frame>3,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="samurai_Punch_Animation" playOnState="Motion.Punch" sprite="samurai_punch" animTime="400" isLoop="true">
+				<Frame>0,0</Frame><Frame>1,0</Frame><Frame>2,0</Frame><Frame>3,0</Frame><Frame>4,0</Frame><Frame>5,0</Frame><Frame>6,0</Frame><Frame>7,0</Frame>		
+				<Frame>0,1</Frame><Frame>1,1</Frame><Frame>2,1</Frame><Frame>3,1</Frame><Frame>4,1</Frame><Frame>5,1</Frame><Frame>6,1</Frame><Frame>7,1</Frame>				
+				<Frame>0,2</Frame><Frame>1,2</Frame><Frame>2,2</Frame><Frame>3,2</Frame><Frame>4,2</Frame><Frame>5,2</Frame><Frame>6,2</Frame><Frame>7,2</Frame>	
+				<Frame>0,3</Frame><Frame>1,3</Frame><Frame>2,3</Frame><Frame>3,3</Frame><Frame>4,3</Frame><Frame>5,3</Frame><Frame>6,3</Frame><Frame>7,3</Frame>		
+				<Frame>0,4</Frame><Frame>1,4</Frame><Frame>2,4</Frame><Frame>3,4</Frame><Frame>4,4</Frame><Frame>5,4</Frame><Frame>6,4</Frame><Frame>7,4</Frame>		
+				<Frame>0,5</Frame><Frame>1,5</Frame><Frame>2,5</Frame><Frame>3,5</Frame><Frame>4,5</Frame><Frame>5,5</Frame><Frame>6,5</Frame><Frame>7,5</Frame>			
+				<Frame>0,6</Frame><Frame>1,6</Frame><Frame>2,6</Frame><Frame>3,6</Frame><Frame>4,6</Frame><Frame>5,6</Frame><Frame>6,6</Frame><Frame>7,6</Frame>			
+				<Frame>0,7</Frame><Frame>1,7</Frame><Frame>2,7</Frame><Frame>3,7</Frame><Frame>4,7</Frame><Frame>5,7</Frame><Frame>6,7</Frame><Frame>7,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="samurai_Jump_Animation" playOnState="Motion.Jump" sprite="samurai_jump" animTime="400">
+				<Frame>0,0</Frame><Frame>1,0</Frame><Frame>2,0</Frame><Frame>3,0</Frame><Frame>4,0</Frame><Frame>5,0</Frame><Frame>6,0</Frame><Frame>7,0</Frame><Frame>8,0</Frame><Frame>9,0</Frame><Frame>10,0</Frame>
+				<Frame>0,1</Frame><Frame>1,1</Frame><Frame>2,1</Frame><Frame>3,1</Frame><Frame>4,1</Frame><Frame>5,1</Frame><Frame>6,1</Frame><Frame>7,1</Frame><Frame>8,1</Frame><Frame>9,1</Frame><Frame>10,1</Frame>
+				<Frame>0,2</Frame><Frame>1,2</Frame><Frame>2,2</Frame><Frame>3,2</Frame><Frame>4,2</Frame><Frame>5,2</Frame><Frame>6,2</Frame><Frame>7,2</Frame><Frame>8,2</Frame><Frame>9,2</Frame><Frame>10,2</Frame>
+				<Frame>0,3</Frame><Frame>1,3</Frame><Frame>2,3</Frame><Frame>3,3</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="samurai_Fall_Animation" playOnState="Motion.Fall" sprite="samurai_jump" animTime="400">
+				<Frame>5,3</Frame><Frame>6,3</Frame><Frame>7,3</Frame><Frame>8,3</Frame><Frame>9,3</Frame><Frame>10,3</Frame>
+				<Frame>0,4</Frame><Frame>1,4</Frame><Frame>2,4</Frame><Frame>3,4</Frame><Frame>4,4</Frame><Frame>5,4</Frame><Frame>6,4</Frame><Frame>7,4</Frame><Frame>8,4</Frame><Frame>9,4</Frame><Frame>10,4</Frame>
+				<Frame>0,5</Frame><Frame>1,5</Frame><Frame>2,5</Frame><Frame>3,5</Frame><Frame>4,5</Frame><Frame>5,5</Frame><Frame>6,5</Frame><Frame>7,5</Frame><Frame>8,5</Frame><Frame>9,5</Frame><Frame>10,5</Frame>
+				<Frame>0,6</Frame><Frame>1,6</Frame><Frame>2,6</Frame><Frame>3,6</Frame><Frame>4,6</Frame><Frame>5,6</Frame><Frame>6,6</Frame><Frame>7,6</Frame><Frame>8,6</Frame><Frame>9,6</Frame><Frame>10,6</Frame>
+				<Frame>0,7</Frame><Frame>1,7</Frame><Frame>2,7</Frame><Frame>3,7</Frame><Frame>4,7</Frame><Frame>5,7</Frame><Frame>6,7</Frame><Frame>7,7</Frame><Frame>8,7</Frame><Frame>9,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="samurai_Walk_Animation" playOnState="Motion.Move" sprite="samurai_walk" animTime="400" isLoop="true">
+				<Frame>0,0</Frame><Frame>1,0</Frame><Frame>2,0</Frame><Frame>3,0</Frame><Frame>4,0</Frame><Frame>5,0</Frame><Frame>6,0</Frame><Frame>7,0</Frame>		
+				<Frame>0,1</Frame><Frame>1,1</Frame><Frame>2,1</Frame><Frame>3,1</Frame><Frame>4,1</Frame><Frame>5,1</Frame><Frame>6,1</Frame><Frame>7,1</Frame>				
+				<Frame>0,2</Frame><Frame>1,2</Frame><Frame>2,2</Frame><Frame>3,2</Frame><Frame>4,2</Frame><Frame>5,2</Frame><Frame>6,2</Frame><Frame>7,2</Frame>	
+				<Frame>0,3</Frame><Frame>1,3</Frame><Frame>2,3</Frame><Frame>3,3</Frame><Frame>4,3</Frame><Frame>5,3</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+		</ParticleSystems>
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="UserNameOffset">30</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderInFront>
+			<StopIf>
+				<IsVariableBool name="isMannequin">true</IsVariableBool>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+			<SpriteRender name="samurai_idle" offset="0,-10040" drawShadow="true" onState="Motion.Idle" scale="0.4,0.4"/>
+			<SpriteRender name="samurai_punch" offset="0,-10040" drawShadow="true" onState="Motion.Punch" scale="0.4,0.4"/>
+			<SpriteRender name="samurai_walk" offset="0,-10040" drawShadow="true" onState="Motion.Move" scale="0.4,0.4"/>
+			<SpriteRender name="samurai_jump" offset="0,-10040" drawShadow="true" onState="Motion.Jump" scale="0.4,0.4"/>
+            <SpriteRender name="samurai_jump" offset="0,-10040" drawShadow="true" onState="Motion.Fall" scale="0.4,0.4"/>
+			
+		</RenderInFront>
+		<RenderShoes>
+			<StopIf>
+				<IsSitting>true</IsSitting>
+				<IsSleepingOnaBed>true</IsSleepingOnaBed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</RenderShoes>
+	</RenderRules>
+</ItemRenderer>

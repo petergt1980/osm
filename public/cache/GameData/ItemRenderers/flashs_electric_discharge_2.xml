@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+	</StateMachines>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles3.rttex" textureSize="64" frame="0,15"/>
+	<Sprite name="punch_effect" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="11,2"/>
+    <Sprite name="electro_punch_particle" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="10,2"/>
+	<Sprite name="electro_crack_sprite" fileName="game/particles11.rttex" textureSize="32" frame="20,1"/>
+	<Sprite name="electro_break_sprite" fileName="game/particles10.rttex" textureSize="32" frame="23,17"/>
+
+<Animations>
+	<SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="750" autoPlay="true" isLoop="true">
+		<Frame>0,15</Frame>
+        <Frame>4,15</Frame>
+        <Frame>5,15</Frame>
+        <Frame>6,15</Frame>
+        <Frame>7,15</Frame>
+        <Frame>8,15</Frame>
+	</SpriteAnimation>
+
+			<SequenceAnimation name="glitch_sequence" playOnAction="JUMP|FALL|IDLE|WALK" autoPlay="true" isLoop="true">
+				<SpriteAnimation sprite="item_Sprite_1">
+						<Frame>0,15</Frame>
+        				<Frame>4,15</Frame>
+        				<Frame>5,15</Frame>
+        				<Frame>6,15</Frame>
+        				<Frame>7,15</Frame>
+        				<Frame>8,15</Frame>
+				</SpriteAnimation>
+				<DelayAnimation delayTime="1750" />
+				<SpriteAnimation sprite="item_Sprite_1" animTime="250">
+        				<Frame>1,15</Frame>
+        				<Frame>2,15</Frame>
+        				<Frame>3,15</Frame>
+				</SpriteAnimation>
+			</SequenceAnimation>
+
+    <SpriteAnimation name="electro_punch" playOnState="playerState.Punch" sprite="punch_effect" isLoop="true" animTime="175">
+        <Frame>11,2</Frame>
+        <Frame>12,2</Frame>
+        <Frame>13,2</Frame>
+        <Frame>14,2</Frame>
+    </SpriteAnimation>
+
+	<SpriteAnimation name="break_fx" autoPlay="false" animTime="500" sprite="electro_break_sprite">
+        	<Frame>16,16</Frame>
+			<Frame>23,17</Frame>
+        	<Frame>24,17</Frame>
+       	 	<Frame>25,17</Frame>
+       	 	<Frame>26,17</Frame>
+        	<Frame>27,17</Frame>
+        	<Frame>28,17</Frame>
+        	<Frame>29,17</Frame>
+        	<Frame>30,17</Frame>
+        	<Frame>31,17</Frame>
+			<Frame>32,17</Frame>
+	</SpriteAnimation>
+</Animations>
+
+	<ParticleSystems>		
+		<ParticleSystem name="electro_punch_particle">
+			<Emitter>
+				<Set name="offset">0,0</Set>
+				<Set name="lifeTime">1</Set>
+				<Set name="particlesPerEmission">12</Set>
+				<Set name="delayTimer">0</Set>
+			</Emitter>
+			<Particle randomSpriteFrame="true">
+				<Set name="sprite">electro_punch_particle</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="lifeTime">0.5</Set>
+				<Set name="initalRGB">1,1,1</Set>
+				<Set name="initialScale">1,1</Set>
+				<Curve name="initialAlpha">
+					<KeyFrame>0, 1</KeyFrame>
+					<KeyFrame>0.5, 1</KeyFrame>
+					<KeyFrame>1, 0</KeyFrame>
+				</Curve>
+				<RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="40,60"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="electro_break_particle">
+        	<Emitter>
+          		<Set name="lifeTime">0.5</Set>
+          		<Set name="particlesPerEmission">1</Set>
+          		<Set name="particlesToEmit">1</Set>
+        	</Emitter>
+        	<Particle>
+          		<Set name="sprite">electro_break_sprite</Set>
+          		<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+          		<Set name="lifeTime">0.5</Set>
+          		<Random name="initialAngle" min="0" max="360"/>
+          		<Set name="initialRotationRate">360</Set>
+          		<Set name="initialScale">2,2</Set>
+        	</Particle>
+      	</ParticleSystem>
+	</ParticleSystems>
+
+	<RenderOptions>
+		<Default>
+			<Set name="PunchSoundOverride">HAND</Set>
+			<Set name="PlayDefaultPunchAudio">true</Set>
+			<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+			<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+		</Default>
+	</RenderOptions>
+
+	<TileStampData>
+      <Set name="FileName">game/particles11.rttex</Set>
+      <Set name="EndFrame">23,1</Set>
+      <Set name="FrameCount">4</Set>
+    </TileStampData>
+
+  </Data>
+
+  <RenderRules>
+    <RenderHandItem>
+	  <SpriteRender name="item_Sprite_1" rotateOffset="true" offset="5,9" alignment="CENTER"/>
+      <SpriteRender name="punch_effect" offset="10,-18" onState="playerState.Punch" blend="PREMULTIPLIED_ALPHA" stretchToTarget="true" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" drawShadow="false" flip="1,0"/>
+    </RenderHandItem>
+
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+		<AvatarTransform class="ArmAngle">
+			<Set name="armName">arm2Angle</Set>
+			<Set name="armAngle">1000</Set>
+			<Set name="isAdditive">false</Set>
+			<Set name="pointTowardsPunchTarget">false</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+
+	<OnPunchStart>
+		<ParticleSystemUpdate name="electro_particle"/>
+	</OnPunchStart>
+
+	<OnDamagedTile>
+		<ParticleSystemUpdate name="electro_punch_particle"/>
+	</OnDamagedTile>
+
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="electro_particle"/>
+		<ParticleSystemOff name="electro_punch_particle"/>
+	</SwitchOffClothingParticles>
+
+ 	<OnDestroyedTile>
+      <ParticleSystemUpdate name="electro_break_particle"/>
+    </OnDestroyedTile>
+
+  </RenderRules>
+</ItemRenderer>

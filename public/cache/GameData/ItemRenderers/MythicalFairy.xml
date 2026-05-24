@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/retard_server.rttex" textureSize="64" frame="0,8"/>
+	<Animations>
+      <SpriteAnimation name="wingFlexJump" playOnAction="JUMP" sprite="item_Sprite_1" animTime="200" autoPlay="true" isLoop="true">
+		<Frame>0,8</Frame>
+<Frame>2,8</Frame>
+		<Frame>2,8</Frame>
+		<Frame>2,8</Frame>
+		<Frame>3,8</Frame>
+      </SpriteAnimation>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL" sprite="item_Sprite_1" animTime="200" autoPlay="true" isLoop="true">
+		<Frame>3,8</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="item_Sprite_1" tintOverride="0,127,236,255">
+        <Frame>0,8</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="0,-32" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+	  <SpriteRender name="item_Sprite_1" offset="0,-32" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

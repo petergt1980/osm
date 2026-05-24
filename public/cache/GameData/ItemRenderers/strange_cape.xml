@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_ABYSSAL_CYAN_DA_VINCI_WINGS">
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="cape_sprite" fileName="game/enigma_particles4.rttex" textureSize="64" frame="3,3"/>
+        <Sprite name="pauldron_sprite" fileName="game/custom_cosmetics1_icon.rttex" textureSize="32" frame="1,11"/>
+
+		<Animations>
+			<SpriteAnimation name="cape_idle" playOnState="playerState.Idle|playerState.SpiritGuide" sprite="cape_sprite" isLoop="true" animTime="450">
+				<Frame>3,3</Frame>
+				<Frame>4,3</Frame>				
+			</SpriteAnimation>
+			
+			<SpriteAnimation name="cape_dj" playOnState="playerState.DoubleJump" sprite="cape_sprite" isLoop="false" animTime="150">
+                <Frame>4,3</Frame>
+				<Frame>3,3</Frame>
+			</SpriteAnimation>			
+
+      		<SpriteAnimation name="cape_f" playOnState="playerState.Fall" sprite="cape_sprite" isLoop="true" animTime="125">
+        		<Frame>1,3</Frame>
+				<Frame>2,3</Frame>
+			</SpriteAnimation>		
+		
+			<SpriteAnimation name="cape_j" playOnState="playerState.Jump" sprite="cape_sprite" isLoop="true" animTime="150">
+				<Frame>4,3</Frame>
+				<Frame>3,3</Frame>
+			</SpriteAnimation>	
+			<SpriteAnimation name="cape_move" playOnState="playerState.Move" sprite="cape_sprite" isLoop="true" animTime="800">
+				<Frame>5,3</Frame>
+				<Frame>6,3</Frame>
+				<Frame>7,3</Frame>				
+				<Frame>8,3</Frame>
+				<Frame>9,3</Frame>
+				<Frame>10,3</Frame>
+				<Frame>11,3</Frame>
+				<Frame>12,3</Frame>
+			</SpriteAnimation>		
+		</Animations>
+
+    	<RenderOptions>
+			<Default>
+        <Set name="UserNameOffset">3</Set>
+        <Set name="ShouldHover">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<Update>
+			<StopIf>
+				<IsZombified>true</IsZombified>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+			<AvatarTransform class="FootPosition">
+				<Set name="foot1dy">0</Set>
+				<Set name="foot2dy">0</Set>
+				<Set name="foot1y">0</Set>
+				<Set name="foot2y">0</Set>
+			</AvatarTransform>
+		</Update>
+		<RenderBackpack>
+			<SpriteRender name="cape_sprite" offset="-2,-12"/>
+		</RenderBackpack>
+        <RenderFrontpack>
+            <SpriteRender name="pauldron_sprite" offset="0,-15.6"/>
+        </RenderFrontpack>
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+	</RenderRules>
+</ItemRenderer>

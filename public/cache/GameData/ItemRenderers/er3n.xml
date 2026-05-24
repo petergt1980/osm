@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="Motion">
+				<States>
+					<State name="Idle" />
+					<State name="Move" />
+					<State name="Jump" />
+					<State name="Fall" />
+				</States>
+				<Transitions>
+					<Transition to="Idle" from="Fall|Move|Jump|Punch">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+							<IsVariableBool name="isAttacking">false</IsVariableBool>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Move" from="Jump|Fall|Idle|Punch">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Jump" from="Idle|Move|Fall|Punch">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Fall" from="Jump|Idle|Move|Punch">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action1">
+				<States>
+					<State name="Idle" />
+					<State name="Punch" />
+					<State name="ZombiePunch" />
+				</States>
+				<Transitions>
+					<Transition from="ZombiePunch|Punch" to="Idle">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="ZombiePunch|Idle" to="Punch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="Idle|Punch" to="ZombiePunch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>true</IsZombified>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="IsDying">
+				<States>
+					<State name="False" />
+					<State name="True" />
+				</States>
+				<Transitions>
+					<Transition from="False" to="True">
+						<Condition>
+							<IsAction>DIE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="True" to="False">
+						<Condition>
+							<IsAction operatorType="NotEqual">DIE</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="eren" fileName="game/er3n.rttex" textureSize="768,768" />
+		<Sprite name="p_eren" fileName="game/er3n.rttex" textureSize="768,768" frame="0,3" />
+		
+		<Animations>
+			<SpriteAnimation name="eren_idle" isLoop="true" playOnState="Motion.Idle"
+				sprite="eren" animTime="1500">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="eren_walk" isLoop="true" playOnState="Motion.Move"
+				sprite="eren" animTime="650">
+				<Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+				<Frame>4,1</Frame>
+				<Frame>5,1</Frame>
+				<Frame>6,1</Frame>
+				<Frame>7,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="eren_jump" isLoop="true" sprite="eren"
+				playOnState="Motion.Jump" animTime="400">
+				<Frame>0,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="eren_fall" sprite="eren" playOnState="Motion.Fall"
+				animTime="400">
+				<Frame>1,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="eren_punch" autoPlay="true" isLoop="true"
+				playOnState="Action1.Punch" sprite="p_eren" animTime="600">
+				<Frame>0,3</Frame>
+				<Frame>1,3</Frame>
+				<Frame>2,3</Frame>
+			</SpriteAnimation>
+		</Animations>
+
+		<RenderOptions>
+			<Default>
+				<Set name="UserNameOffset">15</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="HasDeathParticles">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="HideAvatarOnDeath">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+				<Set name="PlayDefaultPunchAudio">false</Set>
+				<Set name="PunchSoundOverride">CHEST</Set>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderInFront>
+			<StopIf>
+				<IsVariableBool name="isMannequin">true</IsVariableBool>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+			<SpriteRender name="p_eren" offset="0,-9997" drawShadow="true" scale="0.7,0.7"
+				alignment="DOWN_CENTER" onState="Action1.Punch" />
+			<StopIf type="and">
+				<IsAction>PUNCH</IsAction>
+			</StopIf>
+			<SpriteRender name="eren" offset="0,-9997" drawShadow="true" scale="0.7,0.7"
+				alignment="DOWN_CENTER" />
+		</RenderInFront>
+
+		<OnRespawned>
+			<ParticleSystemUpdate name="SpawnParticle" />
+		</OnRespawned>
+		<OnKilled>
+			<ParticleSystemUpdate name="DeathParticle" />
+		</OnKilled>
+
+		<RenderShoes>
+			<StopIf>
+				<IsSitting>true</IsSitting>
+				<IsSleepingOnaBed>true</IsSleepingOnaBed>
+				<IsWearing slot="BOOTS">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</RenderShoes>
+	</RenderRules>
+</ItemRenderer>

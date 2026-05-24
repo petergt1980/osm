@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="s_MiddleShard" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="0,15"/>
+    <Sprite name="s_Shard2_Right" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="1,15"/>
+    <Sprite name="s_Shard3_Left" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="2,15"/>
+    <Sprite name="s_Shard4_Right" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="3,15"/>
+
+    <Sprite name="s_Shard5_Left" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="1,16"/>
+    <Sprite name="s_Shard6_Right" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="2,16"/>
+    <Sprite name="s_Shard7_Left" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="3,16"/>
+
+    <StateMachines>
+      <StateMachine name="Move">
+        <States>
+          <State name="False"/>
+          <State name="True"/>
+        </States>
+        <Transitions>
+          <Transition to="False" from="True">
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+          <Transition to="True" from="False">
+            <Condition>
+              <IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+      <StateMachine name="Punch">
+        <States>
+          <State name="True"/>
+          <State name="False"/>
+        </States>
+        <Transitions>
+          <Transition from="False" to="True">
+            <Condition>
+              <IsAction>PUNCH</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="True" to="False">
+            <Condition>
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+    <Animations>
+        	<SpriteSinPulseAnimation name="Shard_float1" sprite="s_MiddleShard" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">2950</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float2" sprite="s_Shard3_Left" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">2900</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float3" sprite="s_Shard5_Left" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">2925</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float4" sprite="s_Shard7_Left" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">2975</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float5" sprite="s_Shard2_Right" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">3025</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float6" sprite="s_Shard4_Right" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">3050</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+
+            <SpriteSinPulseAnimation name="Shard_float7" sprite="s_Shard6_Right" autoPlay="true">
+			    <Parameter name="pos.y">
+				    <Set name="period">3075</Set>
+				    <Set name="scale">1</Set>
+			    </Parameter>
+	        </SpriteSinPulseAnimation>
+    </Animations>
+
+    <RenderOptions>
+      <Default>
+        <Set name="IncludeAllActions">true</Set>
+        <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+		<RenderBackpack>
+			<SpriteRender name="s_MiddleShard" offset="0,-45" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard2_Right" offset="22,-30" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard3_Left" offset="25,-18" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard4_Right" offset="35,-10" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard5_Left" offset="-22,-30" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard6_Right" offset="-25,-18" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="s_Shard7_Left" offset="-35,-10" rotateOffset="true" rotationPoint="0,1" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+		</RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

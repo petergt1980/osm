@@ -1,0 +1,159 @@
+body {
+	font-family: Century Gothic;
+	font-size: 24dp;
+	
+	color: #fff;
+	
+	margin: 0;
+    padding: 0;
+}
+
+@media (theme: platform-ios)
+{
+    body {
+        margin-left: 100dp;
+    }
+}
+
+button.common_btn {
+	font-size: 36dp;
+	font-weight: bold;
+	color: white;
+	background-color: rgba(165,227,251,255);
+	padding: 5pt;
+	padding-left: 10pt;
+	padding-right: 10pt;
+	border-radius: 5pt;
+	display: block;
+	text-align: center;
+	font-effect: glow(1px black);
+	transition: all 0.1s;
+	transform: scale(1.0) translateX(0pt);
+	decorator: gradient(vertical rgba(215,255,255,255) rgba(135,197,221,255));
+	border-left: 0dp;
+	border-bottom: 2pt rgba(39, 125, 159, 220);
+	border-right: 2pt rgba(39, 125, 159, 220);
+	border-top: 0dp;
+}
+
+button.common_btn:hover
+{
+	transform: scale(1.05);
+}
+
+.color_orange_text
+{
+	color: #F5CB5C;
+}
+
+.color_light_cyan {
+	color: rgb(255, 255, 255);
+}
+
+.color_green {
+	color: rgb(73, 252, 0);
+}
+
+.color_light_blue {
+	color: rgb(191, 218, 255);
+}
+
+.color_crazy_red {
+	color: rgb(255, 39, 29);
+}
+
+.color_pinky_purple {
+	color: rgb(235, 183, 255);
+}
+
+.color_brown {
+	color: rgb(255, 202, 111);
+}
+
+.color_light_gray {
+	color: rgb(230, 230, 230);
+}
+
+.color_crazy_orange {
+	color: rgb(255, 148, 69);
+}
+
+.color_yellow {
+	color: rgb(255, 238, 125);
+}
+
+.color_bright_cyan {
+	color: rgb(209, 255, 249);
+}
+
+.color_bright_red_pink {
+	color: rgb(255, 205, 201);
+}
+
+.color_bright_purple {
+	color: rgb(255, 143, 243);
+}
+
+.color_pale_yellow {
+	color: rgb(255, 252, 197);
+}
+
+.color_light_green {
+	color: rgb(181, 255, 151);
+}
+
+.color_very_pale_pink {
+	color: rgb(254, 235, 255);
+}
+
+.color_dreamsicle {
+	color: rgb(252, 230, 186);
+}
+
+.color_white {
+	color: rgb(255, 255, 255);
+}
+
+.color_black {
+	color: rgb(0, 0, 0);
+}
+
+.color_pink {
+	color: rgb(255, 223, 241);
+}
+
+.color_dark_blue {
+	color: rgb(12, 96, 164);
+}
+
+.color_medium_blue {
+	color: rgb(25, 185, 255);
+}
+
+.color_pale_green {
+	color: rgb(111, 211, 87);
+}
+
+.color_medium_green {
+	color: rgb(47, 131, 13);
+}
+
+.color_dark_grey {
+	color: rgb(81, 81, 81);
+}
+
+.color_med_grey {
+	color: rgb(158, 158, 158);
+}
+
+.color_vibrant_cyan {
+	color: rgb(80, 255, 255);
+}
+
+.color_bright_yellow {
+	color: rgb(55, 225, 25);
+}
+
+.button {
+	decorator: playsound(audio/click.wav);
+}

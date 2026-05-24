@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+  <StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+	</StateMachines>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles2.rttex" textureSize="64" frame="0,11"/>
+	<Sprite name="firePunch" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="10,1"/>
+	<Animations>
+		<SpriteCurveAnimation name="plasma_anim" sprite="firePunch" animTime="155" isLoop="true" playOnState="playerState.Punch">
+			<Curve name="scale">
+			  <KeyFrame>1.4f, 1.45f, 1.25f</KeyFrame>
+			  <KeyFrame>0.80f, 0.85f, 0.90f</KeyFrame>
+			  <KeyFrame>1.4f, 1.45f, 1.25f</KeyFrame>
+			</Curve>
+		</SpriteCurveAnimation>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="FALL|WALK|JUMP|IDLE" sprite="item_Sprite_1" animTime="1000" autoPlay="true" isLoop="true">
+		<Frame>0,11</Frame>
+        <Frame>1,11</Frame>
+		<Frame>2,11</Frame>
+		<Frame>3,11</Frame>
+		<Frame>4,11</Frame>
+		<Frame>5,11</Frame>
+		<Frame>6,11</Frame>
+		<Frame>7,11</Frame>
+		<Frame>8,11</Frame>
+      </SpriteAnimation>
+	  <SpriteSinPulseAnimation name="auro_float" sprite="firePunch" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">125</Set>
+				<Set name="scale">2</Set>
+			</Parameter>
+	   </SpriteSinPulseAnimation>
+	   <SpriteSinPulseAnimation name="auro_float_2" sprite="firePunch" autoPlay="true">
+			<Parameter name="pos.x">
+				<Set name="period">125</Set>
+				<Set name="scale">2</Set>
+			</Parameter>
+	   </SpriteSinPulseAnimation>
+    </Animations>
+  </Data>
+  <RenderRules>
+    <RenderFaceItem>
+      <SpriteRender name="item_Sprite_1" offset="3,-27"/>
+	  <SpriteRender name="firePunch" offset="10,-26" onAction="PUNCH" blend="PREMULTIPLIED_ALPHA" stretchToTarget="true"
+                    alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" drawShadow="false" tintOverride="255,255,255,255"/>
+    </RenderFaceItem>
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+		<AvatarTransform class="ArmAngle">
+			<Set name="armName">arm2Angle</Set>
+			<Set name="armAngle">215</Set>
+			<Set name="pointTowardsPunchTarget">false</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+  </RenderRules>
+</ItemRenderer>

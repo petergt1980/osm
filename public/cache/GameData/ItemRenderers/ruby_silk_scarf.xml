@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<ItemRenderer item="ITEM_ID_HOLIDAY_LIGHTS_SCARF">
+	<Data>
+		<Sprite name="s_scarf" fileName="game/enigma_particles4.rttex" textureSize="64" frame="4,5" />
+		<Sprite name="s_sleeve" fileName="game/custom_tiles_page2.rttex" textureSize="32" frame="0,7" />
+		<Sprite name="s_sparkles" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="7,7" />
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle" />
+					<State name="Fall" />
+					<State name="Jump" />
+				</States>
+				<Transitions>
+					<Transition from="Jump|Fall" to="Idle">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="Fall|Idle" to="Jump">
+						<Condition>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Idle" to="Fall">
+						<Condition>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="a_scarfFall" sprite="s_scarf" animTime="200" isLoop="true" playOnState="playerState.Fall">
+				<Frame>13,5</Frame>
+				<Frame>14,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_scarfIdle" sprite="s_scarf" animTime="800" isLoop="true" playOnState="playerState.Idle">
+				<Frame>4,5</Frame>
+				<Frame>5,5</Frame>
+				<Frame>6,5</Frame>
+				<Frame>7,5</Frame>
+				<Frame>8,5</Frame>
+				<Frame>9,5</Frame>
+				<Frame>10,5</Frame>
+				<Frame>11,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_scarfJump" sprite="s_scarf" animTime="800" isLoop="true" playOnState="playerState.Jump">
+				<Frame>12,5</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_sleeveFall" sprite="s_sleeve" animTime="200" isLoop="true" playOnState="playerState.Fall">
+				<Frame>4,6</Frame>
+				<Frame>5,6</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_sleeveIdle" sprite="s_sleeve" animTime="800" isLoop="true" playOnState="playerState.Idle">
+				<Frame>0,7</Frame>
+				<Frame>1,7</Frame>
+				<Frame>2,7</Frame>
+				<Frame>3,7</Frame>
+				<Frame>4,7</Frame>
+				<Frame>5,7</Frame>
+				<Frame>6,7</Frame>
+				<Frame>7,7</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_sleeveJump" sprite="s_sleeve" animTime="800" isLoop="true" playOnState="playerState.Jump">
+				<Frame>3,6</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_sparkles" sprite="s_sparkles">
+				<Frame>7,7</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_Sparkles" updateStage="AddClothingParticles" renderStage="RenderChestBackItem">
+				<Emitter>
+					<Random name="emissionInterval" min="0.03" max="0.06" />
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+          <Random name="offset" min="-32, -32" max="24, -6" />
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_sparkles</Set>
+					<Set name="blendingMode">ADDITIVE</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.3, 1</KeyFrame>
+						<KeyFrame>0.8, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.05, 1,1</KeyFrame>
+						<KeyFrame>0.1, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.15, 1,1</KeyFrame>
+						<KeyFrame>0.2, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.25, 1,1</KeyFrame>
+						<KeyFrame>0.3, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.35, 1,1</KeyFrame>
+						<KeyFrame>0.4, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.45, 1,1</KeyFrame>
+						<KeyFrame>0.5, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.55, 1,1</KeyFrame>
+						<KeyFrame>0.6, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.65, 1,1</KeyFrame>
+						<KeyFrame>0.7, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.75, 0.75,0.75</KeyFrame>
+						<KeyFrame>0.8, 0.15,0.15</KeyFrame>
+						<KeyFrame>0.85, 0.5,0.5</KeyFrame>
+						<KeyFrame>0.9, 0.1,0.1</KeyFrame>
+						<KeyFrame>0.95, 0.25,0.25</KeyFrame>
+						<KeyFrame>1, 0.05,0.05</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">1.25</Set>
+                    <Random name="initialVelocity" min="0, -25" max="0, -50"/>
+					<Random name="initialRotationRate" min="-60" max="60" />
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<RenderOptions>
+			<Default>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderChestItem>
+			<SpriteRender name="s_sleeve" offset="-19,-13.5" blend="PREMULTIPLIED_ALPHA" />
+		</RenderChestItem>
+		<RenderChestBackItem>
+			<SpriteRender name="s_scarf" offset="-4,-32" blend="PREMULTIPLIED_ALPHA"/>
+
+		</RenderChestBackItem>
+	</RenderRules>
+</ItemRenderer>

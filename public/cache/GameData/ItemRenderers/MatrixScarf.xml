@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="state">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+				</States>
+				<Transitions>
+					<Transition to="Idle" from="Move">
+						<Condition type="and">
+							<IsVariableFloat name="speed.x" operator="Less" abs="true">0.1</IsVariableFloat>
+							<IsVariableFloat name="speed.y" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Move" from="Idle">
+						<Condition type="or">
+							<IsVariableFloat name="speed.x" operator="Greater" abs="true">0.1</IsVariableFloat>
+							<IsVariableFloat name="speed.y" operator="Greater" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<Sprite name="Equip" fileName="game/dm_cosmetics1.rttex" textureSize="32" frame="3,0"/>
+		<Sprite name="Trail" fileName="game/dm_particles1.rttex" textureSize="32" frame="0,4"/>
+		<Sprite name="Trail1" fileName="game/dm_particles1.rttex" textureSize="32" frame="0,5"/>
+		
+		<Animations>
+			<SpriteAnimation name="Trail_Frames" sprite="Trail" animTime="1000" isLoop="true">
+				<Frame>0,4</Frame>
+				<Frame>1,4</Frame>
+				<Frame>2,4</Frame>
+				<Frame>3,4</Frame>
+				<Frame>4,4</Frame>
+				<Frame>5,4</Frame>
+				<Frame>6,4</Frame>
+				<Frame>7,4</Frame>
+				<Frame>8,4</Frame>
+			</SpriteAnimation>
+						<SpriteAnimation name="Trail1_Frames" sprite="Trail1" animTime="1000" isLoop="true">
+				<Frame>0,5</Frame>
+				<Frame>1,5</Frame>
+				<Frame>2,5</Frame>
+				<Frame>3,5</Frame>
+				<Frame>4,5</Frame>
+				<Frame>5,5</Frame>
+				<Frame>6,5</Frame>
+				<Frame>7,5</Frame>
+				<Frame>8,5</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="particle_trail">
+				<Emitter>
+					<Set name="offset">0,-10</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+					<Set name="intervalMin">.10</Set>
+					<Set name="intervalMax">.20</Set>
+					<Set name="randomizeInterval">true</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">Trail</Set>
+					<Random name="offset" min="-8,-10" max="8,10"/>
+					<Set name="lifeTime">1.5</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="useGravity">false</Set>
+					<Set name="gravityVector">0,25</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.85, 0.85</KeyFrame>
+						<KeyFrame>1, 1.0, 1.0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="particle_Idle1">
+				<Emitter>
+					<Set name="offset">0,-10</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="intervalMin">.10</Set>
+					<Set name="intervalMax">.20</Set>
+					<Set name="randomizeInterval">true</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">Trail</Set>
+					<Random name="offset" min="-20,-18" max="20,8"/>
+					<Set name="lifeTime">1.5</Set>
+					<Set name="useGravity">false</Set>
+					<Set name="gravityVector">0,25</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.85, 0.85</KeyFrame>
+						<KeyFrame>1, 1.0, 1.0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="particle_Idle2">
+				<Emitter>
+					<Set name="offset">0,-10</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="intervalMin">.10</Set>
+					<Set name="intervalMax">.20</Set>
+					<Set name="randomizeInterval">true</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">Trail1</Set>
+					<Random name="offset" min="-20,-18" max="20,8"/>
+					<Set name="lifeTime">1.5</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="useGravity">false</Set>
+					<Set name="gravityVector">0,25</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0.8</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.85, 0.85</KeyFrame>
+						<KeyFrame>1, 1.0, 1.0</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		
+	</Data>
+
+	<RenderRules>
+		<RenderChestItem>
+			<SpriteRender name="Equip" alignment="DOWN_CENTER"/>
+		</RenderChestItem>
+		<RenderInFront>
+			<ParticleSystemRender name="particle_Idle1"/>
+		</RenderInFront>
+		<RenderBehind>
+			<ParticleSystemRender name="particle_trail"/>
+			<ParticleSystemRender name="particle_Idle2"/>
+		</RenderBehind>
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="particle_trail" onState="state.Move"/>
+			<ParticleSystemUpdate name="particle_Idle1" onState="state.Idle"/>
+			<ParticleSystemUpdate name="particle_Idle2" onState="state.Idle"/>
+			<AvatarSilhouetteRender color="0,255,0,100" emissionInterval="0.10" onState="state.Move"/>
+			<AvatarSilhouetteRender color="0,255,0,100" offset ="0,-10" emissionInterval="0.2" onState="state.Idle"/>
+		</AddClothingParticles>
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="particle_trail"/>
+			<ParticleSystemOff name="particle_Idle1"/>
+			<ParticleSystemOff name="particle_Idle2"/>
+		</SwitchOffClothingParticles>
+	</RenderRules>
+</ItemRenderer>

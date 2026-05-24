@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_HAIR_OF_FIONN">
+    <Data>
+        <Sprite name="item_Sprite" fileName="game/kobo2.rttex" textureSize="64"/>
+        
+
+        
+    </Data>
+
+    <RenderRules>
+        <RenderHair>
+            <SpriteRender name="item_Sprite" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+        </RenderHair>
+    </RenderRules>
+</ItemRenderer>

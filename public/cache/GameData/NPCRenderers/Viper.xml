@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer NPCType="Viper" NPCTypeID="4">
+	<Data>
+		<Sprite name="s_snake" fileName="game/npc1.rttex" textureSize="32" frame="23,8"/>
+		<Sprite name="s_HitEffect" fileName="game/npc1.rttex" textureSize="32" frame="22,8" />
+		<StateMachines>
+			<StateMachine name="NPC">
+				<States>
+					<State name="Patrol"/>
+					<State name="Chase"/>
+					<State name="AttackProjectile"/>
+					<State name="Anticipation"/>
+				</States>
+			</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="a_sprite_patrol" playOnState="NPC.Patrol" sprite="s_snake" isLoop="true" animTime="300">
+				<Frame>23, 8</Frame>
+				<Frame>24, 8</Frame>
+				<Frame>25, 8</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="a_sprite_chase" playOnState="NPC.Chase" sprite="s_snake" isLoop="true" animTime="300">
+				<Frame>12, 8</Frame>
+				<Frame>13, 8</Frame>
+				<Frame>14, 8</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="a_sprite_anticipation" playOnState="NPC.Anticipation" sprite="s_snake" isLoop="false" animTime="400">
+				<Frame>15, 8</Frame>
+				<Frame>16, 8</Frame>
+				<Frame>17, 8</Frame>
+				<Frame>18, 8</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_sprite_attack" playOnState="NPC.AttackProjectile" sprite="s_snake" isLoop="true" animTime="50">
+				<Frame>19, 8</Frame>
+			</SpriteAnimation>			
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_HitEffect" updateStage="OnDamaged">
+				<Emitter>
+					<Set name="particlesPerEmission">10</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_HitEffect</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 0</KeyFrame>
+						<KeyFrame>0.4, 0</KeyFrame>
+						<KeyFrame>0.41, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="initialScale">0.5,0.5</Set>
+					<Set name="lifeTime">0.5</Set>
+					<Set name="initalRGB">1,0.8,0</Set>
+					<RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="30,90" />
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<Components>
+			<StateMachineTimer>
+				<Set name="NPC.Anticipation">0.5</Set>
+				<Set name="NPC.AttackProjectile">0.5</Set>
+			</StateMachineTimer>
+			<Info/>
+			<MustKillNPC/>
+			<Enemy>
+				<Set name="SoulsReward">5</Set>
+				<Set name="destroyTileId">978</Set>
+			</Enemy>
+			<Movement/>
+			<Damage>
+				<Set name="damage">10</Set>
+			</Damage>
+			<StateMachine>
+				<Set name="type">"Platform"</Set>
+				<Set name="patrolSpeed">25</Set>
+				<Set name="chaseSpeed">70</Set>
+				<Set name="attackSpeed">80</Set>
+				<Set name="chaseRange">150</Set>
+				<Set name="attackRange">100</Set>
+				<Set name="attackTimeoutInSeconds">0</Set>
+				<Set name="projectileName">"ViperProjectile"</Set>
+				<Set name="minRangeToAttack">32</Set>
+				<Set name="disableFall">true</Set>
+			</StateMachine>
+			<Physics>
+				<Set name="acceleration">0, 10.5</Set>
+				<Set name="mass">20</Set>
+				<Set name="drag">1, 0</Set>
+			</Physics>
+			<Health>
+				<Set name="healthAmount">100</Set>
+				<Set name="maxHealth">100</Set>
+			</Health>
+			<CollisionBox>
+				<Set name="size">32,16</Set>
+				<Set name="CollisionFlag">"PLAYERS|PROJECTILES"</Set>
+				<Set name="CollisionType">"ENEMY_NPC"</Set>
+			</CollisionBox>
+			<DebugDraw/>
+		</Components>
+	</Data>
+	<RenderRules>
+		<Render>
+			<SpriteRender name="s_snake" offset="0, -8"/>
+		</Render>
+		<RenderInFront>
+			<Translate>0,-4,0</Translate>
+			<NPCHealthBarRender TexturePath="interface/large/gui_event_npchealth_bar.rttex" TextureSize="17,9" TextureCoordinates="0,0"/>
+		</RenderInFront>
+	</RenderRules>
+</ItemRenderer>

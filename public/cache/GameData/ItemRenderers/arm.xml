@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="s_Shirt" fileName="game/arm.rttex" textureSize="64,32" frame="0,0"/>
+    <RenderOptions>
+      <Default>
+        <Set name="PlayDefaultPunchAudio">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+  <RenderRules>
+    <OnDrawCustomOutline>
+      <AvatarTransform class="Scale">
+        <Set name="targetScale">2,2</Set>
+      </AvatarTransform>
+    </OnDrawCustomOutline>
+
+    <RenderShirt>
+        <SpriteRender name="s_Shirt" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+    </RenderShirt>
+
+  </RenderRules>
+</ItemRenderer>

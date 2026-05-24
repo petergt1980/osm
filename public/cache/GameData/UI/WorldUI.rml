@@ -1,0 +1,26 @@
+<rml>
+    <head>
+        <title>WorldUI</title>
+        <link type="text/rcss" href="WorldUI.rcss"/>
+        <link type="text/template" href="BaseTemplate.rml" />
+		<link type="text/template" href="EventPanel.rml"/>
+    </head>
+    <body template="BaseTemplate" class="world_ui">
+        <div id="top_panel">
+            <div id="gems_panel" class="button" data-model="PlayerInfoModel">
+                <div class="panel" onclick="world_ui.gems_panel_click" data-attrif-disabled="1">
+                    <div id="gem_left_panel">
+                        <div id="gem_icon"></div>
+                    </div>
+                    <div id="gem_right_panel">
+                        {{PlayerInfo.gemsCount}}
+                    </div>
+                </div>
+                <div id="plus_button" class="button" onclick="world_ui.gems_panel_click"></div>
+            </div>
+        </div>
+        <div id="left_panel">
+            <template src="EventPanel" />
+        </div>
+    </body>
+</rml>

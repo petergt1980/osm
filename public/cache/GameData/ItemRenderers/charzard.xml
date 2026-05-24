@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_Pet" fileName="game/charzard.rttex" textureSize="176,112" frame="0,0" />
+		<Sprite name="s_Pet2" fileName="game/charzard.rttex" textureSize="176,112" frame="0,1" />
+		<Animations>
+			<SpriteAnimation name="a1_Fall" sprite="s_Pet" animTime="1000" isLoop="true" playOnAction="FALL">
+				<Frame>8,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a1_Idle" sprite="s_Pet" animTime="1000" isLoop="true" playOnAction="IDLE">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a1_Jump" sprite="s_Pet" animTime="1000" isLoop="true" playOnAction="JUMP">
+				<Frame>9,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a1_Move" sprite="s_Pet" animTime="500" isLoop="true" playOnAction="WALK">
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>6,0</Frame>
+				<Frame>7,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a2_Fall" sprite="s_Pet2" animTime="1000" isLoop="true" playOnAction="FALL">
+				<Frame>8,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a2_Idle" sprite="s_Pet2" animTime="1000" isLoop="true" playOnAction="IDLE">
+				<Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a2_Jump" sprite="s_Pet2" animTime="1000" isLoop="true" playOnAction="JUMP">
+				<Frame>9,1</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a2_Move" sprite="s_Pet2" animTime="500" isLoop="true" playOnAction="WALK">
+				<Frame>4,1</Frame>
+				<Frame>5,1</Frame>
+				<Frame>6,1</Frame>
+				<Frame>7,1</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">-40</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="IsPulseShoes">true</Set>
+				<Set name="IsHorse">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="UserNameOffset">30</Set>
+				<Set name="RenderShoesWithMermaidTail">false</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="ShoesShouldIgnoreRaptorLegsOffset">true</Set>
+			</Default>
+			<Override overrideOnAction="IDLE">
+				<Set name="IsPulseShoes">false</Set>
+			</Override>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderShoes>
+			<SpriteRender name="s_Pet" offset="-10,46" alignment="DOWN_CENTER"/>
+		</RenderShoes>
+		<RenderBehind>
+			<SpriteRender name="s_Pet2" offset="-10,70" alignment="DOWN_CENTER"/>
+		</RenderBehind>
+	</RenderRules>
+</ItemRenderer>

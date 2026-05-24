@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="left_wing_sprite" fileName="game/enigma_particles4.rttex" textureSize="64" frame="9,2"/>
+		<Sprite name="right_wing_sprite" fileName="game/enigma_particles4.rttex" textureSize="64" frame="9,2"/>
+
+		<Sprite name="blood_sprite" fileName="game/enigma_particles_small1.rttex" textureSize="32"/>
+		<Sprite name="snowflake_sprite" fileName="game/enigma_particles_small1.rttex" textureSize="32"/>
+	
+		<Animations>
+			<SpriteAnimation name="left_wing_Idle" playOnState="playerState.Idle|playerState.SpiritGuide|playerState.Move" sprite="left_wing_sprite" isLoop="true" animTime="100">
+				<Frame>10,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="right_wing_Idle" playOnState="playerState.Idle|playerState.SpiritGuide|playerState.Move" sprite="right_wing_sprite" isLoop="true" animTime="100">
+				<Frame>10,2</Frame>
+			</SpriteAnimation>
+			
+			<SpriteAnimation name="left_wing_DoubleJ" playOnState="playerState.DoubleJump" sprite="left_wing_sprite" isLoop="false" animTime="125">
+        		<Frame>10,2</Frame>
+				<Frame>11,2</Frame>
+				<Frame>12,2</Frame>
+			</SpriteAnimation>		
+			<SpriteAnimation name="right_wing_DoubleJ" playOnState="playerState.DoubleJump" sprite="right_wing_sprite" isLoop="false" animTime="125">
+        		<Frame>10,2</Frame>
+				<Frame>11,2</Frame>
+				<Frame>12,2</Frame>
+			</SpriteAnimation>		
+
+      		<SpriteAnimation name="left_wing_Fall" playOnState="playerState.Fall" sprite="left_wing_sprite" isLoop="true" animTime="100">
+        		<Frame>9,2</Frame>
+			</SpriteAnimation>		
+			<SpriteAnimation name="right_wing_Fall" playOnState="playerState.Fall" sprite="right_wing_sprite" isLoop="true" animTime="100">
+       			<Frame>9,2</Frame>
+			</SpriteAnimation>	
+		
+			<SpriteAnimation name="left_wing_Jump" playOnState="playerState.Jump" sprite="left_wing_sprite" isLoop="false" animTime="100">
+                <Frame>11,2</Frame>
+                <Frame>12,2</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="right_wing_Jump" playOnState="playerState.Jump" sprite="right_wing_sprite" isLoop="false" animTime="100">
+                <Frame>11,2</Frame>
+                <Frame>12,2</Frame>
+			</SpriteAnimation>
+		    <SpriteAnimation name="Hit_Anim" autoPlay="false" sprite="blood_sprite">
+			    <Frame>12,10</Frame>
+			    <Frame>13,10</Frame>
+			    <Frame>14,10</Frame>
+		    </SpriteAnimation>
+		    <SpriteAnimation name="Hit_Anim1" autoPlay="false" sprite="snowflake_sprite">
+			    <Frame>0,9</Frame>
+			    <Frame>1,9</Frame>
+		    </SpriteAnimation>
+		</Animations>
+		
+		<ParticleSystems>
+    		<ParticleSystem name="blood_particle">
+	    		<Emitter>
+		    		<Random name="offset" min="35, -10" max="10, -40"/>
+			    	<Random name="emissionInterval" min="0.75" max="0.95"/>
+				    <Set name="infParticles">true</Set>
+				    <Set name="infLifeTime">true</Set>
+				    <Set name="particlesPerEmission">1</Set>
+    			</Emitter>
+	    		<Particle randomSpriteFrame="true">
+		    		<Set name="sprite">blood_sprite</Set>
+			    	<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				    <Set name="isBackgroundParticle">false</Set>
+				    <Set name="initalRGB">1, 1, 1</Set>
+				    <Set name="initialAlpha">1</Set>
+				    <Set name="finalAlpha">0</Set>
+				    <Set name="interpolateAlpha">true</Set>
+				    <Set name="interpolateScale">true</Set>
+				    <Set name="initialScale">1, 1</Set>
+				    <Set name="finalScale">0.75, 0.75</Set>
+				    <Set name="lifeTime">1.5</Set>
+				    <Random name="initialVelocity" min="5, 20" max="-5, 25"/>
+				    <Set name="initialAngle">0</Set>
+			    </Particle>
+		    </ParticleSystem>
+    		<ParticleSystem name="blood_particle_2">
+	    		<Emitter>
+		    		<Random name="offset" min="-35, -10" max="-10, -40"/>
+			    	<Random name="emissionInterval" min="0.75" max="0.95"/>
+				    <Set name="infParticles">true</Set>
+				    <Set name="infLifeTime">true</Set>
+				    <Set name="particlesPerEmission">1</Set>
+    			</Emitter>
+	    		<Particle randomSpriteFrame="true">
+		    		<Set name="sprite">blood_sprite</Set>
+			    	<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				    <Set name="isBackgroundParticle">false</Set>
+				    <Set name="initalRGB">1, 1, 1</Set>
+				    <Set name="initialAlpha">1</Set>
+				    <Set name="finalAlpha">0</Set>
+				    <Set name="interpolateAlpha">true</Set>
+				    <Set name="interpolateScale">true</Set>
+				    <Set name="initialScale">1, 1</Set>
+				    <Set name="finalScale">0.75, 0.75</Set>
+				    <Set name="lifeTime">1.5</Set>
+				    <Random name="initialVelocity" min="5, 20" max="-5, 25"/>
+				    <Set name="initialAngle">0</Set>
+			    </Particle>
+		    </ParticleSystem>
+			<ParticleSystem name="double_jump_particle">
+				<Emitter>
+          			<Set name="offset">0,-16</Set>
+					<Set name="particlesPerEmission">30</Set>
+					<Set name="infParticles">true</Set>
+          			<Set name="infLifeTime">true</Set>
+					<Set name="delayTimer">0</Set>
+				</Emitter>
+				<Particle randomSpriteFrame="true">
+					<Set name="sprite">snowflake_sprite</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">true</Set>
+					<Set name="relativeToEmitter">false</Set>
+					<Set name="rotateWithVelocity">false</Set>
+          			<Set name="interpolateScale">true</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Random name="lifeTime" min="0.75" max="1.25"/>
+					<Set name="initialScale">0.75,0.75</Set>
+          			<Set name="finalScale">1, 1</Set>
+          			<RandomRadial name="initialVelocity" angleRange="0,360" radiusRange="80,160"/>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+
+		<RenderOptions>
+			<Default>
+				<Set name="PlayDefaultPunchAudio">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderBackpack>
+			<SpriteRender name="left_wing_sprite" offset="-34,-19"/>
+			<SpriteRender name="right_wing_sprite" offset="34,-19" flip="1,0"/>
+			<StopIf>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+		</RenderBackpack>
+
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="double_jump_particle" onAction="JUMPDOUBLE" drawShadow="false"/>
+			<ParticleSystemUpdate name="blood_particle" drawShadow="false"/>
+            <ParticleSystemUpdate name="blood_particle_2" drawShadow="false"/>
+		</AddClothingParticles>
+    
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="double_jump_particle"/>
+			<ParticleSystemOff name="blood_particle"/>
+            <ParticleSystemOff name="blood_particle_2"/>
+		</SwitchOffClothingParticles>
+
+	</RenderRules>
+</ItemRenderer>

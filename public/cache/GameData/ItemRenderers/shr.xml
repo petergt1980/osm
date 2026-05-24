@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+
+    <Sprite name="item_Sprite_1" fileName="game/shr.rttex" textureSize="132,104"/>
+    <Animations>
+      <SpriteAnimation name="be_idle2" sprite="item_Sprite_1" animTime="750" autoPlay="true" isLoop="true">
+        <Frame>0,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>2,0</Frame>
+        <Frame>3,0</Frame>
+        <Frame>4,0</Frame>
+        <Frame>5,0</Frame>
+        <Frame>6,0</Frame>
+        <Frame>7,0</Frame>
+        <Frame>8,0</Frame>
+        <Frame>9,0</Frame>
+        <Frame>10,0</Frame>
+        <Frame>11,0</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" alignmentLeft="DOWN_CENTER" alignmentRight="DOWN_CENTER"/>
+    </RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

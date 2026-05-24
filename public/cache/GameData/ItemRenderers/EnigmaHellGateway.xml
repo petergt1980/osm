@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles2.rttex" textureSize="64" frame="0,4"/>
+	<Sprite name="item_Sprite_2" fileName="game/player_chestitem.rttex" textureSize="32" frame="3,0"/>
+	<Animations>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="800" autoPlay="true" isLoop="true">
+		<Frame>0,4</Frame>
+        <Frame>1,4</Frame>
+		<Frame>2,4</Frame>
+		<Frame>3,4</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderInFront>
+	  <SpriteRender name="item_Sprite_1" offset="-17,-22" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderInFront>
+	<RenderChestItem>
+	  <SpriteRender name="item_Sprite_2" offset="0,-16" alignment="CENTER" blend="PREMULTIPLIED_ALPHA" drawShadow="false" tintOverride="191,0,29,255"/>
+    </RenderChestItem>
+  </RenderRules>
+</ItemRenderer>

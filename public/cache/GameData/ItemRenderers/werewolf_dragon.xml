@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_Pet_head" fileName="game/enigma_particles4.rttex" textureSize="64" frame="10,4" />
+		<Sprite name="s_Pet_back" fileName="game/enigma_particles4.rttex" textureSize="64" frame="9,4" />
+		<Sprite name="s_Pet_wing" fileName="game/enigma_particles4.rttex" textureSize="64" frame="8,2" />
+		<Sprite name="sword" fileName="game/custom_hand1.rttex" textureSize="32" frame="0,5" />
+		<Sprite name="PunchFireSprite" fileName="game/particles11.rttex" textureSize="32" frame="26,22" />
+		<Animations>
+			<SpriteAnimation name="a_dragon_head" sprite="s_Pet_head" animTime="700" isLoop="true" playOnAction="JUMP|FALL|IDLE|WALK" autoPlay="true" >
+				<Frame>10,4</Frame>
+				<Frame>12,4</Frame>
+				<Frame>14,4</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_back" sprite="s_Pet_back" animTime="700" isLoop="true" playOnAction="JUMP|FALL|IDLE|WALK" autoPlay="true" >
+				<Frame>9,4</Frame>
+				<Frame>11,4</Frame>
+				<Frame>13,4</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_wing" sprite="s_Pet_wing" animTime="700" isLoop="true" playOnAction="JUMP|FALL|IDLE|WALK" autoPlay="true" >
+				<Frame>8,2</Frame>
+				<Frame>7,4</Frame>
+				<Frame>8,4</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_punch_head" sprite="s_Pet_head" animTime="700" isLoop="true" playOnAction="PUNCH" autoPlay="true" >
+				<Frame>14,3</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_dragon_punch_back" sprite="s_Pet_back" animTime="700" isLoop="true" playOnAction="PUNCH" autoPlay="true" >
+				<Frame>13,3</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="PunchFire">
+				<Emitter>
+					<Set name="offset">10, -20</Set>
+					<Random name="emissionInterval" min="0.001" max="0.005" />
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle autoLifeTimeToTarget="true">
+					<Set name="sprite">PunchFireSprite</Set>
+					<Set name="relativeToEmitter">true</Set>
+					<Set name="blendingMode">ADDITIVE</Set>
+					<Set name="rotateWithVelocity">false</Set>
+					<SetVar name="projectile_offset" source="targetPosOffset"/>
+					<Random name="targetPosOffset" min="-8.1,-8.3" max="8.2,8.8"/>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>0.8, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1, 0.3</KeyFrame>
+						<KeyFrame>1, 1.5, 2</KeyFrame>
+					</Curve>
+					<RandomRadial name="initialVelocity" angleRange="-5,5" radiusRange="150,200" baseAnglePosition="targetPos" baseOffset="0,16" offset="targetPosOffset"  />
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<VariableMap>
+			<Set name="projectile_offset">0, 0</Set>
+			<Set name="projectile_angle">0</Set>
+		</VariableMap>
+		<RenderOptions>
+			<Default>
+				<Set name="IgnorePunchTypeCheck">false</Set>
+				<Set name="NeedRenderPet">true</Set>
+				<Set name="PetOffsetDuplication">-32,0</Set>
+				<Set name="UsePetForceFaceTime">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderHandItem>
+			<SpriteRender name="sword" rotateOffset="true" offset="0,32" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+		</RenderHandItem>
+		<Update>
+			<AvatarTransform class="ArmAngle" onAction="PUNCH">
+				<Set name="armName">arm2Angle</Set>
+				<Set name="armAngle">1700</Set>
+				<Set name="isAdditive">true</Set>
+				<Set name="pointTowardsPunchTarget">true</Set>
+			</AvatarTransform>
+		</Update>
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+		<RenderPet>
+			<SpriteRender name="s_Pet_head" alignment="DOWN_CENTER" offset="0,10"/>
+			<SpriteRender name="s_Pet_back" alignment="DOWN_CENTER" offset="-64,10"/>
+			<SpriteRender name="s_Pet_wing" alignment="DOWN_CENTER" offset="-30,6"/>
+			<StopIf>
+				<IsTrnsformed>true</IsTrnsformed>
+			</StopIf>
+			
+		</RenderPet>
+		<UpdatePet>
+			<ParticleSystemUpdate name="PunchFire" onAction="PUNCH"/>
+		</UpdatePet>
+	</RenderRules>
+</ItemRenderer>

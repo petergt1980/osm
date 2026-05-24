@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_INCOGNITO_HAT">
+  <Data>
+    <Sprite name="s_hatForeground" fileName="game/hat.rttex" textureSize="64"/>
+
+    <RenderOptions>
+      <Default>
+        <Set name="IsToRenderParticlesWhenShrunken">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <AddClothingParticles>
+      <ParticleSystemUpdate name="Arc1"/>
+      <ParticleSystemUpdate name="Arc2"/>
+      <ParticleSystemUpdate name="Arc3"/>
+    </AddClothingParticles>
+    <RenderInFront>
+      <ParticleSystemRender name="Arc1"/>
+      <ParticleSystemRender name="Arc2"/>
+      <ParticleSystemRender name="Arc3"/>
+    </RenderInFront>
+    <RenderHat>
+      <Group>
+        <StopIf>
+          <IsVariableBool name="isMannequin">true</IsVariableBool>
+        </StopIf>
+        <SpriteRender name="s_hatForegroundGlow" alignment="DOWN_CENTER" offset="0,3" drawShadow="false" scale="1.1,1.1"/>
+      </Group>
+      <SpriteRender name="s_hatForeground" alignment="DOWN_CENTER" offset="0,15" scale="1.15,1.15"/>
+    </RenderHat>
+  </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<StateMachines>
+		<StateMachine name="playerState">
+			<States>
+				<State name="Idle"/>
+				<State name="Punch"/>
+				<State name="ZombiePunch"/>
+			</States>
+			<Transitions>
+				<Transition from="ZombiePunch|Punch" to="Idle" >
+					<Condition>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="ZombiePunch|Idle" to="Punch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>false</IsZombified>
+					</Condition>
+				</Transition>
+				<Transition from="Idle|Punch" to="ZombiePunch">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+						<IsZombified>true</IsZombified>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+	</StateMachines>
+	<Sprite name="sword" fileName="game/90x90.rttex" textureSize="96" frame="0,0"/>
+	<Sprite name="punch_effect" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="11,7"/>
+	<Animations>
+
+		<SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="sword" animTime="850" autoPlay="true" isLoop="true">
+			<Frame>0,0</Frame>
+		</SpriteAnimation>
+	  <SpriteAnimation name="shadowPunch" playOnState="playerState.Punch" sprite="punch_effect" isLoop="true" animTime="120">
+        <Frame>11,7</Frame>
+		<Frame>15,0</Frame>
+        <Frame>12,7</Frame>
+      </SpriteAnimation>
+    </Animations>
+
+	<RenderOptions>
+		<Default>
+			<Set name="PunchSoundOverride">HAND</Set>
+			<Set name="PlayDefaultPunchAudio">false</Set>
+		</Default>
+	</RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderHandItem>
+	  <SpriteRender name="sword" rotateOffset="true" offset="11.1,3" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+      <SpriteRender name="punch_effect" offset="12,-4" onState="playerState.Punch" blend="PREMULTIPLIED_ALPHA" stretchToTarget="true" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" drawShadow="false" flip="1,0"/>
+    </RenderHandItem>
+	<OnPunchUpdate>
+		<AvatarTransform class="Face">
+			<Set name="face">MAD</Set>
+		</AvatarTransform>
+		<AvatarTransform class="ArmAngle">
+			<Set name="armName">arm2Angle</Set>
+			<Set name="armAngle">1600</Set>
+			<Set name="isAdditive">true</Set>
+			<Set name="pointTowardsPunchTarget">false</Set>
+		</AvatarTransform>
+	</OnPunchUpdate>
+	<OnPunchStart>
+		<ParticleSystemUpdate name="angel_particle"/>
+	</OnPunchStart>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="angel_particle"/>
+	</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

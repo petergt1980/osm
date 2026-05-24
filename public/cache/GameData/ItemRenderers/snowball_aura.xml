@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles4.rttex" textureSize="64" frame="6,2"/>
+    <Sprite name="item_Sprite_2" fileName="game/enigma_particles4.rttex" textureSize="64" frame="7,2"/>
+	<Sprite name="smoke" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="6,11"/>
+	<Animations>
+			<SpriteAnimation name="idle" playOnState="playerState.Idle|playerState.Move|playerState.SpiritGuide|playerState.DoubleJump|playerState.Jump|playerState.Fall" sprite="item_Sprite_1" isLoop="true" animTime="250">
+				<Frame>6,2</Frame>
+			</SpriteAnimation>
+			<SpriteCurveAnimation name="aura_anim" isLoop="true" autoPlay="true" sprite="item_Sprite_2" animTime="6000">
+				<Curve name="alpha">
+					<KeyFrame>0.f, 0.f</KeyFrame>
+					<KeyFrame>0.2f, 1.f </KeyFrame>
+					<KeyFrame>0.4f, 1.f</KeyFrame>
+					<KeyFrame>0.8f, 0.25.f</KeyFrame>
+					<KeyFrame>1.f, 0.f</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>	
+            <SpriteAnimation name="snow" sprite="smoke" autoPlay="false" animTime="250">
+				<Frame>6,11</Frame>
+                <Frame>7,11</Frame>
+                <Frame>8,11</Frame>
+			</SpriteAnimation>
+    </Animations>
+	<ParticleSystems>
+		<ParticleSystem name="smoke_particle">
+			<Emitter>
+				<Random name="offset" min="-15, -5" max="16, -8"/>
+				<Random name="emissionInterval" min="0.02" max="0.025"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle randomSpriteFrame="true">
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">true</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+                        <KeyFrame>0.75, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.75,0.75</KeyFrame>
+						<KeyFrame>1, 0.25,0.25</KeyFrame>
+					</Curve>
+				<Random name="lifeTime" min="0.85" max="1.35"/>
+				<Random name="initialVelocity" min="0, 3" max="0, 5"/>
+					<Select name="initialRotationRate" input="randomNumber">
+						<Item>-720</Item>
+						<Item>-360</Item>
+						<Item>360</Item>
+						<Item>720</Item>
+					</Select> 
+			</Particle>
+		</ParticleSystem>
+    		<ParticleSystem name="snow_particle">
+	    		<Emitter>
+		    		<Random name="offset" min="-20, 5" max="20, -40"/>
+			    	<Random name="emissionInterval" min="0.75" max="1"/>
+				    <Set name="infParticles">true</Set>
+				    <Set name="infLifeTime">true</Set>
+				    <Set name="particlesPerEmission">2</Set>
+    			</Emitter>
+	    		<Particle randomSpriteFrame="true">
+		    		<Set name="sprite">smoke</Set>
+			    	<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				    <Set name="isBackgroundParticle">false</Set>
+				    <Set name="initalRGB">1, 1, 1</Set>
+                    <Random name="lifeTime" min="2" max="2.5" />
+				    <Random name="initialVelocity" min="-10, 20" max="10, 20"/>
+				    <Set name="initialAngle">0</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.75,0.75</KeyFrame>
+                        <KeyFrame>0.25, 0.55,0.55</KeyFrame>
+						<KeyFrame>1, 0.05,0.05</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 1</KeyFrame>
+					</Curve>
+					<Select name="initialRotationRate" input="randomNumber">
+						<Item>-720</Item>
+						<Item>-360</Item>
+						<Item>360</Item>
+						<Item>720</Item>
+					</Select>                    
+			    </Particle>
+		    </ParticleSystem>
+	</ParticleSystems>
+		<RenderOptions>
+			<Default>
+                <Set name="UserNameOffset">5</Set>
+                <Set name="ShouldHover">true</Set>
+			</Default>
+		</RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderInFront>
+      <SpriteRender name="item_Sprite_1" offset="31,-19" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+      <SpriteRender name="item_Sprite_2" offset="31,-19" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+    </RenderInFront>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="smoke_particle" onState="playerState.Jump|playerState.DoubleJump|playerState.Fall"/>
+        <ParticleSystemUpdate name="snow_particle"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="smoke_particle"/>
+        <ParticleSystemOff name="snow_particle"/>
+	</SwitchOffClothingParticles>
+		<Update>
+			<StopIf>
+				<IsZombified>true</IsZombified>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+			<AvatarTransform class="FootPosition">
+				<Set name="foot1dy">0</Set>
+				<Set name="foot2dy">0</Set>
+				<Set name="foot1y">0</Set>
+				<Set name="foot2y">0</Set>
+			</AvatarTransform>
+		</Update>
+  </RenderRules>
+</ItemRenderer>

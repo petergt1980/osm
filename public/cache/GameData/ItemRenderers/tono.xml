@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="samurai_idle" fileName="game/tonogoof.rttex" textureSize="80,80"/>
+		<Sprite name="s_punchBubbles" fileName="game/particles1199.rttex" textureSize="32,32" frame="5,18"/>
+		<Sprite name="s_tileHit" fileName="game/newtono_effect.rttex" textureSize="32,32" />
+		<Sprite name="s_DestroyImpact" fileName="game/newtono_effect.rttex" textureSize="32,32" />
+		<Sprite name="s_respawn" fileName="game/tonogoof.rttex" textureSize="80,80"/>
+		<Sprite name="s_sleep" fileName="game/tonogoof.rttex" textureSize="80,80"/>
+
+		<StateMachines>
+			<StateMachine name="WYSKEE">
+				<States>
+					<State name="1" />
+					<State name="2" />
+					<State name="3" />
+					<State name="4" />
+					<State name="5" />
+					<State name="6" />
+					<State name="7" />
+					<State name="w" />
+				</States>
+				<Transitions>
+					<Transition to="1" from="2|3|4|5|6|w">
+						<Condition>
+							<IsAction>IDLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="2" from="1|3|4|5|6|w">
+						<Condition>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="3" from="1|2|4|5|6|w">
+						<Condition>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="4" from="1|2|3|5|6|w">
+						<Condition>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="5" from="1|2|3|4|6|w">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="6" from="1|2|3|4|5|w">
+						<Condition>
+							<IsAction>DANCE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="w" from="1|2|3|4|5|6">
+						<Condition>
+							<IsAction>SLEEP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="7" from="1|2|3|4|5|6|w">
+						<Condition>
+							<IsVariableBool name="isMannequin">true</IsVariableBool>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+
+			<StateMachine name="IsDying">
+				<States>
+					<State name="False" />
+					<State name="True" />
+				</States>
+				<Transitions>
+					<Transition from="False" to="True">
+						<Condition>
+							<IsAction>DIE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="True" to="False">
+						<Condition>
+							<IsAction operatorType="NotEqual">DIE</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Animations>
+			<SpriteAnimation name="a_sleep" sprite="s_sleep" animTime="600" isLoop="true" playOnState="WYSKEE.w">
+				<Frame>21,0</Frame>
+				<Frame>22,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="gigi_Dance_Animation" playOnState="WYSKEE.6" sprite="samurai_idle" animTime="1000" isLoop="true">
+				<Frame>19,0</Frame>
+				<Frame>20,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="a_DestroyImpact" sprite="s_DestroyImpact" animTime="300">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="a_hit_particle" sprite="s_tileHit" animTime="700" isLoop="false">
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>6,0</Frame>
+				<Frame>7,0</Frame>
+				<Frame>8,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Idle_Animation" playOnState="WYSKEE.1" sprite="samurai_idle" animTime="1000" isLoop="true">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Punch_Animation" playOnState="WYSKEE.5" sprite="samurai_idle" animTime="500" isLoop="true">
+				<Frame>13,0</Frame>
+				<Frame>14,0</Frame>
+				<Frame>15,0</Frame>
+				<Frame>16,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Jump_Animation" playOnState="WYSKEE.3" sprite="samurai_idle" animTime="300">
+				<Frame>11,0</Frame>
+				<Frame>12,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Fall_Animation" playOnState="WYSKEE.4" sprite="samurai_idle" animTime="400" isLoop="true">
+				<Frame>7,0</Frame>
+				<Frame>8,0</Frame>
+				<Frame>9,0</Frame>
+				<Frame>10,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Walk_Animation" playOnState="WYSKEE.2" sprite="samurai_idle" animTime="400" isLoop="true">
+				<Frame>3,0</Frame>
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>6,0</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="samurai_Respawn_Animation" sprite="s_respawn" animTime="1200" isLoop="false">
+				<Frame>17,0</Frame>
+				<Frame>18,0</Frame>
+			</SpriteAnimation>
+		</Animations>
+
+		<ParticleSystems>
+			<ParticleSystem name="ps_destroyImpact">
+				<Emitter>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_DestroyImpact</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="lifeTime">0.3</Set>
+					<Random name="initialAngle" min="0" max="0" />
+					<Curve name="initialScale">
+						<KeyFrame>0, 2,2</KeyFrame>
+						<KeyFrame>1, 2,2</KeyFrame>
+					</Curve>
+				</Particle>
+			</ParticleSystem>
+
+			<ParticleSystem name="ps_Projectile_Right" updateStage="OnPunchStart" updateState="Facing.Right">
+				<Emitter>
+					<Set name="offset">8, 0</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_punchBubbles</Set>
+					<Select name="offset" input="punchCount">
+						<Item>-8, 0</Item>
+						<Item>8, 0</Item>
+					</Select>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 1</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1, 1</KeyFrame>
+						<KeyFrame>0, 1, 1</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.3</Set>
+					<VectorTo name="initialVelocity" source="targetPos" duration="lifeTime" x="1" />
+				</Particle>
+			</ParticleSystem>
+
+			<ParticleSystem name="ps_Projectile_left" updateStage="OnPunchStart" updateState="Facing.Left">
+				<Emitter>
+					<Set name="offset">8, 0</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_punchBubbles</Set>
+					<Select name="offset" input="punchCount">
+						<Item>-8, 0</Item>
+						<Item>8, 0</Item>
+					</Select>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="flipY">true</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 1</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1, 1</KeyFrame>
+						<KeyFrame>0, 1, 1</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.3</Set>
+					<VectorTo name="initialVelocity" source="targetPos" duration="lifeTime" x="1" />
+				</Particle>
+			</ParticleSystem>
+
+			<ParticleSystem name="ps_tileHit" updateStage="OnDamagedTile">
+				<Emitter>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_tileHit</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 1.2, 1.2</KeyFrame>
+						<KeyFrame>1, 3.6, 3.6</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>0.65, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.5</Set>
+				</Particle>
+			</ParticleSystem>
+
+			<ParticleSystem name="DeathParticle">
+				<Emitter>
+					<Set name="lifeTime">1.1</Set>
+					<Set name="emissionInterval">0</Set>
+					<Set name="infParticles">false</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_respawn</Set>
+					<Set name="offset">0,-30</Set>
+					<Set name="renderAlignment">CENTER</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>1, 1.4,1.4</KeyFrame>
+						<KeyFrame>1, 1.4,1.4</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>1, 1.4,1.4</KeyFrame>
+						<KeyFrame>1, 1.4,1.4</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">1.1</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="UserNameOffset">20</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="HasDeathParticles">true</Set>
+				<Set name="HideAvatarOnDeath">true</Set>
+				<Set name="HideAngelOnDeath">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<Update>
+			<AvatarTransform class="FootPosition" onState="WYSKEE.6">
+				<Set name="foot1dy">0</Set>
+				<Set name="foot2dy">0</Set>
+				<Set name="foot1y">0</Set>
+				<Set name="foot2y">0</Set>
+			</AvatarTransform>
+			<AvatarTransform class="ActionUpdate" onState="WYSKEE.6">
+				<Set name="action">NOD</Set>
+			</AvatarTransform>
+		</Update>
+
+		<RenderInFront>
+			<StopIf>
+				<IsVariableBool name="isMannequin">true</IsVariableBool>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+
+			<SpriteRender
+				name="samurai_idle"
+				offset="0,-10050"
+				drawShadow="true"
+				onState="WYSKEE.1|WYSKEE.2|WYSKEE.3|WYSKEE.4|WYSKEE.5|WYSKEE.6|WYSKEE.7"
+				scale="1.4,1.4" />
+
+			<SpriteRender
+				name="s_sleep"
+				offset="0,-10050"
+				drawShadow="true"
+				onState="WYSKEE.w"
+				scale="1.4,1.4" />
+		</RenderInFront>
+
+		<RenderShoes>
+			<StopIf>
+				<IsSitting>true</IsSitting>
+				<IsSleepingOnaBed>true</IsSleepingOnaBed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</RenderShoes>
+
+		<OnKilled>
+			<ParticleSystemUpdate name="DeathParticle" />
+		</OnKilled>
+
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="DeathParticle" />
+		</SwitchOffClothingParticles>
+
+		<OnDestroyedTile>
+			<ParticleSystemUpdate name="ps_destroyImpact" />
+		</OnDestroyedTile>
+	</RenderRules>
+</ItemRenderer>

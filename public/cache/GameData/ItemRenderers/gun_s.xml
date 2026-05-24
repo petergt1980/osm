@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_BUSTER_BRUSH">
+  <Data>
+    <StateMachines>
+      <StateMachine name="playerState">
+        <States>
+          <State name="Equip"/>
+          <State name="Fall"/>
+          <State name="Punch"/>
+        </States>
+        <Transitions>
+          <Transition from="Equip" to="Fall" >
+            <Condition>
+              <IsAction>FALL</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Fall" to="Equip">
+            <Condition>
+              <IsAction operatorType="NotEqual">FALL</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Equip|Fall" to="Punch" >
+            <Condition>
+              <IsAction>PUNCH</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Punch" to="Equip">
+            <Condition type="and">
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+              <IsAction operatorType="NotEqual">FALL</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Punch" to="Fall">
+            <Condition type="and">
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+              <IsAction>FALL</IsAction>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine><StateMachine name="trailParticleState">
+        <States>
+          <State name="Equip"/>
+          <State name="HorizontalMove"/>
+          <State name="Punch"/>
+          <State name="Sleep"/>
+        </States>
+        <Transitions>
+          <Transition from="Equip|HorizontalMove|Punch" to="Sleep" >
+            <Condition>
+              <IsSleepingOnaBed>true</IsSleepingOnaBed>
+            </Condition>
+          </Transition>
+          <Transition from="Equip|HorizontalMove|Sleep" to="Punch" >
+            <Condition>
+              <IsAction>PUNCH</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Punch|HorizontalMove|Sleep" to="Equip">
+            <Condition type="and">
+              <IsSleepingOnaBed>false</IsSleepingOnaBed>
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+              <IsVariableFloat name="speed.x" operator="Less" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+          <Transition from="Punch|Equip|Sleep" to="HorizontalMove">
+            <Condition type="and">
+              <IsSleepingOnaBed>false</IsSleepingOnaBed>
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+              <IsVariableFloat name="speed.x" operator="Greater" abs="true">0.1</IsVariableFloat>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+    <Sprite name="equip_sprite" fileName="game/gun_s.rttex" textureSize="64,64" frame="0,0"/>
+    <Sprite name="fall_sprite" fileName="game/gun_s.rttex" textureSize="64,64" frame="0,0"/>
+    <Sprite name="trail_drops_sprite" fileName="game/gun_item.rttex" textureSize="32" frame="0,1"/>
+
+
+    <RenderOptions>
+      <Default>
+        <Set name="DefaultRenderMannequinHandItem">false</Set>
+        <Set name="HideParticlesOnTransform">false</Set>
+        <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+        <Set name="RenderBackArmBuild">false</Set>
+        <Set name="RenderFrontArmInfected">true</Set>
+        <Set name="RenderBackArmInfected">true</Set>
+        <Set name="UserNameOffset">15</Set>
+      </Default>
+    </RenderOptions>
+    <ParticleSystems>
+			<ParticleSystem name="drop_particles" updateStage="AddClothingParticles" updateState="trailParticleState.Equip" renderStage="RenderHandItem">
+				<Emitter>
+					<Set name="offset">-32, -34</Set>
+					<Set name="emissionInterval">0.2</Set>
+					<Set name="forceXScaling">true</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle velocityRelativeToPlayerSpeed="true">
+					<Set name="sprite">trail_drops_sprite</Set>
+					<Random name="offset" min="-6, -8" max="6, 0"/>
+					<Set name="inSpecificOrder">true</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>0.8, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="useGravity">true</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.5, 0.5</KeyFrame>
+						<KeyFrame>1, 1, 1</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.8</Set>
+					<Set name="initialVelocity">-10, -40</Set>
+					<Set name="gravityVector">0, 100</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="drop_particles_move" updateStage="AddClothingParticles" updateState="trailParticleState.HorizontalMove">
+				<Emitter>
+					<Set name="offset">-32, -34</Set>
+					<Set name="emissionInterval">0.15</Set>
+					<Set name="forceXScaling">true</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle velocityRelativeToPlayerSpeed="true">
+					<Set name="sprite">trail_drops_sprite</Set>
+					<Random name="offset" min="-16, -8" max="16, 8"/>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>0.8, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Set name="useGravity">true</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.5, 0.5</KeyFrame>
+						<KeyFrame>1, 1, 1</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.8</Set>
+					<Set name="initialVelocity">-10, -40</Set>
+					<Set name="gravityVector">0, 100</Set>
+				</Particle>
+			</ParticleSystem>
+			<ParticleSystem name="punch_projectile" updateStage="OnPunchStart">
+				<Emitter>
+					<Random name="offset" min="32, -48" max="32, 16"/>
+					<Set name="lifeTime">0</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+			</ParticleSystem>
+		</ParticleSystems></Data>
+
+  <RenderRules>
+    <Update>
+      <StopIf>
+        <IsZombified>true</IsZombified>
+      </StopIf>
+      <AvatarTransform class="ArmAngle" onState="playerState.Equip|playerState.Fall">
+        <Set name="armName">arm1Angle</Set>
+        <Set name="armAngle">215</Set>
+      </AvatarTransform>
+    </Update>
+    <RenderBackHandItem>
+      <StopIf type="and">
+        <IsZombified>true</IsZombified>
+        <IsAction>PUNCH</IsAction>
+      </StopIf>
+      <SpriteRender name="equip_sprite" offset="17, 4" rotationPoint="0,1" flip="0,1" alignment="CENTER" rotateOffset="true"  blend="PREMULTIPLIED_ALPHA" onState="playerState.Equip|playerState.Punch"/>
+      <SpriteRender name="fall_sprite" offset="17, 4" rotationPoint="0,1" flip="0,1" alignment="CENTER" rotateOffset="true"  blend="PREMULTIPLIED_ALPHA" onState="playerState.Fall"/>
+    </RenderBackHandItem>
+    <AddClothingParticles>
+      <StopIf type="or">
+        <IsZombified>true</IsZombified>
+        <IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+        <IsWearing slot="SHOES">ITEM_ID_STAR_FIGHTER_REBEL_RAIDER</IsWearing>
+        <IsWearing slot="SHOES">ITEM_ID_STAR_FIGHTER_IMPERIAL_ENFORCER</IsWearing>
+      </StopIf>
+    </AddClothingParticles>
+    <OnPunchStart>
+      <StopIf>
+        <IsZombified>true</IsZombified>
+      </StopIf>
+    </OnPunchStart>
+    <OnPunchUpdate>
+      <StopIf>
+        <IsZombified>true</IsZombified>
+      </StopIf>
+      <AvatarTransform class="Face">
+        <Set name="face">MAD</Set>
+      </AvatarTransform>
+      <AvatarTransform class="ArmAngle" onState="playerState.Equip|playerState.Fall">
+        <Set name="armName">arm1Angle</Set>
+        <Set name="armAngle">215</Set>
+      </AvatarTransform>
+      <AvatarTransform class="ArmAngle" onState="playerState.Punch">
+        <Set name="armName">arm1Angle</Set>
+        <Set name="armAngle">1200</Set>
+        <Set name="isAdditive">true</Set>
+        <Set name="pointTowardsPunchTarget">false</Set>
+      </AvatarTransform>
+      <AvatarTransform class="ArmAngle" onState="playerState.Punch">
+        <Set name="armName">arm2Angle</Set>
+        <Set name="armAngle">0</Set>
+      </AvatarTransform>
+    </OnPunchUpdate>
+    <SwitchOffClothingParticles>
+      <ParticleSystemOff name="punch_projectile"/>
+      <ParticleSystemOff name="drop_particles"/>
+      <ParticleSystemOff name="drop_particles_move"/>
+    </SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+    <Data>
+		<StateMachines>
+			<StateMachine name="Motion">
+				<States>
+					<State name="Idle" />
+					<State name="Move" />
+					<State name="Jump" />
+					<State name="Fall" />
+				</States>
+				<Transitions>
+					<Transition to="Idle" from="Fall|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Move" from="Jump|Fall|Idle">
+						<Condition type="and">
+							<IsVariableBool name="onGround">true</IsVariableBool>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Jump" from="Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Fall" from="Jump|Idle|Move">
+						<Condition type="and">
+							<IsVariableBool name="onGround">false</IsVariableBool>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action1">
+				<States>
+					<State name="Idle"/>
+					<State name="Punch"/>
+					<State name="ZombiePunch"/>
+				</States>
+				<Transitions>
+					<Transition from="ZombiePunch|Punch" to="Idle" >
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="ZombiePunch|Idle" to="Punch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>false</IsZombified>
+						</Condition>
+					</Transition>
+					<Transition from="Idle|Punch" to="ZombiePunch">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsZombified>true</IsZombified>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines> 
+    
+    <Sprite name="moti" fileName="game/moti_mmorpg.rttex" textureSize="190,160"/>
+    <Sprite name="p_moti" fileName="game/moti_mmorpg.rttex" textureSize="190,160" frame="1,0"/>
+     
+        <Animations>
+            <SpriteAnimation name="moti_idle" isLoop="true" playOnState="Motion.Idle" sprite="moti" animTime="1000">
+		    	<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+            </SpriteAnimation>
+			<SpriteAnimation name="moti_walk" isLoop="true" playOnState="Motion.Move" sprite="moti" animTime="1100">
+                <Frame>3,0</Frame>
+				<Frame>0,1</Frame> 
+				<Frame>1,1</Frame>              
+			</SpriteAnimation>
+			<SpriteAnimation name="moti_jump" isLoop="false" sprite="moti" playOnState="Motion.Jump" animTime="300">
+                <Frame>2,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="moti_fall" isLoop="false" sprite="moti" playOnState="Motion.Fall" animTime="300">
+				<Frame>2,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="moti_hit" isLoop="true" playOnState="Action1.Punch" sprite="p_moti" animTime="700">
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+				<Frame>0,2</Frame>
+				<Frame>1,2</Frame>
+			</SpriteAnimation>
+        </Animations>
+        
+    <RenderOptions>
+			<Default>
+				<Set name="UserNameOffset">100</Set>
+				<Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+				<Set name="IgnoreDefaultDestroyedTileEffect">true</Set>
+				<Set name="HasDeathParticles">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+				<Set name="HideAvatarOnDeath">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+				<Set name="PlayDefaultPunchAudio">false</Set>
+				<Set name="PunchSoundOverride">SHOES</Set>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+   	</RenderOptions>
+    </Data>
+    
+    <RenderRules>
+        <RenderInFront>
+			<SpriteRender name="p_moti" offset="2,-9996" onState="Action1.Punch" scale="2,2" alignment="DOWN_CENTER"/>
+			<StopIf type="and">
+				<IsAction>PUNCH</IsAction>
+			</StopIf>        
+			<SpriteRender name="moti" offset="2,-9996" scale="2,2" alignment="DOWN_CENTER"/>
+		</RenderInFront>
+    </RenderRules>
+</ItemRenderer>

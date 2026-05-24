@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="pickaxe" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="28,2"/>
+        <Sprite name="sparkle" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="0,12"/>
+        <Sprite name="slash" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="0,13"/>
+        <Sprite name="embers" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="1,12"/>
+        <Sprite name="empty" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="15,0"/>
+
+        <Animations>
+			<SpriteCurveAnimation name="slash_fade" isLoop="true" autoPlay="true" sprite="slash" animTime="175">
+				<Curve name="alpha">
+					<KeyFrame>0.f, 0.f</KeyFrame>
+					<KeyFrame>0.5f, 0.9.f</KeyFrame>
+					<KeyFrame>1.f, 0.f</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+        </Animations>
+		
+		<ParticleSystems>
+    		<ParticleSystem name="gold_particle">
+	    		<Emitter>
+		    		<Random name="offset" min="-10, -7" max="4, -10"/>
+			    	<Random name="emissionInterval" min="0.6" max="2"/>
+				    <Set name="infParticles">true</Set>
+				    <Set name="infLifeTime">true</Set>
+				    <Set name="particlesPerEmission">1</Set>
+    			</Emitter>
+	    		<Particle>
+		    		<Set name="sprite">sparkle</Set>
+			    	<Set name="blendingMode">ADDITIVE</Set>
+				    <Set name="isBackgroundParticle">false</Set>
+				    <Set name="initalRGB">1, 1, 1</Set>
+                    <Random name="lifeTime" min="1" max="1.5" />
+				    <Random name="initialVelocity" min="0, -25" max="0, -30"/>
+				    <Set name="initialAngle">0</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.05, 1,1</KeyFrame>
+						<KeyFrame>0.1, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.15, 1,1</KeyFrame>
+						<KeyFrame>0.2, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.25, 1,1</KeyFrame>
+						<KeyFrame>0.3, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.35, 1,1</KeyFrame>
+						<KeyFrame>0.4, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.45, 1,1</KeyFrame>
+						<KeyFrame>0.5, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.55, 1,1</KeyFrame>
+						<KeyFrame>0.6, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.65, 1,1</KeyFrame>
+						<KeyFrame>0.7, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.75, 0.75,0.75</KeyFrame>
+						<KeyFrame>0.8, 0.15,0.15</KeyFrame>
+						<KeyFrame>0.85, 0.5,0.5</KeyFrame>
+						<KeyFrame>0.9, 0.1,0.1</KeyFrame>
+						<KeyFrame>0.95, 0.25,0.25</KeyFrame>
+						<KeyFrame>1, 0.05,0.05</KeyFrame>
+					</Curve>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+						<KeyFrame>1, 1</KeyFrame>
+					</Curve>
+					<Select name="initialRotationRate" input="randomNumber">
+						<Item>-720</Item>
+						<Item>-360</Item>
+						<Item>360</Item>
+						<Item>720</Item>
+					</Select>                    
+			    </Particle>
+		    </ParticleSystem>
+		</ParticleSystems>
+
+		<RenderOptions>
+			<Default>
+				<Set name="PlayDefaultPunchAudio">true</Set>
+			</Default>
+		</RenderOptions>
+
+		<TileStampData>
+			<Set name="FileName">game/enigma_particles_small1.rttex</Set>
+			<Set name="EndFrame">7,9</Set>
+			<Set name="FrameCount">4</Set>
+		</TileStampData>
+	</Data>
+
+	<RenderRules>
+		<RenderHandItem>
+			<SpriteRender name="pickaxe" rotateOffset="true" offset="0,16" blend="PREMULTIPLIED_ALPHA"/>
+            <SpriteRender name="slash" offset="5,0" onAction="PUNCH" blend="PREMULTIPLIED_ALPHA" stretchToTarget="true" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER" drawShadow="false" flip="1,1" scale="1,1.5"/>
+		</RenderHandItem>
+
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		    <AvatarTransform class="ArmAngle">
+			    <Set name="armName">arm2Angle</Set>
+			    <Set name="armAngle">1750</Set>
+			    <Set name="isAdditive">true</Set>
+			    <Set name="pointTowardsPunchTarget">false</Set>
+		    </AvatarTransform>
+		</OnPunchUpdate>
+
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="gold_particle" drawShadow="false"/>
+		</AddClothingParticles>
+    
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="gold_particle"/>
+		</SwitchOffClothingParticles>
+
+	</RenderRules>
+</ItemRenderer>

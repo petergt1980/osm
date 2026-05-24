@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="hair" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="16,11"/>
+  </Data>
+  <RenderRules>
+    <Update>
+			<StopIf>
+				<IsZombified>true</IsZombified>
+			</StopIf>
+			<AvatarTransform class="ArmAngle" onAction="WALK|FALL|IDLE|JUMP|PUNCH">
+				<Set name="armName">arm2Angle</Set>
+				<Set name="armAngle">270</Set>
+			</AvatarTransform>
+		</Update>
+    <RenderHandItem>
+	    <SpriteRender name="hair" offset="0,7" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+    </RenderHandItem>
+  </RenderRules>
+</ItemRenderer>

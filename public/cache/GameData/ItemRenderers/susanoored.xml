@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <StateMachines>
+      <StateMachine name="playerState">
+        <States>
+          <State name="Idle"/>
+          <State name="Punch"/>
+        </States>
+        <Transitions>
+          <Transition from="Punch" to="Idle" >
+            <Condition>
+              <IsAction operatorType="NotEqual">PUNCH</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Idle" to="Punch">
+            <Condition>
+              <IsAction>PUNCH</IsAction>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+    
+    <Sprite name="item_Sprite" fileName="game/redsusanoo.rttex" textureSize="256" frame="0,0"/>
+
+    <Animations>
+        <SpriteSinPulseAnimation name="item_stretch" playOnState="playerState.Punch|playerState.Idle" sprite="item_Sprite">
+			<Parameter name="scale.x">
+				<Set name="offset">1</Set>
+				<Set name="period">1500</Set>
+				<Set name="scale">0.03</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+		<SpriteSinPulseAnimation name="item_stretch" playOnState="playerState.Punch|playerState.Idle" sprite="item_Sprite">
+			<Parameter name="scale.y">
+				<Set name="offset">1</Set>
+				<Set name="period">1750</Set>
+				<Set name="scale">0.03</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+    </Animations>
+
+    <RenderOptions>
+      <Default>
+        <Set name="IsToRenderParticlesWhenShrunken">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+    <RenderInFront>
+      <SpriteRender name="item_Sprite" offset="0, 63" scale="1.5, 1.5" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA" drawShadow="false"/>
+    </RenderInFront>
+    <OnPunchUpdate>
+      <AvatarTransform class="Emotion">
+        <Set name="emotion">ANGRY</Set>
+      </AvatarTransform>
+    </OnPunchUpdate>
+  </RenderRules>
+</ItemRenderer>

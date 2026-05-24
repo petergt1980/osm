@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="item_Sprite_1" fileName="game/gtfy_wn.rttex" textureSize="64" frame="0,15" />
+    <Sprite name="double_jump_particle_Sprite_left" fileName="game/ci_n1.rttex" textureSize="32"
+      frame="5,11" />
+    <Sprite name="double_jump_particle_Sprite_right" fileName="game/ci_n1.rttex" textureSize="32"
+      frame="6,11" />
+    <Sprite name="dj_up" fileName="game/ci_n1.rttex" textureSize="32"
+      frame="7,11" />
+
+
+    <Animations>
+      <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="item_Sprite_1">
+        <Frame>0,15</Frame>
+      </SpriteAnimation>
+      <SpriteAnimation name="be_idle3" playOnAction="FALL" sprite="item_Sprite_1">
+        <Frame>3,15</Frame>
+      </SpriteAnimation>      
+
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|JUMPEND" sprite="item_Sprite_1"
+        animTime="250" autoPlay="true" isLoop="true">
+        <Frame>0,15</Frame>
+        <Frame>1,15</Frame>
+        <Frame>2,15</Frame>
+        <Frame>3,15</Frame>
+        <Frame>2,15</Frame>
+        <Frame>1,15</Frame>
+        <Frame>0,15</Frame>
+      </SpriteAnimation>
+
+      <SpriteAnimation name="dj_up"
+				playOnState="playerState.DoubleJump" autoPlay="false" isLoop="false"
+				sprite="dj_up" animTime="100">
+				<Frame>7,11</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="double_jump_particle_Sprite_left"
+				playOnState="playerState.DoubleJump" autoPlay="false" isLoop="false"
+				sprite="double_jump_particle_Sprite_left" animTime="100">
+				<Frame>6,11</Frame>
+			</SpriteAnimation>
+
+			<SpriteAnimation name="double_jump_particle_Sprite_right"
+				playOnState="playerState.DoubleJump" autoPlay="false" isLoop="false"
+				sprite="double_jump_particle_Sprite_right" animTime="100">
+				<Frame>5,11</Frame>
+			</SpriteAnimation>
+    </Animations>
+
+    <ParticleSystems>
+
+			
+			<ParticleSystem name="dj_up_up">
+				<Emitter>
+					<Random name="offset" min="0, -5" max="0, -5"/>
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="emissionInterval">0.1</Set>
+					<Set name="particlesToEmit">1</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="delayTimer">0</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">dj_up</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">false</Set>
+					<Set name="initalRGB">1, 1, 1</Set>
+					<Set name="relativeToEmitter">false</Set>
+					<Set name="rotateWithVelocity">false</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Set name="lifeTime">0.8</Set>
+					<Set name="initialScale">1.1, 1.1</Set>
+					<Set name="finalScale">1.1, 1.1</Set>
+				</Particle>
+			</ParticleSystem>
+
+
+			<ParticleSystem name="double_jump_particle_left">
+				<Emitter>
+					<Random name="offset" min="20, 0" max="16, 0"/>
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="checkParticleNumToEmit">true</Set>
+					<Set name="particlesToEmit">1</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="delayTimer">0</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">double_jump_particle_Sprite_left</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">false</Set>
+					<Set name="initalRGB">1, 1, 1</Set>
+					<Set name="relativeToEmitter">false</Set>
+					<Set name="rotateWithVelocity">false</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="lifeTime">0.8</Set>
+					<Set name="initialScale">1.1, 1.1</Set>
+					<Set name="finalScale">2.3, 2.3</Set>
+				</Particle>
+			</ParticleSystem>
+
+			<ParticleSystem name="double_jump_particle_right">
+				<Emitter>
+					<Random name="offset" min="-16, 0" max="-20, 0"/>
+					<Set name="lifeTime">1</Set>
+					<Set name="particlesPerEmission">1</Set>
+					<Set name="checkParticleNumToEmit">true</Set>
+					<Set name="particlesToEmit">1</Set>
+					<Set name="infParticles">true</Set>
+					<Set name="infLifeTime">true</Set>
+					<Set name="delayTimer">0</Set>
+				</Emitter>
+				<Particle usePlayerFacing="true">
+					<Set name="sprite">double_jump_particle_Sprite_right</Set>
+					<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+					<Set name="isBackgroundParticle">false</Set>
+					<Set name="initalRGB">1, 1, 1</Set>
+					<Set name="relativeToEmitter">false</Set>
+					<Set name="rotateWithVelocity">false</Set>
+					<Set name="interpolateAlpha">true</Set>
+					<Set name="interpolateScale">true</Set>
+					<Set name="lifeTime">0.8</Set>
+					<Set name="initialScale">1.1, 1.1</Set>
+					<Set name="finalScale">2.3, 2.3</Set>
+				</Particle>
+			</ParticleSystem>
+
+		</ParticleSystems>
+  </Data>
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="0,-16" alignmentLeft="LEFT_CENTER"
+        alignmentRight="RIGHT_CENTER" />
+      <SpriteRender name="item_Sprite_1" offset="0,-16" flip="1,0" alignmentLeft="RIGHT_CENTER"
+        alignmentRight="LEFT_CENTER" />
+    </RenderBackpack>
+    
+		<AddClothingParticles>				
+			<ParticleSystemUpdate name="dj_up_up" onAction="JUMPDOUBLE"
+			drawShadow="false" align="RIGHT_CENTER"/>
+			<ParticleSystemUpdate name="double_jump_particle_left" onAction="JUMPDOUBLE"
+				drawShadow="false" align="LEFT_CENTER" />
+			<ParticleSystemUpdate name="double_jump_particle_right" onAction="JUMPDOUBLE"
+				drawShadow="false" align="RIGHT_CENTER" />
+		</AddClothingParticles>
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="dj_up_up" />
+			<ParticleSystemOff name="double_jump_particle_left" />
+			<ParticleSystemOff name="double_jump_particle_right" />
+		</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

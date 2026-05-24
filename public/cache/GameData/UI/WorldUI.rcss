@@ -1,0 +1,112 @@
+body.world_ui {
+    width: 100%;
+    height: 100%;
+    clip: always;
+}
+
+#left_panel {
+    display: block;
+    position: absolute;
+    top: 90dp;
+    left: 8dp;
+    transition: margin-left 0.2s linear-in;
+    margin-left: 0dp;
+}
+
+#top_panel {
+    display: block;
+    position: absolute;
+    top: 16dp;
+    left: 8dp;
+    transition: margin-top 0.2s linear-in;
+    margin-top: 0dp;
+}
+
+.hide #left_panel {
+    transition: margin-left 0.2s linear-in;
+    margin-left: -130dp;
+}
+
+@media (theme: platform-ios)
+{
+    .hide #left_panel {
+        transition: margin-left 0.2s linear-in;
+        margin-left: -190dp;
+    }
+}
+
+.hide #top_panel {
+    transition: margin-top 0.2s linear-in;
+    margin-top: -100dp;
+}
+/*-------------------------------------------------------------------------------*/
+/*--------------                   Gems panel                      --------------*/
+@spritesheet gems_panel_sprites {
+    src: interface/large/gui_store_top_scale9.rttex;
+    resolution: 1x;
+    gems_panel_bg: 0px 0px 32px 32px;
+    gems_panel_bg_inner: 15px 15px 2px 2px;
+}
+
+#gems_panel {
+    display: inline;
+}
+
+    #gems_panel .panel {
+        width: 186dp;
+        height: 41dp;
+        decorator: ninepatch(gems_panel_bg, gems_panel_bg_inner);
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    #gems_panel .panel:active,
+    #gems_panel .panel:active * {
+        image-color: #aaa;
+        color: #aaa;
+    }
+
+        #gems_panel .panel:active #gem_left_panel {
+            background-color: rgba(83, 133, 152, 255);
+        }
+
+    #gems_panel #gem_left_panel {
+        width: 41dp;
+        height: 39dp;
+        background-color: rgba(121, 194, 222, 255);
+        border-top-left-radius: 6dp;
+        border-bottom-left-radius: 6dp;
+        margin-left: -1dp;
+        margin-right: 8dp;
+        display: inline-block;
+    }
+
+        #gems_panel #gem_left_panel #gem_icon {
+            width: 24dp;
+            height: 24dp;
+            decorator: image(interface/cash_icon_overlay.rttex);
+            margin: auto;
+        }
+
+    #gems_panel #gem_right_panel {
+        font-size: 24dp;
+        font-weight: bold;
+        line-height: 39dp;
+        font-effect: shadow(2dp 2dp black);
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    #gems_panel #plus_button {
+        display: inline-block;
+        width: 41dp;
+        height: 41dp;
+        decorator: image(interface/large/gui_buy_plus.rttex);
+        vertical-align: top;
+    }
+
+    #gems_panel #plus_button:active {
+        image-color: #aaa;
+    }
+
+/*-------------------------------------------------------------------------------*/

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_Pet" fileName="game/drg.rttex" textureSize="128,64" frame="0,0"/>
+		<Animations>
+			<SpriteAnimation name="a_PetIdle" sprite="s_Pet" animTime="300" isLoop="true" playOnState="Action.None">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_PetPunch" sprite="s_Pet" animTime="200" isLoop="true" playOnState="Action.Punch">
+				<Frame>0,1</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<StateMachines>
+			<StateMachine name="VMotion">
+				<States>
+					<State name="None" />
+					<State name="Up" />
+					<State name="Down" />
+				</States>
+				<Transitions>
+					<Transition to="None" from="Up|Down">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Up" from="None|Down">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Down" from="None|Up">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action">
+				<States>
+					<State name="None" />
+					<State name="Punch" />
+				</States>
+				<Transitions>
+					<Transition to="None" from="Punch">
+						<Condition>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Punch" from="None">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<RenderOptions>
+			<Default>
+				<Set name="NeedRenderPet">true</Set>
+				<Set name="PetOffsetDuplication">0,0</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderPet>
+			<SpriteRender name="s_Pet" offset="-16,-16" alignment="UP_CENTER"/>
+		</RenderPet>
+        <UpdatePet>
+			<ContextUpdate type="SetPetWalkRunJump">
+				<Set name="minSpeed">500</Set>
+				<Set name="distSpeedMult">10</Set>
+			</ContextUpdate>
+		</UpdatePet>
+	</RenderRules>
+</ItemRenderer>

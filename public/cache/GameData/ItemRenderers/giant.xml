@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="tie" fileName="game/custom_cosmetics1.rttex" textureSize="32" frame="31,0"/>
+
+    <Animations>
+        <SpriteAnimation name="TieAll" playOnAction="JUMP|FALL|IDLE|WALK" sprite="tie" animTime="400" autoPlay="true" isLoop="true">
+		    <Frame>31,0</Frame>
+	    </SpriteAnimation>
+    </Animations>
+
+    <RenderOptions>
+      <Default>
+        <Set name="UserNameOffset">17</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+
+  <RenderRules>
+	<OnDrawCustomOutline>
+      <AvatarTransform class="Scale">
+        <Set name="targetScale">1.75,1.75</Set>
+      </AvatarTransform>
+    </OnDrawCustomOutline>
+
+	<RenderInFront>
+    <SpriteRender name="tie" offset="0,0" blend="PREMULTIPLIED_ALPHA"/>
+	</RenderInFront>
+</RenderRules>
+</ItemRenderer>

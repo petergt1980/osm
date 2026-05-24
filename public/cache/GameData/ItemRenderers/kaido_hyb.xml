@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="md_idle" fileName="game/kadio_hyb_idle.rttex" textureSize="160"/>
+        <Sprite name="md_walk" fileName="game/kaido_hyb_walk.rttex" textureSize="160,144"/>
+        <Sprite name="md_jump_fall" fileName="game/kaido_hyb_jump_fall.rttex" textureSize="320,240"/>
+		<Sprite name="md_punch" fileName="game/kaido_hyb_punch.rttex" textureSize="160"/>
+        <Sprite name="md_punch_eff" fileName="game/particles_large12.rttex" textureSize="64" frame="12,3"/>
+		<Sprite name="md_eff" fileName="game/particles_large13.rttex" textureSize="64"/>
+		<Sprite name="md_eff2" fileName="game/particles.rttex" textureSize="32" frame="4,2"/>
+		<Sprite name="md_eff4" fileName="game/particles_large12.rttex" textureSize="64" frame="0,5"/>
+		<StateMachines>
+		<StateMachine name="Motion">
+			<States>
+				<State name="Idle" />
+				<State name="Move" />
+				<State name="Jump" />
+				<State name="Fall" />
+				<State name="Punch"/>
+				<State name="Respawn"/>
+			</States>
+			<Transitions>
+				<Transition to="Idle" from="Fall|Move|Jump|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						<IsVariableBool name="isAttacking">false</IsVariableBool>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Move" from="Jump|Fall|Idle|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Jump" from="Idle|Move|Fall|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Fall" from="Jump|Idle|Move|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Punch" from="Idle|Move|Jump|Fall">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="ge_eff2" sprite="md_eff4" animTime="800" isLoop="true" playOnState="Motion.Punch|Motion.Idle|Motion.Move|Motion.Jump|Motion.Fall">
+				<Frame>1,5</Frame>
+				<Frame>2,5</Frame>
+				<Frame>3,5</Frame>
+				<Frame>4,5</Frame>
+				<Frame>5,5</Frame>
+				<Frame>6,5</Frame>
+				<Frame>7,5</Frame>
+				<Frame>8,5</Frame>
+				<Frame>9,5</Frame>
+				<Frame>10,5</Frame>
+				<Frame>11,5</Frame>
+				<Frame>12,5</Frame>
+				<Frame>13,5</Frame>
+				<Frame>14,5</Frame>
+				<Frame>15,5</Frame>
+				<Frame>0,6</Frame>
+				<Frame>1,6</Frame>
+				<Frame>2,6</Frame>
+				<Frame>3,6</Frame>
+				</SpriteAnimation>
+			<SpriteAnimation name="ge_punch" sprite="md_punch_eff" animTime="1200" playOnState="Motion.Punch">
+                <Frame>12,3</Frame>
+                <Frame>13,3</Frame>
+            </SpriteAnimation>
+			<SpriteAnimation name="ge_eff" sprite="md_eff" animTime="500" isLoop="true" playOnState="Motion.Punch|Motion.Idle|Motion.Move|Motion.Jump|Motion.Fall">
+				<Frame>7,4</Frame>
+				<Frame>8,4</Frame>
+				<Frame>9,4</Frame>
+				<Frame>10,4</Frame>
+				<Frame>11,4</Frame>
+				</SpriteAnimation>
+			<SpriteAnimation name="gigi_Idle_Animation" playOnState="Motion.Idle" sprite="md_idle" animTime="600" isLoop="true">
+                <Frame>0,0</Frame>
+                <Frame>1,0</Frame>
+                <Frame>2,0</Frame>
+                <Frame>3,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="gigi_Punch_Animation" playOnState="Motion.Punch" sprite="md_punch"  isLoop="true" animTime="400">
+                <Frame>0,0</Frame>
+                <Frame>1,0</Frame>
+                <Frame>2,0</Frame>
+                <Frame>3,0</Frame>
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="gigi_Jump_Animation" playOnState="Motion.Jump" sprite="md_jump_fall" animTime="400">
+                <Frame>6,0</Frame>
+                <Frame>7,0</Frame>
+                <Frame>8,0</Frame>
+                <Frame>9,0</Frame>
+				<Frame>10,0</Frame>
+				<Frame>11,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="gigi_Fall_Animation" playOnState="Motion.Fall" sprite="md_jump_fall" animTime="600">
+				<Frame>12,0</Frame>
+				<Frame>13,0</Frame>
+				<Frame>14,0</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="gigi_Walk_Animation" playOnState="Motion.Move" sprite="md_walk" animTime="600" isLoop="true">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+				<Frame>4,0</Frame>
+				<Frame>5,0</Frame>
+				<Frame>6,0</Frame>
+				<Frame>7,0</Frame>
+
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_flex" updateStage="AddClothingParticles" renderStage="RenderInFront">
+				<Emitter>
+				  <Random name="offset" min="-10, -10020" max="50, -10100" />
+				  <Random name="emissionInterval" min="0.05" max="0.07" />
+				  <Set name="infParticles">true</Set>
+				  <Set name="infLifeTime">true</Set>
+				  <Set name="particlesPerEmission">2</Set>
+				</Emitter>
+				<Particle>
+				  <Set name="sprite">md_eff2</Set>
+				  <Set name="blendingMode">ADDITIVE</Set>
+				  <Set name="lifeTime">0.5</Set>
+				  <Set name="initialVelocity">0,-3</Set>
+				  <Set name="inSpecificOrder">true</Set>
+				  <Curve name="initialAlpha">
+					<KeyFrame>0, 0</KeyFrame>
+					<KeyFrame>0.5, 1</KeyFrame>
+                    <KeyFrame>0.8, 0.5</KeyFrame>
+					<KeyFrame>1, 0</KeyFrame>
+				  </Curve>
+                  <Curve name="initialScale">
+                    <KeyFrame>0, 0,0</KeyFrame>
+                    <KeyFrame>0.5, 0.2,1</KeyFrame>
+                    <KeyFrame>0.8, 0.5,2</KeyFrame>
+                    <KeyFrame>1, 0.8,5</KeyFrame>
+                     </Curve>
+                     <Random name="initialVelocity" min="0, -20" max="0, -80" />
+				</Particle>
+			  </ParticleSystem>
+              <ParticleSystem name="punch_projectile" updateStage="OnPunchStart">
+				<Emitter>
+                    <Set name="offset">30,-10030</Set>
+                    <Set name="emissionInterval">0.25</Set>
+                    <Set name="lifeTime">0.25</Set>
+                    <Set name="particlesPerEmission">1</Set>
+                    <Set name="particlesToEmit">1</Set>
+                </Emitter>
+                <Particle randomSpriteframe="true">
+                    <Set name="sprite">md_punch_eff</Set>
+                    <Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+                    <Set name="lifeTime">0.4</Set>
+                    <Set name="initalRGB">1, 0, 1</Set>
+                    <Curve name="initialAlpha">
+                                <KeyFrame>0, 1</KeyFrame>
+                                <KeyFrame>0.5, 1</KeyFrame>
+                                <KeyFrame>1, 0</KeyFrame>
+                            </Curve>
+                    <Set name="rotateWithVelocity">true</Set>
+                    <Set name="interpolateAlpha">false</Set>
+                    <Set name="initialAlpha">1</Set>
+                    <Set name="finalAlpha">1</Set>
+                    <Set name="interpolateVelocity">true</Set>
+                    <Set name="initialScale">3,3</Set>
+                    <VectorTo name="initialVelocity" source="targetPos" duration="lifeTime" x="1" angle="0"/>
+                    <VectorTo name="finalVelocity" source="targetPos" duration="lifeTime" x="1" angle="0"/>
+                </Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		<RenderOptions>
+			<Default>
+                <Set name="PunchSoundOverride">SHOES</Set>
+				<Set name="PlayDefaultPunchAudio">false</Set>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="UserNameOffset">50</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderInFront>
+			<StopIf>
+				<IsVariableBool name="isMannequin">true</IsVariableBool>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+			<AvatarSilhouetteRender color="10,10,10,100" offset ="0,30" emissionInterval="0.08" onState="Motion.Move|Motion.Jump|Motion.Fall"/>
+            <SpriteRender name="md_eff4" offset="20,-10095" tintOverride="255,0,255,255" drawShadow="false" scale="4,4" onState="Motion.Move|Motion.Idle|Motion.Punch"/>
+			<SpriteRender name="md_eff4" offset="20,-10095" tintOverride="255,0,255,255" drawShadow="false" scale="4,4" onState="Motion.Move|Motion.Idle|Motion.Punch"/>
+            <SpriteRender name="md_idle" offset="0,-10070" drawShadow="true" scale="1,1" onState="Motion.Idle"/>
+            <SpriteRender name="md_walk" offset="0,-10060" drawShadow="true" scale="1,1" onState="Motion.Move"/>
+            <SpriteRender name="md_jump_fall" offset="0,-10060" drawShadow="true" scale="1,1" onState="Motion.Jump"/>
+            <SpriteRender name="md_jump_fall" offset="0,-10060" drawShadow="true" scale="1,1" onState="Motion.Fall"/>
+            <SpriteRender name="md_punch" offset="0,-10060" drawShadow="true" scale="1,1" onState="Motion.Punch"/>
+            <SpriteRender name="md_eff" offset="10,-10080" tintOverride="255,0,255,255" drawShadow="false" scale="2,2" onState="Motion.Idle|Motion.Punch"/>
+            <SpriteRender name="md_eff" offset="10,-10070"  flip="1,0" tintOverride="255,61,0,200" drawShadow="false" scale="2,2" onState="Motion.Idle|Motion.Punch"/>
+            <SpriteRender name="md_eff4" offset="20,-10095" tintOverride="255,61,0,255" drawShadow="false" scale="4,4" onState="Motion.Move|Motion.Idle|Motion.Punch"/>
+            
+            
+        </RenderInFront>
+		<RenderShoes>
+			<StopIf>
+				<IsSitting>true</IsSitting>
+				<IsSleepingOnaBed>true</IsSleepingOnaBed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</RenderShoes>
+		<OnPunchStart>
+		</OnPunchStart>
+	</RenderRules>
+</ItemRenderer>

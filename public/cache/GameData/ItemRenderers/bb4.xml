@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="item_Sprite" fileName="game/lev.rttex" textureSize="64" frame="1,0"/>
+	</Data>
+
+	<RenderRules>
+		<RenderHat>
+			<SpriteRender name="item_Sprite" offset="0,0" alignment="DOWN_CENTER"/>
+		</RenderHat>
+	</RenderRules>
+</ItemRenderer>

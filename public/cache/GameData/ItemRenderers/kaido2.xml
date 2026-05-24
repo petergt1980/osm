@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_KetchupBottle" fileName="game/player_cosmetics3.rttex" textureSize="32" frame="9,21" />
+		<Sprite name="s_Pet" fileName="game/kaido_sprite.rttex" textureSize="325,222" />
+        <Sprite name="s_PunchFireSprite" fileName="game/particles11.rttex" textureSize="32" frame="19,21" />
+        <Sprite name="s_fly" fileName="game/kaido_fly.rttex" textureSize="599,222"/>
+        <Sprite name="s_idleFlame" fileName="game/particles9.rttex" textureSize="32" frame="0,8"/>
+		<Sprite name="s_Punch" fileName="game/particles_large11.rttex" textureSize="64" frame="15,2" />
+		<Animations>
+			<SpriteAnimation name="a_Attack" sprite="s_Pet" animTime="200" isLoop="false" playOnState="Motion.Punch">
+				<Frame>0,2</Frame>
+				<Frame>1,2</Frame>
+				<Frame>2,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Fall" sprite="s_fly" animTime="100" isLoop="true" playOnState="Motion.Down">
+				<Frame>1,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Idle" sprite="s_Pet" animTime="10000" isLoop="true" playOnState="Motion.None">
+				<Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+                <Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+                <Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+                <Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+                <Frame>0,1</Frame>
+				<Frame>1,1</Frame>
+				<Frame>2,1</Frame>
+				<Frame>3,1</Frame>
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+                <Frame>4,0</Frame>
+                <Frame>5,0</Frame>
+                <Frame>6,0</Frame>
+                <Frame>7,0</Frame>
+                <Frame>8,0</Frame>
+                <Frame>9,0</Frame>
+                <Frame>10,0</Frame>
+                <Frame>11,0</Frame>
+                <Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+                <Frame>4,0</Frame>
+                <Frame>5,0</Frame>
+                <Frame>6,0</Frame>
+                <Frame>7,0</Frame>
+                <Frame>8,0</Frame>
+                <Frame>9,0</Frame>
+                <Frame>10,0</Frame>
+                <Frame>11,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Jump" sprite="s_fly" animTime="100" isLoop="true" playOnState="Motion.Up">
+				<Frame>0,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_Move" sprite="s_fly" animTime="600" isLoop="true" playOnState="Motion.Horizontal">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<ParticleSystems>
+		<ParticleSystem name="PunchParticle">
+				<Emitter>
+					<Set name="offset">2, -120</Set>
+					<Random name="emissionInterval" min="0.001" max="0.005" />
+                    <Set name="infParticles">true</Set>
+                    <Set name="infLifeTime">true</Set>
+                    <Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_PunchFireSprite</Set>
+                    <Set name="blendingMode">ADDITIVE</Set>
+					<Set name="rotateWithVelocity">true</Set>
+					<Curve name="initialScale">
+						<KeyFrame>0, 3, 3</KeyFrame>
+						<KeyFrame>1, 7, 7</KeyFrame>
+					</Curve>
+					<Set name="lifeTime">0.35</Set>
+					<Random name="targetPosOffset" min="-12,-8" max="12,8"/>
+                    <VectorTo name="initialVelocity" source="targetPos" offset="targetPosOffset" duration="lifeTime" x="0.7" angleOutVar="projectile_angle"/>
+				</Particle>
+			</ParticleSystem>
+            <ParticleSystem name="ps_shieldFlames" updateStage="AddClothingParticles" renderStage="RenderHandItem">
+        <Emitter>
+          <Random name="offset" min="-5, -5" max="-7, -10" />
+          <Random name="emissionInterval" min="0.05" max="0.1" />
+          <Set name="infParticles">true</Set>
+          <Set name="infLifeTime">true</Set>
+          <Set name="particlesPerEmission">1</Set>
+        </Emitter>
+        <Particle>
+          <Set name="sprite">s_idleFlame</Set>
+          <Set name="blendingMode">ADDITIVE</Set>
+          <Set name="lifeTime">1.2</Set>
+          <Set name="initialVelocity">0,-3</Set>
+          <Set name="inSpecificOrder">true</Set>
+          <Curve name="initialAlpha">
+            <KeyFrame>0, 0</KeyFrame>
+            <KeyFrame>0.5, 0.4</KeyFrame>
+            <KeyFrame>1, 0</KeyFrame>
+          </Curve>
+          <Random name="initialScale" min="0.3" max="0.6" />
+        </Particle>
+      </ParticleSystem>
+		</ParticleSystems>
+		<StateMachines>
+			<StateMachine name="Motion">
+				<States>
+					<State name="None" />
+					<State name="Up" />
+					<State name="Down" />
+					<State name="Horizontal" />
+					<State name="Punch" />
+				</States>
+				<Transitions>
+					<Transition to="None" from="Punch|Up|Down|Horizontal">
+						<Condition type="and">
+							<IsVariableFloat name="pet.velocity.length" operator="Less" abs="true">0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Up" from="Punch|None|Down|Horizontal">
+						<Condition type="and">
+							<IsVariableFloat name="pet.velocity.y" operator="Less">-0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Down" from="Punch|None|Up|Horizontal">
+						<Condition type="and">
+							<IsVariableFloat name="pet.velocity.y" operator="Greater">0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Horizontal" from="Punch|None|Down|Up">
+						<Condition type="and">
+							<IsVariableFloat name="pet.velocity.x" operator="Greater" abs="true">0.1</IsVariableFloat>
+							<IsVariableFloat name="pet.velocity.y" operator="Less" abs="true">0.1</IsVariableFloat>
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Punch" from="None|Up|Down|Horizontal">
+						<Condition>
+							<IsAction>PUNCH</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<RenderOptions>
+			<Default>
+				<Set name="NeedRenderPet">true</Set>
+				<Set name="PetOffsetDuplication">-32,0</Set>
+				<Set name="UsePetForceFaceTime">false</Set>
+				<Set name="HideParticlesOnTransform">false</Set>
+				<Set name="IgnorePunchTypeCheck">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<Update>
+			<AvatarTransform class="ArmAngle" onState="Motion.Punch">
+				<Set name="armName">arm1Angle</Set>
+				<Set name="pointTowardsPunchTarget">true</Set>
+			</AvatarTransform>
+		</Update>
+		<RenderHandItem>
+			<SpriteRender name="s_KetchupBottle" rotationPoint="0,1" alignment="UPPER_CENTER" />
+		</RenderHandItem>
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+		<RenderPet>
+            <SpriteRender name="s_fly" offset="-150,-30" scale="0.6.0.6" alignment="DOWN_CENTER" onState="Motion.Horizontal|Motion.Up|Motion.Down" /> 
+			<SpriteRender name="s_Pet" offset="-150,-30" scale="0.4.0.4" alignment="DOWN_CENTER" onState="Motion.None|Motion.Punch" />
+		</RenderPet>
+		<UpdatePet>
+			<ContextUpdate type="SetPetWalkRunJump">
+				<Set name="PetWalkRunJump.minSpeed">500</Set>
+				<Set name="PetWalkRunJump.distSpeedMult">10</Set>
+			</ContextUpdate>
+			<StopIf>
+				<IsTrnsformed>true</IsTrnsformed>
+			</StopIf>
+			<ParticleSystemUpdate name="PunchParticle" onState="Motion.Punch"/>
+		</UpdatePet>
+	</RenderRules>
+</ItemRenderer>

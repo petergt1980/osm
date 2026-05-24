@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="Helm" fileName="game/custom_cosmetics1_icon.rttex" textureSize="32" frame="31,1" />
+		<Sprite name="Aura" fileName="game/enigma_particles4.rttex" textureSize="64" frame="15,2" />
+
+		<Animations>
+			<SpriteCurveAnimation name="Aura_Spin" autoPlay="true" isLoop="true" sprite="Aura" animTime="7500">
+				<Curve name="rotation">
+					<KeyFrame>0, 0</KeyFrame>
+					<KeyFrame>1, 360</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+		</Animations>
+	</Data>
+
+	<RenderRules>
+            <RenderHat>
+                <SpriteRender name="Helm" rotateOffset="true" offset="0,-31" alignment="CENTER"/>
+            </RenderHat>
+            <RenderBehind>
+                <SpriteRender name="Aura" rotateOffset="true" offset="0,-9" drawShadow="false" alignment="CENTER"/>
+            </RenderBehind>
+    </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="A702">
+    <Data>
+        <Sprite name="a" fileName="game/darknova/an1/gtfy_wn2.rttex" textureSize="64" frame="8,15" />
+        <Sprite name="b" fileName="game/darknova/an1/ci_n1.rttex" textureSize="32" frame="27,30" />
+        <Sprite name="c" fileName="game/darknova/an1/ci_n1.rttex" textureSize="32" frame="26,30" />
+    </Data>
+    <RenderRules>
+        <RenderHair>
+            <SpriteRender name="c" offset="0,-24" tintOverride="SKIN" />
+            <Group>
+                <Rotate>-10,0,0,1</Rotate>
+                <SpriteRender name="b" offset="-0.6,-26.75" scale="0.125,0.125" alignment="CENTER" />
+            </Group>
+            <Group>
+                <Rotate>-45,0,0,1</Rotate>
+                <SpriteRender name="b" offset="-1.25,-23.375" scale="0.125,0.125" alignment="CENTER" />
+            </Group>
+            <Group>
+                <Rotate>-80,0,0,1</Rotate>
+                <SpriteRender name="b" offset="-1.25,-20.125" scale="0.125,0.125" alignment="CENTER" />
+            </Group>
+            <Group>
+                <Rotate>10,0,0,1</Rotate>
+                <SpriteRender name="b" flip="1,0" offset="7.6,-26.75" scale="0.125,0.125"
+                    alignment="CENTER" />
+            </Group>
+            <Group>
+                <Rotate>45,0,0,1</Rotate>
+                <SpriteRender name="b" flip="1,0" offset="8.25,-23.375" scale="0.125,0.125"
+                    alignment="CENTER" />
+            </Group>
+            <Group>
+                <Rotate>80,0,0,1</Rotate>
+                <SpriteRender name="b" flip="1,0" offset="8.25,-20.125" scale="0.125,0.125"
+                    alignment="CENTER" />
+            </Group>
+            <SpriteRender name="a" offset="0,-29" />
+        </RenderHair>
+    </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="shirt_sprite" fileName="game/wnt.rttex" textureSize="128" frame="1,0"/>
+    <Sprite name="sleeve" fileName="game/robe.rttex" textureSize="32" frame="1,0"/>
+    
+    <Animations>
+      <SpriteAnimation name="shirt_animation" sprite="shirt_sprite" animTime="500" isLoop="true" autoPlay="true">
+        <Frame>1,0</Frame>
+		<Frame>2,0</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+  <RenderBackHandItem>
+   <StopIf type="and">
+    <IsZombified>true</IsZombified>
+    <IsAction>PUNCH</IsAction>
+   </StopIf>
+    <SpriteRender name="sleeve" rotateOffset="true" alignment="CENTER" blend="PREMULTIPLIED_ALPHA"/>
+  </RenderBackHandItem>
+  <RenderHandItem>
+    <SpriteRender name="sleeve" rotateOffset="true" alignment="UPPER_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+  </RenderHandItem>
+    <RenderShirt>
+    <Translate>shirt_position</Translate>
+      <SpriteRender name="shirt_sprite" scale="0.25, 0.25" alignment="DOWN_CENTER"/>
+    </RenderShirt>
+  </RenderRules>
+</ItemRenderer>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles2.rttex" textureSize="64" frame="0,8"/>
+	<Sprite name="smoke" fileName="game/particles.rttex" textureSize="32" frame="13,2"/>
+	<Animations>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP" sprite="item_Sprite_1" animTime="300" autoPlay="true" isLoop="true">
+		<Frame>0,8</Frame>
+        <Frame>1,8</Frame>
+		<Frame>2,8</Frame>
+		<Frame>3,8</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="item_Sprite_1">
+        <Frame>0,8</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle3" playOnAction="FALL" sprite="item_Sprite_1">
+        <Frame>3,8</Frame>
+      </SpriteAnimation>
+    </Animations>
+	<ParticleSystems>
+		<ParticleSystem name="smoke_particle">
+			<Emitter>
+				<Set name="offset">-35, 3</Set>
+				<Set name="emissionInterval">0.06</Set>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">ADDITIVE</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initialAlpha">0.5</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">0.75, 0.75</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">0.4</Set>
+				<Set name="initialVelocity">0, 0</Set>
+				<Set name="useTargetTileColorForTint">true</Set>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="smoke_particle_2">
+			<Emitter>
+				<Set name="offset">35, 3</Set>
+				<Set name="emissionInterval">0.06</Set>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">ADDITIVE</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initialAlpha">0.5</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">0.75, 0.75</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">0.4</Set>
+				<Set name="initialVelocity">0, 0</Set>
+				<Set name="useTargetTileColorForTint">true</Set>
+			</Particle>
+		</ParticleSystem>
+	</ParticleSystems>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="0,-32" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+	  <SpriteRender name="item_Sprite_1" offset="0,-32" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="smoke_particle" onAction="JUMP"/>
+		<ParticleSystemUpdate name="smoke_particle_2" onAction="JUMP"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="smoke_particle"/>
+		<ParticleSystemOff name="smoke_particle_2"/>
+	</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

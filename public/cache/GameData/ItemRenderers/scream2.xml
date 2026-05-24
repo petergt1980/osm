@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_BUSTER_BRUSH">
+  <Data>
+    <StateMachines>
+      <StateMachine name="playerState">
+        <States>
+          <State name="Equip"/>
+          <State name="Fall"/>
+        </States>
+        <Transitions>
+          <Transition from="Equip" to="Fall" >
+            <Condition>
+              <IsAction>FALL</IsAction>
+            </Condition>
+          </Transition>
+          <Transition from="Fall" to="Equip">
+            <Condition>
+              <IsAction operatorType="NotEqual">FALL</IsAction>
+            </Condition>
+          </Transition>
+        </Transitions>
+      </StateMachine>
+    </StateMachines>
+
+    <Sprite name="equip_sprite" fileName="game/scream.rttex" textureSize="256,256" frame="0,0"/>
+    <Sprite name="fall_sprite" fileName="game/scream.rttex" textureSize="256,256" frame="0,0"/>
+    
+    <RenderOptions>
+      <Default>
+        <Set name="DefaultRenderMannequinHandItem">false</Set>
+        <Set name="HideParticlesOnTransform">false</Set>
+        <Set name="IgnoreDefaultDamagedTileEffect">true</Set>
+        <Set name="RenderBackArmBuild">false</Set>
+        <Set name="RenderFrontArmInfected">true</Set>
+        <Set name="RenderBackArmInfected">true</Set>
+        <Set name="UserNameOffset">15</Set>
+      </Default>
+    </RenderOptions>
+    
+  </Data>
+
+  <RenderRules>
+    <Update>
+      <StopIf>
+        <IsZombified>true</IsZombified>
+      </StopIf>
+      <AvatarTransform class="ArmAngle" onState="playerState.Equip|playerState.Fall">
+        <Set name="armName">arm1Angle</Set>
+        <Set name="armAngle">240</Set>
+      </AvatarTransform>
+    </Update>
+    
+    <RenderBackHandItem>
+      <StopIf type="and">
+        <IsZombified>true</IsZombified>
+        <IsAction>PUNCH</IsAction>
+      </StopIf>
+      <SpriteRender name="equip_sprite" scale="0.25, 0.25" offset="7, 5" rotationPoint="30" flip="0,1" alignment="CENTER" rotateOffset="true"  blend="PREMULTIPLIED_ALPHA" onState="playerState.Equip"/>
+      <SpriteRender name="fall_sprite" scale="0.25, 0.25" offset="7, 5" rotationPoint="30" flip="0,1" alignment="CENTER" rotateOffset="true"  blend="PREMULTIPLIED_ALPHA" onState="playerState.Fall"/>
+    </RenderBackHandItem>
+
+    <SwitchOffClothingParticles>
+    </SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

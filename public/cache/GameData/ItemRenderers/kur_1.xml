@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="s_Wing" fileName="game/kntc_96.rttex" textureSize="96" frame="0,0" />
+		<Animations>
+			<SpriteAnimation name="a_WingFly" sprite="s_Wing" animTime="750" isLoop="true" playOnState="VMotion.Up">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_WingGlide" sprite="s_Wing" animTime="750" isLoop="true" playOnState="VMotion.Down">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="a_WingGround" sprite="s_Wing" animTime="750" isLoop="true" playOnState="VMotion.None">
+				<Frame>0,0</Frame>
+				<Frame>1,0</Frame>
+				<Frame>2,0</Frame>
+				<Frame>3,0</Frame>
+			</SpriteAnimation>
+		</Animations>
+		<StateMachines>
+			<StateMachine name="VMotion">
+				<States>
+					<State name="None" />
+					<State name="Up" />
+					<State name="Down" />
+				</States>
+				<Transitions>
+					<Transition to="None" from="Up|Down">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Up" from="None|Down">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition to="Down" from="None|Up">
+						<Condition>
+							<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Hide.Wings">
+				<States>
+					<State name="True"/>
+					<State name="False"/>
+				</States>
+				<Transitions>
+					<Transition to="True" from="False">
+						<Condition>
+							<ItemHasTag>HIDE_WINGS</ItemHasTag>
+						</Condition>
+					</Transition>
+					<Transition to="False" from="True">
+						<Condition>
+							<ItemHasTag operatorType="NotEqual">HIDE_WINGS</ItemHasTag>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		<RenderOptions>
+			<Default>
+				<Set name="IsNightVision">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderBackpack>
+			<SpriteRender flip="0,0" name="s_Wing" offset="-10,-25" onState="Hide.Wings.False" />
+		</RenderBackpack>
+	</RenderRules>
+</ItemRenderer>

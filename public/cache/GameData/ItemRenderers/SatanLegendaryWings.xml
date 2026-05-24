@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="s_wings" fileName="game/king_particle_large.rttex" textureSize="64" frame="0,1"/>
+	<Sprite name="smoke" fileName="game/particles.rttex" textureSize="32" frame="13,2"/>
+	<Animations>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP" sprite="s_wings" animTime="300" autoPlay="true" isLoop="true">
+		<Frame>0,1</Frame>
+        <Frame>1,1</Frame>
+		<Frame>2,1</Frame>
+		<Frame>3,1</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="s_wings">
+        <Frame>0,1</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle3" playOnAction="FALL" sprite="s_wings">
+        <Frame>3,1</Frame>
+      </SpriteAnimation>
+    </Animations>
+	<ParticleSystems>
+		<ParticleSystem name="smoke_particle">
+			<Emitter>
+				<Set name="offset">-35, 3</Set>
+				<Set name="emissionInterval">0.06</Set>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">ADDITIVE</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initialAlpha">0.5</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">0.75, 0.75</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">0.4</Set>
+				<Set name="initialVelocity">0, 0</Set>
+				<Set name="useTargetTileColorForTint">true</Set>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="smoke_particle_2">
+			<Emitter>
+				<Set name="offset">35, 3</Set>
+				<Set name="emissionInterval">0.06</Set>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">ADDITIVE</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initialAlpha">0.5</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">0.75, 0.75</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">0.4</Set>
+				<Set name="initialVelocity">0, 0</Set>
+				<Set name="useTargetTileColorForTint">true</Set>
+			</Particle>
+		</ParticleSystem>
+	</ParticleSystems>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="s_wings" offset="0,-32" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+	  <SpriteRender name="s_wings" offset="0,-32" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="smoke_particle" onAction="JUMP"/>
+		<ParticleSystemUpdate name="smoke_particle_2" onAction="JUMP"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="smoke_particle"/>
+		<ParticleSystemOff name="smoke_particle_2"/>
+	</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

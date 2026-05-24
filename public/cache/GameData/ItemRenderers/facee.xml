@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="item_Sprite" fileName="game/face2.rttex" textureSize="32" frame="0,0"/>
+		
+	</Data>
+
+	<RenderRules>
+		<RenderFaceItem preApplyGenericRender="true">
+			<SpriteRender name="item_Sprite" alignment="DOWN_CENTER"/>
+			<StopIf>
+				<IsZombified>true</IsZombified>
+				<IsRenderMod>RENDER_MOD_SPIRIT_GUIDE</IsRenderMod>
+			</StopIf>
+			<SpriteRender name="item_Sprite" alignment="DOWN_CENTER"/>
+		</RenderFaceItem>
+	</RenderRules>
+</ItemRenderer>

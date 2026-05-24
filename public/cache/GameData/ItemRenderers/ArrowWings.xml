@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/ArrowWings.rttex" textureSize="64" frame="0,0"/>
+	<Sprite name="item_Sprite_A" fileName="game/HolaArrow.rttex" textureSize="32" frame="0,0"/>
+	
+	<Animations>
+      <SpriteAnimation name="wingFlexJump" playOnAction="JUMP" sprite="item_Sprite_1" animTime="500" autoPlay="true" isLoop="true">
+        <Frame>0,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>2,0</Frame>
+      </SpriteAnimation>
+      <SpriteAnimation name="wingFlexJump2" playOnAction="FALL" sprite="item_Sprite_1" animTime="400" autoPlay="true" isLoop="false">
+		<Frame>2,0</Frame>
+		<Frame>1,0</Frame>
+		<Frame>0,0</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="item_Sprite_1" animTime="600" autoPlay="true" isLoop="true">
+        <Frame>0,0</Frame>
+      </SpriteAnimation>
+      <SpriteSinPulseAnimation name="floatAnim1" sprite="item_Sprite_A" autoPlay="true">
+        <Parameter name="pos.y">
+          <Set name="period">3000</Set>
+          <Set name="scale">1</Set>
+        </Parameter>
+       </SpriteSinPulseAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBehind>
+      <SpriteRender name="item_Sprite_A" offset="7,-36" flip="1,0" blend="PREMULTIPLIED_ALPHA"/>
+    </RenderBehind>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="0,-32" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+	  <SpriteRender name="item_Sprite_1" offset="0,-32" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+  </RenderRules>
+</ItemRenderer>

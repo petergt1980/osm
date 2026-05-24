@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles2.rttex" textureSize="64" frame="6,6"/>
+	<Sprite name="flag_ee" fileName="interface/flags/ee.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_fi" fileName="interface/flags/fi.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_se" fileName="interface/flags/se.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_no" fileName="interface/flags/no.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_lt" fileName="interface/flags/lt.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_lv" fileName="interface/flags/lv.rttex" textureSize="16" frame="0,0"/>
+	<Sprite name="flag_is" fileName="interface/flags/is.rttex" textureSize="16" frame="0,0"/>
+	<Animations>
+		<SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|FALL|IDLE|WALK" sprite="item_Sprite_1" animTime="2500" autoPlay="true" isLoop="true">
+			<Frame>6,6</Frame>
+			<Frame>7,6</Frame>
+			<Frame>8,6</Frame>
+			<Frame>9,6</Frame>
+			<Frame>10,6</Frame>
+			<Frame>11,6</Frame>
+			<Frame>12,6</Frame>
+		</SpriteAnimation>
+		<SpriteSinPulseAnimation name="auro_float" sprite="item_Sprite_1" autoPlay="true">
+			<Parameter name="pos.y">
+				<Set name="period">4000</Set>
+				<Set name="scale">5</Set>
+			</Parameter>
+		</SpriteSinPulseAnimation>
+    </Animations>
+	<ParticleSystems>
+		<ParticleSystem name="part_ee">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_ee</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_fi">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_fi</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_se">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_se</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_no">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_no</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_lv">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_lv</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_lt">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_lt</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+		<ParticleSystem name="part_is">
+			<Emitter>
+				<Random name="offset" min="-35, 20" max="36, 25"/>
+				<Random name="emissionInterval" min="0.2" max="0.22"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">flag_is</Set>
+				<Set name="blendingMode">PREMULTIPLIED_ALPHA</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+				<Set name="initialAlpha">1</Set>
+				<Set name="finalAlpha">0</Set>
+				<Set name="interpolateAlpha">true</Set>
+				<Set name="interpolateScale">true</Set>
+				<Set name="initialScale">1, 1</Set>
+				<Set name="finalScale">2, 2</Set>
+				<Set name="lifeTime">2</Set>
+				<Random name="initialVelocity" min="0, 30" max="0, 40"/>
+				<Random name="initialAngle" min="0" max="359"/>
+			</Particle>
+		</ParticleSystem>
+	</ParticleSystems>
+  </Data>
+
+  <RenderRules>
+    <RenderAura>
+	  <SpriteRender name="item_Sprite_1" offset="0,1" alignment="CENTER"/>
+    </RenderAura>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="part_ee" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_fi" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_se" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_no" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_lv" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_lt" onAction="JUMP"/>
+		<ParticleSystemUpdate name="part_is" onAction="JUMP"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="part_ee"/>
+		<ParticleSystemOff name="part_fi"/>
+		<ParticleSystemOff name="part_se"/>
+		<ParticleSystemOff name="part_no"/>
+		<ParticleSystemOff name="part_lv"/>
+		<ParticleSystemOff name="part_lt"/>
+		<ParticleSystemOff name="part_is"/>
+	</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

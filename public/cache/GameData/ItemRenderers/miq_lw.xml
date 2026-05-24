@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="item_Sprite_1" fileName="game/gtfy_wn.rttex" textureSize="64" frame="0,0" />
+    <Animations>
+      <SpriteAnimation name="be_idle2" playOnAction="IDLE|WALK" sprite="item_Sprite_1">
+        <Frame>0,0</Frame>
+      </SpriteAnimation>
+      <SpriteAnimation name="be_idle3" playOnAction="FALL" sprite="item_Sprite_1">
+        <Frame>3,0</Frame>
+      </SpriteAnimation>      
+      <SpriteAnimation name="wingFlexJump2" playOnAction="JUMP|JUMPEND" sprite="item_Sprite_1"
+        animTime="250" autoPlay="true" isLoop="true">
+        <Frame>0,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>2,0</Frame>
+        <Frame>3,0</Frame>
+        <Frame>2,0</Frame>
+        <Frame>1,0</Frame>
+        <Frame>0,0</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="0,-29" alignmentLeft="LEFT_CENTER"
+        alignmentRight="RIGHT_CENTER" />
+      <SpriteRender name="item_Sprite_1" offset="0,-29" flip="1,0" alignmentLeft="RIGHT_CENTER"
+        alignmentRight="LEFT_CENTER" />
+    </RenderBackpack>
+    
+		<AddClothingParticles>
+			<ParticleSystemUpdate name="double_jump_particle" onAction="JUMPDOUBLE"/>
+		</AddClothingParticles>
+		<SwitchOffClothingParticles>
+			<ParticleSystemOff name="double_jump_particle"/>
+		</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

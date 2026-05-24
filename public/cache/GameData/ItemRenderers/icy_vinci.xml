@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+	<Sprite name="item_Sprite_1" fileName="game/enigma_particles4.rttex" textureSize="64" frame="4,8"/>
+    <Sprite name="item_Sprite_2" fileName="game/enigma_particles4.rttex" textureSize="64" frame="4,8"/>
+	<Sprite name="smoke" fileName="game/enigma_particles_small1.rttex" textureSize="32" frame="3,15"/>
+	<Animations>
+			<SpriteAnimation name="left_wing_Idle" playOnState="playerState.Idle|playerState.Move|playerState.SpiritGuide" sprite="item_Sprite_1" isLoop="true" animTime="100">
+				<Frame>0,8</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="right_wing_Idle" playOnState="playerState.Idle|playerState.Move|playerState.SpiritGuide" sprite="item_Sprite_2" isLoop="true" animTime="100">
+				<Frame>0,8</Frame>
+			</SpriteAnimation>
+			
+			<SpriteAnimation name="left_wing_DoubleJ" playOnState="playerState.DoubleJump" sprite="item_Sprite_1" isLoop="false" animTime="125">
+        		<Frame>3,8</Frame>
+        		<Frame>2,8</Frame>
+				<Frame>1,8</Frame>
+			</SpriteAnimation>		
+			<SpriteAnimation name="right_wing_DoubleJ" playOnState="playerState.DoubleJump" sprite="item_Sprite_2" isLoop="false" animTime="125">
+        		<Frame>3,8</Frame>
+        		<Frame>2,8</Frame>
+				<Frame>1,8</Frame>
+			</SpriteAnimation>		
+
+      		<SpriteAnimation name="left_wing_Fall" playOnState="playerState.Fall" sprite="item_Sprite_1" isLoop="true" animTime="100">
+        		<Frame>3,8</Frame>
+			</SpriteAnimation>		
+			<SpriteAnimation name="right_wing_Fall" playOnState="playerState.Fall" sprite="item_Sprite_2" isLoop="true" animTime="100">
+       			<Frame>3,8</Frame>
+			</SpriteAnimation>	
+		
+			<SpriteAnimation name="left_wing_Jump" playOnState="playerState.Jump" sprite="item_Sprite_1" isLoop="false" animTime="300">
+				<Frame>3,8</Frame>
+				<Frame>2,8</Frame>
+                <Frame>3,8</Frame>
+                <Frame>2,8</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="right_wing_Jump" playOnState="playerState.Jump" sprite="item_Sprite_2" isLoop="false" animTime="300">
+				<Frame>3,8</Frame>
+				<Frame>2,8</Frame>
+                <Frame>3,8</Frame>
+                <Frame>2,8</Frame>
+			</SpriteAnimation>
+    </Animations>
+	<ParticleSystems>
+		<ParticleSystem name="smoke_particle">
+			<Emitter>
+				<Random name="offset" min="-35, -9" max="36, -18"/>
+				<Random name="emissionInterval" min="0.02" max="0.025"/>
+				<Set name="infParticles">true</Set>
+				<Set name="infLifeTime">true</Set>
+				<Set name="particlesPerEmission">1</Set>
+			</Emitter>
+			<Particle>
+				<Set name="sprite">smoke</Set>
+				<Set name="blendingMode">ADDITIVE</Set>
+				<Set name="isBackgroundParticle">false</Set>
+				<Set name="initalRGB">1, 1, 1</Set>
+					<Curve name="initialAlpha">
+						<KeyFrame>0, 1</KeyFrame>
+                        <KeyFrame>0.75, 1</KeyFrame>
+						<KeyFrame>1, 0</KeyFrame>
+					</Curve>
+					<Curve name="initialScale">
+						<KeyFrame>0, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.05, 1,1</KeyFrame>
+						<KeyFrame>0.1, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.15, 1,1</KeyFrame>
+						<KeyFrame>0.2, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.25, 1,1</KeyFrame>
+						<KeyFrame>0.3, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.35, 1,1</KeyFrame>
+						<KeyFrame>0.4, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.45, 1,1</KeyFrame>
+						<KeyFrame>0.5, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.55, 1,1</KeyFrame>
+						<KeyFrame>0.6, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.65, 1,1</KeyFrame>
+						<KeyFrame>0.7, 0.2,0.2</KeyFrame>
+						<KeyFrame>0.75, 0.75,0.75</KeyFrame>
+						<KeyFrame>0.8, 0.15,0.15</KeyFrame>
+						<KeyFrame>0.85, 0.5,0.5</KeyFrame>
+						<KeyFrame>0.9, 0.1,0.1</KeyFrame>
+						<KeyFrame>0.95, 0.25,0.25</KeyFrame>
+						<KeyFrame>1, 0.05,0.05</KeyFrame>
+					</Curve>
+				<Random name="lifeTime" min="0.85" max="1.35"/>
+				<Random name="initialVelocity" min="0, 3" max="0, 5"/>
+					<Select name="initialRotationRate" input="randomNumber">
+						<Item>-720</Item>
+						<Item>-360</Item>
+						<Item>360</Item>
+						<Item>720</Item>
+					</Select> 
+			</Particle>
+		</ParticleSystem>
+	</ParticleSystems>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="item_Sprite_1" offset="-6,-21" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+	  <SpriteRender name="item_Sprite_2" offset="6,-21" flip="1,0" alignmentLeft="RIGHT_CENTER" alignmentRight="LEFT_CENTER"/>
+    </RenderBackpack>
+	<AddClothingParticles>
+		<ParticleSystemUpdate name="smoke_particle" onState="playerState.Move|playerState.Jump|playerState.DoubleJump|playerState.Fall"/>
+	</AddClothingParticles>
+	<SwitchOffClothingParticles>
+		<ParticleSystemOff name="smoke_particle"/>
+	</SwitchOffClothingParticles>
+  </RenderRules>
+</ItemRenderer>

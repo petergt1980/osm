@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="n_b_sprite" fileName="game/naruto_bryn.rttex" textureSize="128"/>
+		<Sprite name="n_punch" fileName="game/naruto_bry_eff.rttex" textureSize="192,128"/>
+		<StateMachines>
+		<StateMachine name="Motion">
+			<States>
+				<State name="Idle" />
+				<State name="Move" />
+				<State name="Jump" />
+				<State name="Fall" />
+				<State name="Punch"/>
+				<State name="Respawn"/>
+			</States>
+			<Transitions>
+				<Transition to="Idle" from="Fall|Move|Jump|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						<IsVariableBool name="isAttacking">false</IsVariableBool>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Move" from="Jump|Fall|Idle|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">true</IsVariableBool>
+						<IsVariableFloat name="speed.length" operator="Greater" abs="true">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Jump" from="Idle|Move|Fall|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Less">-0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Fall" from="Jump|Idle|Move|Punch" >
+					<Condition type="and">
+						<IsVariableBool name="onGround">false</IsVariableBool>
+						<IsVariableFloat name="speed.y" operator="Greater">0.1</IsVariableFloat>
+						<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition to="Punch" from="Idle|Move|Jump|Fall">
+					<Condition type="and">
+						<IsAction>PUNCH</IsAction>
+					</Condition>
+				</Transition>
+			</Transitions>
+		</StateMachine>
+		</StateMachines>
+		<Animations>
+			<SpriteAnimation name="ne_punch_eff" sprite="n_punch" playOnState="Motion.Punch" animTime="400" isLoop="true">
+			<Frame>0,5</Frame>
+			<Frame>1,5</Frame>
+			<Frame>2,5</Frame>
+			<Frame>3,5</Frame>
+			</SpriteAnimation>			
+			<SpriteAnimation name="nar_Idle_Animation" playOnState="Motion.Idle" sprite="n_b_sprite" animTime="800" isLoop="true">
+			<Frame>0,0</Frame>
+			<Frame>1,0</Frame>
+			<Frame>2,0</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="nar_Punch_Animation" playOnState="Motion.Punch" sprite="n_b_sprite" animTime="400">
+			<Frame>0,4</Frame>
+			<Frame>1,4</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="nar_Jump_Animation" playOnState="Motion.Jump" sprite="n_b_sprite" animTime="600">
+				<Frame>0,2</Frame>
+				<Frame>1,2</Frame>
+				<Frame>2,2</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="nar_Fall_Animation" playOnState="Motion.Fall" sprite="n_b_sprite" animTime="600">
+				<Frame>0,3</Frame>
+				<Frame>1,3</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="nar_Walk_Animation" playOnState="Motion.Move" sprite="n_b_sprite" animTime="600" isLoop="true">
+				<Frame>0,1</Frame>
+
+			</SpriteAnimation>
+		</Animations>
+		<RenderOptions>
+			<Default>
+				<Set name="JumpEndStateRange">100</Set>
+				<Set name="ClothingOffsetFromShoes">10000</Set>
+				<Set name="IsRidingBird">true</Set>
+				<Set name="IsVehicle">true</Set>
+				<Set name="UserNameOffset">50</Set>
+				<Set name="RenderShoesWithMermaidTail">true</Set>
+				<Set name="ShoesHidesBodyLegs">true</Set>
+				<Set name="IsToRenderPants">false</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+	<RenderRules>
+		<RenderInFront>
+			<StopIf>
+				<IsVariableBool name="isMannequin">true</IsVariableBool>
+				<IsRenderMod>RENDER_MOD_MINI_YOU</IsRenderMod>
+			</StopIf>
+			<SpriteRender name="n_b_sprite" offset="0,-10060" drawShadow="true" scale="1,1" onState="Motion.Idle|Motion.Move|Motion.Jump|Motion.Fall|Motion.Punch"/>
+            <SpriteRender name="n_punch" offset="150,-10060" drawShadow="false" scale="1,1" onState="Motion.Punch"/>
+		</RenderInFront>
+		<RenderShoes>
+			<StopIf>
+				<IsSitting>true</IsSitting>
+				<IsSleepingOnaBed>true</IsSleepingOnaBed>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+		</RenderShoes>
+		<OnPunchStart>  
+		</OnPunchStart>
+	</RenderRules>
+</ItemRenderer>

@@ -1,0 +1,38 @@
+<template name="EventPanel">
+	<head>
+		<title>EventPanel</title>
+		<link type="text/rcss" href="rml.rcss" />
+		<link type="text/rcss" href="BaseStyles.rcss" />
+		<link type="text/rcss" href="EventPanel.rcss" />
+		<link type="text/template" href="EventButtons/BaseEventButton.rml" />
+	</head>
+	<body>
+		<div id="events_panel" onscroll="event_buttons.scroll" class="scroll-on-top">
+			<div data-model="EventButtons">
+				<div data-for="eventButton : eventButtons" class="event_item" data-event-click="oneventclick(it_index, eventButton.buttonAction);" data-attr-id="eventButton.name" data-if="eventButton.visible">
+					<div data-alias-buttonData="eventButton">
+						<template src="BaseEventButton" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="ftueButtonPanel" data-model="FTUEPanelModel" data-class-visible="visible"  data-class-hidden="!visible">
+			<div id="panelContent">
+				<div class="frame"></div>
+				<div class="content">
+					<div id="description">
+						<div class="title color_pale_yellow" data-rml="ToRMLText(title)"></div>
+						<div class="descriptopn" data-rml="ToRMLText(description)"></div>
+					</div>
+					<div id="buttons" data-if="buttonsVisible">
+						<div id="phone" data-event-click="onphineclick"><div class="notification_icon" data-visible="state > 0 && notification"></div></div>
+						<div id="scroll" data-event-click="onscrollclick" data-class-hidden="state == 0"></div>
+						<div id="switcher" data-class-on="hintState == 1" class="on" data-event-click="onhintclick();"></div>
+					</div>
+				</div>
+
+			</div>
+			</div>
+	</body>
+</template>

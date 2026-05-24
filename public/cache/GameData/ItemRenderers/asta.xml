@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+	<Sprite name="wing" fileName="game/asta.rttex" textureSize="64"/>
+	<Sprite name="aura" fileName="game/asta.rttex" textureSize="64"/>
+	
+	<Animations>
+ 	<SpriteAnimation name="fireAnimation1" isLoop="true" autoPlay="true" sprite="aura" animTime="1400">
+		<Frame>0,0</Frame>
+		<Frame>1,0</Frame>
+		<Frame>2,0</Frame>
+		<Frame>3,0</Frame>
+		<Frame>4,0</Frame>
+		<Frame>5,0</Frame>
+		<Frame>6,0</Frame>
+		<Frame>7,0</Frame>
+		<Frame>8,0</Frame>
+		<Frame>9,0</Frame>
+		<Frame>10,0</Frame>
+		<Frame>11,0</Frame>
+	   </SpriteAnimation>
+      <SpriteAnimation name="wingFlexJump" playOnAction="JUMP|FALL" sprite="wing" animTime="500" autoPlay="true" isLoop="true" >
+		<Frame>1,1</Frame>
+        <Frame>2,1</Frame>
+		<Frame>3,1</Frame>
+      </SpriteAnimation>
+	  <SpriteAnimation name="be_idle" playOnAction="IDLE|WALK" sprite="wing" animTime="1000" autoPlay="true" isLoop="true">
+		<Frame>0,1</Frame>
+      </SpriteAnimation>
+    </Animations>
+  </Data>
+
+  <RenderRules>
+    <RenderBackpack>
+      <SpriteRender name="wing" offset="-6,-27" alignmentLeft="LEFT_CENTER" alignmentRight="RIGHT_CENTER"/>
+    </RenderBackpack>
+	<RenderInFront>
+		<SpriteRender name="aura" offset="0, -32" blend="PREMULTIPLIED_ALPHA"/>
+	</RenderInFront>
+  </RenderRules>
+</ItemRenderer>

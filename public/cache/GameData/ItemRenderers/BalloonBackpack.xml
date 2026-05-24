@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_BALLOON_BACKPACK">
+	<Data>
+		<StateMachines>
+			<StateMachine name="Mobility">
+				<States>
+					<State name="OnGround"/>
+					<State name="InAir"/>
+				</States>
+				<Transitions>
+					<Transition to="OnGround" from="InAir">
+						<Condition>
+							<IsVariableBool name="onGround">true</IsVariableBool>
+						</Condition>
+					</Transition>
+					<Transition to="InAir" from="OnGround">
+						<Condition>
+							<IsVariableBool name="onGround">false</IsVariableBool>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Action">
+				<States>
+					<State name="None"/>
+					<State name="Punch"/>
+					<State name="Sleep"/>
+				</States>
+				<Transitions>
+					<Transition to="None" from="Punch|Sleep">
+						<Condition type="and">
+							<IsAction operatorType="NotEqual">PUNCH</IsAction>
+							<IsAction operatorType="NotEqual">SLEEP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Punch" from="None|Sleep">
+						<Condition type="and">
+							<IsAction>PUNCH</IsAction>
+							<IsAction operatorType="NotEqual">SLEEP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition to="Sleep" from="None|Punch">
+						<Condition>
+							<IsAction>SLEEP</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+		
+		<Sprite name="s_ballons" fileName="game/player_cosmetics3.rttex" textureSize="32" frame="23,13"/>
+		<Sprite name="s_ballons_pop" fileName="game/particles_large12.rttex" textureSize="64"/>
+		
+		<Animations>
+			<SpriteCurveAnimation name="a_ballons_move" autoPlay="true" isLoop="true" sprite="s_ballons" animTime="8000">
+				<Curve name="pos">
+					<KeyFrame>0, 0, 0</KeyFrame>
+					<KeyFrame>0.25, -4, 0</KeyFrame>
+					<KeyFrame>0.5, 0, 0</KeyFrame>
+					<KeyFrame>0.75, 4, 0</KeyFrame>
+					<KeyFrame>1, 0, 0</KeyFrame>
+				</Curve>
+			</SpriteCurveAnimation>
+			<SpriteAnimation name="a_ballons_pop" sprite="s_ballons_pop" animTime="300">
+				<Frame>0,13</Frame>
+				<Frame>1,13</Frame>
+				<Frame>2,13</Frame>
+				<Frame>3,13</Frame>
+				<Frame>4,13</Frame>
+				<Frame>5,13</Frame>
+			</SpriteAnimation>
+		</Animations>
+		
+		<ParticleSystems>
+			<ParticleSystem name="ps_balloon_pop" updateStage="OnKilled">
+				<Emitter>
+					<Set name="offset">0, -58</Set>
+					<Set name="lifeTime">0</Set>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">s_ballons_pop</Set>
+					<Set name="lifeTime">0.25</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+		
+		<RenderOptions>
+			<Default>
+				<Set name="ShouldHover">true</Set>
+				<Set name="IncludeAllActions">true</Set>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<Update>
+			<StopIf>
+				<IsZombified>true</IsZombified>
+			</StopIf>
+			<AvatarTransform class="ArmAngle" onState="Action.None">
+				<Set name="armName">arm1Angle</Set>
+				<Set name="armAngle">0</Set>
+			</AvatarTransform>
+			<AvatarTransform class="ArmAngle" onState="Action.None">
+				<Set name="armName">arm2Angle</Set>
+				<Set name="armAngle">0</Set>
+			</AvatarTransform>
+			<AvatarTransform class="Face" onState="Action.None">
+				<Set name="face">NORMAL</Set>
+			</AvatarTransform>
+			<AvatarTransform class="FootPosition" onState="Mobility.OnGround">
+				<Set name="foot1dy">0</Set>
+				<Set name="foot2dy">0</Set>
+				<Set name="foot1y">0</Set>
+				<Set name="foot2y">0</Set>
+			</AvatarTransform>
+		</Update>
+		<RenderBehind value="playerCenter">
+			<StopIf>
+				<IsAction>DIE</IsAction>
+				<IsWearing slot="SHIRT">ITEM_ID_TACTICAL_STEALTH_DEVICE</IsWearing>
+			</StopIf>
+			<LineRender color="235,235,235,255" start="0,-14" end="-10,-46" endAttachSprite="s_ballons"/>
+			<LineRender color="235,235,235,255" start="0,-14" end="-1,-58" endAttachSprite="s_ballons"/>
+			<LineRender color="235,235,235,255" start="0,-14" end="8,-48" endAttachSprite="s_ballons"/>
+			<SpriteRender name="s_ballons" offset="0,-44" alignment="DOWN_CENTER"/>
+		</RenderBehind>
+	</RenderRules>
+</ItemRenderer>

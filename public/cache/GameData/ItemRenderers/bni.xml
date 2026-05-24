@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<StateMachines>
+			<StateMachine name="Punch">
+				<States>
+				<State name="True"/>
+				<State name="False"/>
+				</States>
+				<Transitions>
+				<Transition from="False" to="True">
+					<Condition>
+					<IsAction>PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				<Transition from="True" to="False">
+					<Condition>
+					<IsAction operatorType="NotEqual">PUNCH</IsAction>
+					</Condition>
+				</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="buny" fileName="game/c_items2.rttex" textureSize="32" frame="0,17"/>
+
+		<Animations>
+			<SpriteAnimation name="idle" playOnState="Punch.False" sprite="buny" animTime="1000" autoPlay="true" isLoop="true">
+				<Frame>0,17</Frame>
+			</SpriteAnimation>
+			<SpriteAnimation name="punch" playOnState="Punch.True" sprite="buny" animTime="1000" autoPlay="true" isLoop="true">
+				<Frame>1,17</Frame>
+			</SpriteAnimation>
+		</Animations>
+
+		<RenderOptions>
+			<Default>
+				<Set name="IgnorePunchTypeCheck">true</Set>
+			</Default>
+		</RenderOptions>
+	</Data>
+
+	<RenderRules>
+		<RenderShirt>
+			<SpriteRender name="buny" offset="0,-16" alignment="DOWN_CENTER"/>
+		</RenderShirt>
+		<RenderInFront>
+			<SpriteRender name="buny" offset="0,-16" alignment="DOWN_CENTER"/>
+		</RenderInFront>
+	</RenderRules>
+</ItemRenderer>

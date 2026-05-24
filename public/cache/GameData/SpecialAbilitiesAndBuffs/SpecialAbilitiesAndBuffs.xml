@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpecialAbilitiesAndBuffs>
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_COMMON">
+		<Set name="healthIncrease">50</Set>
+		<Set name="soulsPrice">30</Set>
+		<Set name="maxLevel">20</Set>
+		<Set name="name">"`oCommon Endurance``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_COMMON"</Set>
+		<Set name="buffsPopupDescription">"Permanently increases your Max Health by {}."</Set>
+		<Set name="description">"`2+50 Max Health``"</Set>
+	</Buff>
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_RARE">
+		<Set name="healthIncrease">200</Set>
+		<Set name="soulsPrice">100</Set>
+		<Set name="maxLevel">10</Set>
+		<Set name="name">"`cRare Endurance``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_RARE"</Set>
+		<Set name="buffsPopupDescription">"Permanently increases your Max Health by {}."</Set>
+		<Set name="description">"`2+200 Max Health``"</Set>
+	</Buff>
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_EPIC">
+		<Set name="healthIncrease">500</Set>
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">5</Set>
+		<Set name="name">"`5Epic Endurance``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_UP_EPIC"</Set>
+		<Set name="buffsPopupDescription">"Permanently increases your Max Health by {}."</Set>
+		<Set name="description">"`2+500 Max Health``"</Set>
+	</Buff>		
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_COMMON">
+		<Set name="healthIncrease">50</Set>
+		<Set name="Temporary">true</Set>
+		<Set name="soulsPrice">15</Set>
+		<Set name="name">"`oCommon Health Potion``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_COMMON"</Set>
+		<Set name="description">"`2Heal 50 Health``"</Set>
+	</Buff>	
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_RARE">
+		<Set name="healthIncrease">200</Set>
+		<Set name="Temporary">true</Set>
+		<Set name="soulsPrice">30</Set>
+		<Set name="name">"`cRare Health Potion``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_RARE"</Set>
+		<Set name="description">"`2Heal 200 Health``"</Set>
+	</Buff>
+	<Buff Type="Health" Name="ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_EPIC">
+		<Set name="healthIncrease">500</Set>
+		<Set name="Temporary">true</Set>
+		<Set name="soulsPrice">60</Set>
+		<Set name="name">"`5Epic Health Potion``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALTH_POTION_EPIC"</Set>
+		<Set name="description">"`2Heal 500 Health``"</Set>
+	</Buff>	
+	
+	
+	<Buff Type="Damage" Name="ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_COMMON">
+		<Set name="damageIncrease">10</Set>
+		<Set name="soulsPrice">60</Set>
+		<Set name="maxLevel">15</Set>
+		<Set name="name">"`oCommon Strength``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_COMMON"</Set>
+		<Set name="buffsPopupDescription">"Increases the Damage of all Attacks by {}."</Set>
+		<Set name="description">"`2+10 Damage``"</Set>
+	</Buff>			
+	<Buff Type="Damage" Name="ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_RARE">
+		<Set name="damageIncrease">40</Set>
+		<Set name="soulsPrice">120</Set>
+		<Set name="maxLevel">10</Set>
+		<Set name="name">"`cRare Strength``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_RARE"</Set>
+		<Set name="buffsPopupDescription">"Increases the Damage of all Attacks by {}."</Set>
+		<Set name="description">"`2+40 Damage``"</Set>
+	</Buff>	
+	<Buff Type="Damage" Name="ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_EPIC">
+		<Set name="damageIncrease">80</Set>
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">5</Set>
+		<Set name="name">"`5Epic Strength``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_EPIC"</Set>
+		<Set name="buffsPopupDescription">"Increases the Damage of all Attacks by {}."</Set>
+		<Set name="description">"`2+80 Damage``"</Set>
+	</Buff>
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_COMMON">
+		<Set name="CriticalDamageMultiplierIncrease">0.1</Set>
+		<Set name="soulsPrice">60</Set>
+		<Set name="maxLevel">10</Set>
+		<Set name="name">"`oCommon True Strike``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_COMMON"</Set>
+		<Set name="buffsPopupDescription">"Increases your Damage by x{} when dealing a Critical Hit."</Set>
+		<Set name="description">"`2+10% Crit. Damage``"</Set>
+	</Buff>	
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_RARE">
+		<Set name="CriticalDamageMultiplierIncrease">0.2</Set>
+		<Set name="soulsPrice">100</Set>
+		<Set name="maxLevel">5</Set>
+		<Set name="name">"`cRare True Strike``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_RARE"</Set>
+		<Set name="buffsPopupDescription">"Increases your Damage by x{} when dealing a Critical Hit."</Set>
+		<Set name="description">"`2+20% Crit. Damage``"</Set>
+	</Buff>	
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_EPIC">
+		<Set name="CriticalDamageMultiplierIncrease">1</Set>
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Epic True Strike``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_EPIC"</Set>
+		<Set name="buffsPopupDescription">"Increases your Damage by x{} when dealing a Critical Hit."</Set>
+		<Set name="description">"`2+100% Crit. Damage``"</Set>
+	</Buff>	
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_COMMON">
+		<Set name="CriticalDamageChanceIncrease">2</Set>
+		<Set name="soulsPrice">60</Set>
+		<Set name="maxLevel">10</Set>
+		<Set name="name">"`oCommon Accuracy``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_COMMON"</Set>
+		<Set name="buffsPopupDescription">"Increases chance of dealing a Critical Hit by {}%."</Set>
+		<Set name="description">"`2+2% Crit. Chance``"</Set>
+	</Buff>
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_RARE">
+		<Set name="CriticalDamageChanceIncrease">5</Set>
+		<Set name="soulsPrice">100</Set>
+		<Set name="maxLevel">5</Set>
+		<Set name="name">"`cRare Accuracy``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_RARE"</Set>
+		<Set name="buffsPopupDescription">"Increases chance of dealing a Critical Hit by {}%."</Set>
+		<Set name="description">"`2+5% Crit. Chance``"</Set>
+	</Buff>	
+	<Buff Type="CriticalDamage" Name="ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_EPIC">
+		<Set name="CriticalDamageChanceIncrease">50</Set>
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Epic Accuracy``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_EPIC"</Set>
+		<Set name="buffsPopupDescription">"Increases chance of dealing a Critical Hit by {}%."</Set>
+		<Set name="description">"`2+50% Crit. Chance``"</Set>
+	</Buff>	
+	<Buff Type="LifeStealPunch" Name="ITEM_ID_DUNGEON_ABILITY_LIFE_STEAL">
+		<Set name="lifeStealPercentage">2</Set>
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">5</Set>
+		<Set name="particleType">"LifeStealPunch"</Set>
+		<Set name="name">"`5Vampirism``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_LIFE_STEAL"</Set>
+		<Set name="buffsPopupDescription">"Converts a {}% of Damage dealt into health."</Set>
+		<Set name="description">"`2+2% Life Steal``"</Set>
+	</Buff>	
+	<Buff Type="ExplodingPower" Name="ITEM_ID_DUNGEON_ABILITY_EXPLODING_PUNCH">
+		<Set name="randomChancePercentage">20</Set>
+		<Set name="soulsPrice">500</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="particleType">"ProjectileExplosion"</Set>
+		<Set name="name">"`5Explosive Attack``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_EXPLODING_PUNCH"</Set>
+		<Set name="buffsPopupDescription">"{}% chance your attacks will Explode, dealing damage over a large area."</Set>
+		<Set name="description">"`2+100 Explosion Damage``"</Set>
+	</Buff>			
+	<Buff Type="ProtectingShield" Name="ITEM_ID_DUNGEON_ABILITY_PROTECTING_SHIELD">
+		<Set name="timeoutMilliseconds">20000</Set>
+		<Set name="npcTypeToSpawnAsShield">"PlayerShield"</Set>
+		<Set name="soulsPrice">500</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Protecting Shield``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_PROTECTING_SHIELD"</Set>
+		<Set name="buffsPopupDescription">"Summons a magical shield every 20 seconds that will block a single attack."</Set>
+		<Set name="description">"`2Summons A Shield``"</Set>
+	</Buff>		
+	<Buff Type="LifeUp" Name="ITEM_ID_DUNGEON_ABILITY_LIVES_INCREASE">
+		<Set name="LifeIncreaseCount">1</Set>
+		<Set name="soulsPrice">500</Set>
+		<Set name="Temporary">true</Set>
+		<Set name="name">"`2Extra Life``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_LIVES_INCREASE"</Set>
+		<Set name="buffsPopupDescription">"Adds 1 additional life."</Set>
+		<Set name="description">"`2+1 Life``"</Set>
+	</Buff>
+		<Buff Type="SpawnProjectileOnPlayer" Name="ITEM_ID_DUNGEON_ABILITY_HEALING_AURA">
+		<Set name="npcTypeToSpawnAsRootObject">"HealingAura"</Set>
+		<Set name="shouldCreateAgainIfDestroyed">true</Set>
+		<Set name="timeoutMilliseconds">10000</Set>
+		<Set name="soulsPrice">500</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Healing Aura``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_HEALING_AURA"</Set>
+		<Set name="buffsPopupDescription">"Summons a Healing Aura every 10 seconds that heals a small amount of health to yourself and nearby players."</Set>
+		<Set name="description">"`2Summons a Healing Aura``"</Set>
+	</Buff>	
+	
+	
+	
+	<Buff Type="Damage" Name="FireballDamageUp">
+		<Set name="damageIncrease">20</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`oBase Damage``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_COMMON"</Set>
+		<Set name="description">"`2+20 Damage``"</Set>
+	</Buff>
+	<Buff Type="FireProjectile" Name="Fireball">
+		<Set name="randomChancePercentage">100</Set>
+		<Set name="timeoutMilliseconds">500</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="particleType">"PlayerBaseProjectile"</Set>
+		<Set name="name">"`5Fireball``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_FIREBALL"</Set>
+		<Set name="buffsPopupDescription">"Shoots a fireball that deals damage from a distance."</Set>
+		<Set name="description">"`2Shoot Fireballs``"</Set>
+	</Buff>
+	<Buff Type="AbilityGroup" Name="ITEM_ID_DUNGEON_ABILITY_FIREBALL">
+		<Set name="soulsPrice">200</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Fireball``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_FIREBALL"</Set>
+		<Set name="buffsPopupDescription">"Shoots a fireball that deals damage from a distance."</Set>
+		<Set name="description">"`2Shoot Fireballs"</Set>
+		<SubBuffs>Fireball</SubBuffs>
+	</Buff>
+
+	<Buff Type="CriticalDamage" Name="BaseCritDamageUp">
+		<Set name="CriticalDamageMultiplierIncrease">1.0</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`oBase Crit. Damage``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_DAMAGE_UP_COMMON"</Set>
+		<Set name="description">"`2+100% Crit. Damage``"</Set>
+	</Buff>	
+	<Buff Type="CriticalDamage" Name="BaseCritChanceUp">
+		<Set name="CriticalDamageChanceIncrease">2</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`oBase Accuracy``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_CRITICAL_CHANCE_UP_COMMON"</Set>
+		<Set name="description">"`2+2% Crit. Chance``"</Set>
+	</Buff>
+	<Buff Type="Damage" Name="BaseDamageUp">
+		<Set name="damageIncrease">20</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`oBase Damage``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_DAMAGE_UP_COMMON"</Set>
+		<Set name="description">"`2+20 Damage``"</Set>
+	</Buff>	
+
+	<Buff Type="FireProjectile" Name="SwordSlash">
+		<Set name="randomChancePercentage">100</Set>
+		<Set name="timeoutMilliseconds">250</Set>
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="particleType">"PlayerBladeSlash"</Set>
+		<Set name="name">"`5Blade Slash``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_SWORD_SLASH"</Set>
+		<Set name="buffsPopupDescription">"A Melee Slash that deals Damage to nearby enemies."</Set>
+		<Set name="description">"Adds Melee Attack"</Set>
+	</Buff>
+	
+	<Buff Type="AbilityGroup" Name="ITEM_ID_DUNGEON_ABILITY_SWORD_SLASH">
+		<Set name="soulsPrice">0</Set>
+		<Set name="maxLevel">1</Set>
+		<Set name="name">"`5Blade Slash``"</Set>
+		<Set name="icon">"ITEM_ID_DUNGEON_ABILITY_SWORD_SLASH"</Set>
+		<Set name="buffsPopupDescription">"A Melee Slash that deals Damage to nearby enemies."</Set>
+		<Set name="description">"`2Melee Attack"</Set>
+		<SubBuffs>SwordSlash,BaseDamageUp,BaseCritChanceUp,BaseCritDamageUp</SubBuffs>
+	</Buff>
+	
+	
+</SpecialAbilitiesAndBuffs>

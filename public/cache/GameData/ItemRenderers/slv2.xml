@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+  <Data>
+    <Sprite name="s_frontArm" fileName="game/c_items2.rttex" textureSize="32" frame="7,10" />
+    <RenderOptions>
+      <Default>
+        <Set name="PlayDefaultPunchAudio">true</Set>
+      </Default>
+    </RenderOptions>
+  </Data>
+  <RenderRules>
+    <RenderHandItem>
+			<SpriteRender name="s_frontArm" alignment="UPPER_CENTER"/>
+		</RenderHandItem>
+
+
+  </RenderRules>
+</ItemRenderer>

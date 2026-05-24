@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer name="ProjectileExplosion">
+	<Data>
+		<Sprite name="teleportParticleSprite" fileName="game\particles_large9.rttex" textureSize="64" frame="3,15"/>
+		<Animations>
+			<SpriteAnimation name="b_teleport_particle_blast" sprite="teleportParticleSprite" animTime="200">
+				<Frame>3, 15</Frame>
+				<Frame>4, 15</Frame>
+				<Frame>5, 15</Frame>
+			</SpriteAnimation>		
+		</Animations>
+		<ParticleSystems>
+			<ParticleSystem name="ps_projectile" updateStage="OnCreate">
+				<Emitter>
+					<Set name="particlesPerEmission">1</Set>
+				</Emitter>
+				<Particle>
+					<Set name="sprite">teleportParticleSprite</Set>
+					<Set name="lifeTime">0.2</Set>
+					<Set name="collisionDamageAmount">100</Set>
+					<Set name="destroyOnCollision">false</Set>
+					<Set name="collisionSize">192,192</Set>
+					<Set name="initialScale">3,3</Set>
+					<Set name="collisionType">
+						<CollisionType>PROJECTILES</CollisionType>
+					</Set>
+					<Set name="collisionFlag">
+						<CollisionFlag>ENEMY_NPC</CollisionFlag>
+					</Set>
+				</Particle>
+			</ParticleSystem>
+		</ParticleSystems>
+	</Data>
+</ItemRenderer>

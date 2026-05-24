@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+	<Data>
+		<Sprite name="item_Sprite" fileName="game/tavern_particles_large.rttex" textureSize="64" frame="1,1"/>
+	</Data>
+
+	<RenderRules>
+		<RenderHat>
+			<SpriteRender name="item_Sprite" alignment="DOWN_CENTER" blend="PREMULTIPLIED_ALPHA"/>
+		</RenderHat>
+	</RenderRules>
+</ItemRenderer>

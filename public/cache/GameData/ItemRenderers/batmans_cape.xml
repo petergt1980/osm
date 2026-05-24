@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer item="ITEM_ID_ABYSSAL_CYAN_DA_VINCI_WINGS">
+	<Data>
+		<StateMachines>
+			<StateMachine name="playerState">
+				<States>
+					<State name="Idle"/>
+					<State name="Move"/>
+					<State name="Fall"/>
+					<State name="Jump"/>
+					<State name="DoubleJump"/>
+					<State name="SpiritGuide"/>
+				</States>
+				<Transitions>
+					<Transition from="SpiritGuide|Jump|Fall|Move|DoubleJump" to="Idle" >
+						<Condition>
+							<IsVariableFloat name="speed.length" operator="Less" abs="true">0.1</IsVariableFloat>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Jump|Fall|Idle|DoubleJump" to="Move">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>WALK</IsAction>
+						</Condition>
+					</Transition>				
+					<Transition from="Move|Jump|Fall|Idle|DoubleJump" to="SpiritGuide">
+						<Condition type="and">
+							<IsWearing slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsVariableFloat name="speed.length" operator="Greater" abs="true">0</IsVariableFloat>
+							<IsAction operatorType="NotEqual">FALL</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="SpiritGuide|Fall|Move|Idle" to="Jump">
+						<Condition type="and">
+							<IsWearing operatorType="NotEqual" slot="CHESTITEM">ITEM_ID_HAUNTED</IsWearing>
+							<IsAction>JUMP</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="Jump|Fall" to="DoubleJump">
+						<Condition>
+							<IsAction>JUMPDOUBLE</IsAction>
+						</Condition>
+					</Transition>
+					<Transition from="DoubleJump|SpiritGuide|Jump|Idle|Move" to="Fall">
+						<Condition type="and">
+							<IsVariableFloat name="speed.y" operator="Greater" abs="false">0.01</IsVariableFloat>
+							<IsAction>FALL</IsAction>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+			<StateMachine name="Facing">
+				<States>
+					<State name="Left"/>
+					<State name="Right"/>
+				</States>
+				<Transitions>
+					<Transition to="Left" from="Right">
+						<Condition>
+							<IsFacingLeft>true</IsFacingLeft>
+						</Condition>
+					</Transition>
+					<Transition to="Right" from="Left">
+						<Condition>
+							<IsFacingLeft>false</IsFacingLeft>
+						</Condition>
+					</Transition>
+				</Transitions>
+			</StateMachine>
+		</StateMachines>
+
+		<Sprite name="cape_sprite" fileName="game/enigma_particles3.rttex" textureSize="64" frame="6,8"/>
+
+		<Animations>
+			<SpriteAnimation name="cape_idle" playOnState="playerState.Idle|playerState.SpiritGuide|playerState.Move" sprite="cape_sprite" isLoop="true" animTime="600">
+				<Frame>6,8</Frame>
+				<Frame>7,8</Frame>
+				<Frame>8,8</Frame>
+				<Frame>7,8</Frame>				
+			</SpriteAnimation>
+			
+			<SpriteAnimation name="cape_dj" playOnState="playerState.DoubleJump" sprite="cape_sprite" isLoop="false" animTime="500">
+                <Frame>9,8</Frame>
+			</SpriteAnimation>			
+
+      		<SpriteAnimation name="cape_f" playOnState="playerState.Fall" sprite="cape_sprite" isLoop="true" animTime="100">
+        		<Frame>10,8</Frame>
+			</SpriteAnimation>		
+		
+			<SpriteAnimation name="cape_j" playOnState="playerState.Jump" sprite="cape_sprite" isLoop="true" animTime="200">
+				<Frame>9,8</Frame>
+			</SpriteAnimation>			
+		</Animations>
+	</Data>
+
+	<RenderRules>
+		<RenderBackpack>
+			<SpriteRender name="cape_sprite" offset="-4,-22"/>
+		</RenderBackpack>
+		<OnPunchUpdate>
+			<AvatarTransform class="Face">
+				<Set name="face">MAD</Set>
+			</AvatarTransform>
+		</OnPunchUpdate>
+	</RenderRules>
+</ItemRenderer>

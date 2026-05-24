@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemRenderer>
+    <Data>
+        <Sprite name="item_Sprite" fileName="game/face.rttex" scale="0.5, 0.5" textureSize="64,64" frame="0,0"/>
+        
+    </Data>
+
+    <RenderRules>
+        <RenderFaceItem preApplyGenericRender="true">
+            <SpriteRender name="item_Sprite" scale="0.5, 0.5" offset="0,0" alignment="DOWN_CENTER"/>
+        </RenderFaceItem>
+    </RenderRules>
+</ItemRenderer>
